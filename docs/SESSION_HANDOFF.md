@@ -1,6 +1,6 @@
 # Aeye Session Handoff
 
-Status: research packet with one `supported` toy result, a corrected post-hoc appraisal boundary, and an unaccepted E-000 pilot whose phase order is corrected but awaiting fresh review and pre-candidate artifacts; architecture acceptance not granted  
+Status: public research packet with one `supported` toy result, a corrected post-hoc appraisal boundary, and an unaccepted E-000 pilot whose phase order is corrected but awaiting fresh review and pre-candidate artifacts; architecture acceptance not granted  
 Date: 2026-09-21  
 Canonical root: `/Users/danielwahnich/workspace/aeye`
 
@@ -145,7 +145,7 @@ Post-result adversarial disposition:
   the quantization/model/profile costs as unresolved rather than inventing a constraint
   count.
 
-Public-source release boundary prepared on 2026-09-21:
+Public-source release published on 2026-09-21:
 
 - the README now leads with the exact claim vector, complete ceilings, adverse cost result,
   post-hoc probe, evidence-ranked next moves, and accessible Mermaid semantics;
@@ -154,13 +154,23 @@ Public-source release boundary prepared on 2026-09-21:
 - `scripts/hydrate_external_evidence.py` materializes 33 digest-pinned files and six
   commit-pinned anonymous HTTPS Git checkouts from allowlisted public sources, fails closed
   on any existing mismatch, and never replaces a path;
-- GitHub Actions is prepared with pinned actions, uv 0.11.28, a universal hash-locked
-  dependency set, Python 3.12/3.14 replay, and an unchanged-worktree gate;
+- the public repository is `https://github.com/manfromnowhere143/aeye`. It begins from a
+  reviewed source snapshot and does not expose earlier private Git objects. The full prior
+  history remains in the private `manfromnowhere143/aeye-private-archive` repository;
+- GitHub Actions uses pinned actions, uv 0.11.28, a universal hash-locked dependency set,
+  Python 3.12/3.14 replay, and an unchanged-worktree gate. Required CI is independent of
+  third-party network availability and labels absent external inputs explicitly;
 - `docs/PUBLIC_RELEASE_INVENTORY_2026-09-21.md` defines the exact public surface. Internal
   agent prompts, private correspondence, and third-party payloads are excluded; all
   Aeye-authored reproducible results remain included;
-- the first complete remote `main` run passed every GitHub Actions gate on Python 3.12 and
-  3.14 after the lock was regenerated against the oldest supported interpreter;
+- the corrected public `main` run passed every required GitHub Actions gate on Python 3.12
+  and 3.14. The initial public run remains visible and failed before Aeye validation because
+  arXiv returned HTTP 406 to both runners;
+- a separate anonymous clone hydrated all 33 digest-pinned files and six commit-pinned Git
+  trees, then passed the full retained-evidence validator. This does not make network
+  hydration part of required CI;
+- secret scanning, push protection, Dependabot alerts, private vulnerability reporting,
+  and human-only commit attribution are enabled;
 - public visibility is a distribution decision only. It does not upgrade a result,
   establish independent review, or authorize deployment, contact, or live-chain work.
 

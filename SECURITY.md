@@ -25,3 +25,22 @@ A false claim, invalid comparator, missing denominator, or irreproducible result
 scientific-integrity defect rather than a software vulnerability. Report it with the exact
 artifact, commit, expected relation, observed contradiction, and smallest replay. Valid
 corrections remain visible; history is not rewritten to make a prior result look correct.
+
+## Pinned upstream lock advisories
+
+The E-000 Pearl oracle intentionally retains dependency identities from the pinned Pearl
+source. GitHub currently identifies two transitive entries in that lock:
+
+- `GHSA-7gcf-g7xr-8hxj` affects `serde_with::KeyValueMap` serialization. Neither the
+  oracle nor the pinned source path it invokes references `KeyValueMap`; the oracle accepts
+  only local byte files and fixed command-line fields.
+- `GHSA-g98v-hv3f-hcfr` concerns `atty` on Windows with a potentially unaligned pointer,
+  principally when a custom global allocator is used. The oracle defines no custom
+  allocator and does not invoke the `structopt` or `env_logger` paths that introduce
+  `atty` transitively.
+
+The repository records both alerts as unused by this narrow offline executable path. That
+is not a claim that the upstream dependency graph is generally safe. Expanding the oracle,
+changing supported hosts, enabling the affected APIs, or using the lock outside this
+conformance role invalidates the disposition and requires a new review. Updating the lock
+without a new Pearl pin would also invalidate the current dependency-identity comparison.
