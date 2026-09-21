@@ -1,0 +1,354 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aeye.local/schemas/e000-checkpoint-registry-v0.schema.json",
+  "title": "Aeye E-000 checkpoint registry",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "experiment_id",
+    "manifest_sha256",
+    "created_at_utc",
+    "candidate_inspected",
+    "contains_model_weight_bytes",
+    "entries"
+  ],
+  "properties": {
+    "schema_version": {"const": "aeye.e000-checkpoint-registry.v0"},
+    "experiment_id": {"const": "E-000"},
+    "manifest_sha256": {"$ref": "#/$defs/sha256"},
+    "created_at_utc": {"$ref": "#/$defs/utc"},
+    "candidate_inspected": {"const": false},
+    "contains_model_weight_bytes": {"const": false},
+    "entries": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/entry"}
+    }
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "utc": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "Z$"
+    },
+    "https_url": {
+      "type": "string",
+      "format": "uri",
+      "pattern": "^https://[^?#]+$"
+    },
+    "file_identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "bytes", "sha256"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "bytes": {"type": "integer", "minimum": 1},
+        "sha256": {"$ref": "#/$defs/sha256"}
+      }
+    },
+    "weight_index": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "bytes", "sha256", "declared_weight_shards"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "bytes": {"type": "integer", "minimum": 1},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "declared_weight_shards": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "toolchain": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["runtime", "downloader", "extractor"],
+      "properties": {
+        "runtime": {"type": "string", "minLength": 1},
+        "downloader": {"type": "string", "minLength": 1},
+        "extractor": {"type": "string", "minLength": 1}
+      }
+    },
+    "headers": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "etag",
+        "x_linked_etag",
+        "x_repo_commit",
+        "content_length",
+        "content_range",
+        "server",
+        "via",
+        "location_chain",
+        "location_chain_raw_sha256"
+      ],
+      "properties": {
+        "etag": {"type": ["string", "null"]},
+        "x_linked_etag": {"type": ["string", "null"]},
+        "x_repo_commit": {"type": ["string", "null"]},
+        "content_length": {"type": ["string", "null"]},
+        "content_range": {"type": ["string", "null"]},
+        "server": {"type": ["string", "null"]},
+        "via": {"type": ["string", "null"]},
+        "location_chain": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/https_url"}
+        },
+        "location_chain_raw_sha256": {
+          "oneOf": [{"$ref": "#/$defs/sha256"}, {"type": "null"}]
+        }
+      }
+    },
+    "receipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "retrieval_id",
+        "route_role",
+        "route_evidence_kind",
+        "network_path_label",
+        "raw_receipt_sha256",
+        "source_url",
+        "effective_url_without_query",
+        "final_delivery_host",
+        "resolved_ip",
+        "dns_names",
+        "asn",
+        "operator_organization",
+        "tls_session_sha256",
+        "started_at_utc",
+        "completed_at_utc",
+        "http_status",
+        "complete_get",
+        "range_requested",
+        "resumed",
+        "derived_from_local_bytes",
+        "redirect_chain",
+        "redirect_chain_raw_sha256",
+        "server_declared_upstream_urls",
+        "server_declared_upstream_raw_sha256",
+        "response_headers",
+        "bytes_received",
+        "sha256",
+        "elapsed_seconds",
+        "wrapper_source_sha256",
+        "extractor_source_sha256",
+        "toolchain",
+        "same_stream_manifest_sha256",
+        "tensor_transcript_sha256"
+      ],
+      "properties": {
+        "retrieval_id": {"type": "string", "pattern": "^[a-zA-Z0-9._:-]+$"},
+        "route_role": {"enum": ["primary", "secondary"]},
+        "route_evidence_kind": {"enum": ["observed_transport", "label_only"]},
+        "network_path_label": {"type": "string", "minLength": 1},
+        "raw_receipt_sha256": {"$ref": "#/$defs/sha256"},
+        "source_url": {"$ref": "#/$defs/https_url"},
+        "effective_url_without_query": {"$ref": "#/$defs/https_url"},
+        "final_delivery_host": {
+          "type": "string",
+          "pattern": "^[a-z0-9.-]+$",
+          "minLength": 1
+        },
+        "resolved_ip": {
+          "oneOf": [
+            {"type": "string", "anyOf": [{"format": "ipv4"}, {"format": "ipv6"}]},
+            {"type": "null"}
+          ]
+        },
+        "dns_names": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "pattern": "^[a-z0-9.-]+$"}
+        },
+        "asn": {
+          "oneOf": [
+            {"type": "string", "pattern": "^AS[1-9][0-9]*$"},
+            {"type": "null"}
+          ]
+        },
+        "operator_organization": {"type": ["string", "null"], "minLength": 1},
+        "tls_session_sha256": {
+          "oneOf": [{"$ref": "#/$defs/sha256"}, {"type": "null"}]
+        },
+        "started_at_utc": {"$ref": "#/$defs/utc"},
+        "completed_at_utc": {"$ref": "#/$defs/utc"},
+        "http_status": {"type": "integer", "minimum": 100, "maximum": 599},
+        "complete_get": {"type": "boolean"},
+        "range_requested": {"type": "boolean"},
+        "resumed": {"type": "boolean"},
+        "derived_from_local_bytes": {"type": "boolean"},
+        "redirect_chain": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/https_url"}
+        },
+        "redirect_chain_raw_sha256": {
+          "oneOf": [{"$ref": "#/$defs/sha256"}, {"type": "null"}]
+        },
+        "server_declared_upstream_urls": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/https_url"}
+        },
+        "server_declared_upstream_raw_sha256": {
+          "oneOf": [{"$ref": "#/$defs/sha256"}, {"type": "null"}]
+        },
+        "response_headers": {"$ref": "#/$defs/headers"},
+        "bytes_received": {"type": "integer", "minimum": 0},
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "elapsed_seconds": {"type": "number", "exclusiveMinimum": 0},
+        "wrapper_source_sha256": {
+          "oneOf": [{"$ref": "#/$defs/sha256"}, {"type": "null"}]
+        },
+        "extractor_source_sha256": {
+          "oneOf": [{"$ref": "#/$defs/sha256"}, {"type": "null"}]
+        },
+        "toolchain": {
+          "oneOf": [{"$ref": "#/$defs/toolchain"}, {"type": "null"}]
+        },
+        "same_stream_manifest_sha256": {
+          "oneOf": [{"$ref": "#/$defs/sha256"}, {"type": "null"}]
+        },
+        "tensor_transcript_sha256": {
+          "oneOf": [{"$ref": "#/$defs/sha256"}, {"type": "null"}]
+        }
+      }
+    },
+    "shard": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["path", "bytes", "lfs_sha256", "retrievals"],
+      "properties": {
+        "path": {"type": "string", "minLength": 1},
+        "bytes": {"type": "integer", "minimum": 1},
+        "lfs_sha256": {"$ref": "#/$defs/sha256"},
+        "retrievals": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 2,
+          "items": {"$ref": "#/$defs/receipt"}
+        }
+      }
+    },
+    "disclosure": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "same_workstation",
+        "same_client_implementation",
+        "effective_origin_shared",
+        "effective_origin_evidence",
+        "independent_publication",
+        "proxy_revision_header_status"
+      ],
+      "properties": {
+        "same_workstation": {"type": "boolean"},
+        "same_client_implementation": {"type": "boolean"},
+        "effective_origin_shared": {"type": "boolean"},
+        "effective_origin_evidence": {"type": "string", "minLength": 1},
+        "independent_publication": {"const": false},
+        "proxy_revision_header_status": {"type": "string", "minLength": 1}
+      }
+    },
+    "entry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "entry_id",
+        "repository",
+        "revision",
+        "publisher_commit_timestamp_utc",
+        "publisher_timestamp_load_bearing",
+        "metadata_retrieved_at_utc",
+        "metadata_receipt_sha256",
+        "config",
+        "weight_index",
+        "tensor_inventory_sha256",
+        "transform_recipe",
+        "tensor_parallel_degrees",
+        "transport_disclosure",
+        "claims",
+        "weight_shards"
+      ],
+      "properties": {
+        "entry_id": {"type": "string", "pattern": "^[a-zA-Z0-9._:-]+$"},
+        "repository": {"$ref": "#/$defs/https_url"},
+        "revision": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "publisher_commit_timestamp_utc": {
+          "oneOf": [{"$ref": "#/$defs/utc"}, {"type": "null"}]
+        },
+        "publisher_timestamp_load_bearing": {"const": false},
+        "metadata_retrieved_at_utc": {"$ref": "#/$defs/utc"},
+        "metadata_receipt_sha256": {"$ref": "#/$defs/sha256"},
+        "config": {"$ref": "#/$defs/file_identity"},
+        "weight_index": {"$ref": "#/$defs/weight_index"},
+        "tensor_inventory_sha256": {"$ref": "#/$defs/sha256"},
+        "transform_recipe": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "recipe_id",
+            "artifact_sha256",
+            "status",
+            "unresolved_parameters",
+            "source_verification_sha256",
+            "semantic_entailment_review",
+            "semantic_entailment_review_sha256"
+          ],
+          "properties": {
+            "recipe_id": {"type": "string", "pattern": "^[a-zA-Z0-9._:-]+$"},
+            "artifact_sha256": {"$ref": "#/$defs/sha256"},
+            "status": {"enum": ["proposed", "frozen"]},
+            "unresolved_parameters": {
+              "type": "array",
+              "uniqueItems": true,
+              "items": {"type": "string", "minLength": 1}
+            },
+            "source_verification_sha256": {"$ref": "#/$defs/sha256"},
+            "semantic_entailment_review": {"enum": ["pending", "accepted", "rejected"]},
+            "semantic_entailment_review_sha256": {
+              "oneOf": [{"$ref": "#/$defs/sha256"}, {"type": "null"}]
+            }
+          },
+          "allOf": [
+            {
+              "if": {
+                "properties": {"semantic_entailment_review": {"const": "accepted"}},
+                "required": ["semantic_entailment_review"]
+              },
+              "then": {
+                "properties": {
+                  "semantic_entailment_review_sha256": {"$ref": "#/$defs/sha256"}
+                }
+              }
+            }
+          ]
+        },
+        "tensor_parallel_degrees": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "integer", "minimum": 1}
+        },
+        "transport_disclosure": {"$ref": "#/$defs/disclosure"},
+        "claims": {
+          "type": "array",
+          "items": {"type": "string", "minLength": 1}
+        },
+        "weight_shards": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"$ref": "#/$defs/shard"}
+        }
+      }
+    }
+  }
+}

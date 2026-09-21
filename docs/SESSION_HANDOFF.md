@@ -99,6 +99,19 @@ E-000 pre-candidate state:
 - target-agnostic V3 parsing, an explicit int8 slab-transform engine, an independently
   written BLAKE3 reference lane, and pinned Pearl root parity are implemented and tested.
   They are conformance instruments, not the two frozen independent E-000 implementations;
+- ADR-0014 now separates transport corroboration from source independence. A strict
+  checkpoint-registry schema, owner-side prequalifier, and report schema can observe T0
+  or emit structural eligibility for external T1 review; they cannot assign T1, infer T2,
+  authenticate a publisher, or reproduce a checkpoint. Thirty-five registry tests cover
+  missing shards, incomplete and relabeled routes, redirect and shared-stream reuse,
+  digest and host mismatch, missing transcripts, unsafe tier language, candidate leakage,
+  owner-supplied tiers, unresolved recipes, and malformed input;
+- the registry prequalifier requires a frozen, source-verified transformation recipe with
+  an accepted semantic-entailment review before it can emit T1 candidacy. A source digest
+  check alone is insufficient. An accepted recipe-review label must cite the exact review
+  artifact digest distinct from the recipe and source-verification artifacts; an unbound
+  or conflated label cannot open the gate. No real registry entry or external adjudication
+  is retained in the public packet yet;
 - no candidate height, block hash, certificate, `hash_b`, or real opening has been
   selected or inspected. E-000 remains `blocked` before execution by the fresh-review,
   registry, recipe, implementation, and control gates.
@@ -210,7 +223,7 @@ Current validator result at handoff:
 
 ```text
 Aeye validation: 0 repository error(s); 18 fixture(s) exercised; 15 rejected as designed
-47 unit tests: PASS
+82 unit tests: PASS on Python 3.12 and 3.14
 E-000 owner amendment audit: historical self-check only; never an acceptance gate
 E-000 synthetic Pearl parity: structured header/config, job_key, matrix root, and Salted seed vector agree
 ```
@@ -221,9 +234,11 @@ verifier checks only the frozen toy relation and carries its assumptions and non
 
 ## Next safe actions
 
-1. Before any operator acceptance or candidate selection, freeze a finite T1-or-better registry, exact source-cited
-   runtime recipe, two code-path-independent implementations, and the complete 30-control
-   result matrix.
+1. Before any operator acceptance or candidate selection, apply the ADR-0014 prequalifier
+   to a sanitized, content-addressed registry, obtain separate digest-bound T1 adjudication,
+   and freeze the exact source-cited runtime recipe only after semantic-entailment review.
+   Then freeze two code-path-independent implementations and the complete 30-control result
+   matrix.
 2. Give the separate reviewer ADR-0012, ADR-0013, manifest digest
    `011d3c232ce9638fc265730f01b13dd3e11d87c225d19ad17842a44d7a78ddc5`, and every
    Phase 1 through 5 artifact. Require a source-bound readback and new reviewer-owned

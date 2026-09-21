@@ -42,6 +42,12 @@ forbidding weight bytes and all candidate information. It contains no fresh-revi
 the fresh freeze, source-bound readback, and operator record bind the immutable manifest
 externally, so the digest graph terminates.
 
+[ADR-0014](../../docs/decisions/0014-transport-corroboration-is-not-source-independence.md)
+fixes the registry trust boundary. The owner-side program may prequalify two complete,
+factually distinct transport retrievals for every shard, but only an external,
+digest-bound adjudication may assign T1. T1 does not mean independent publication,
+checkpoint reproduction, source authentication, or T2.
+
 Until those external records exist after Phases 1 through 5, no candidate height, block
 hash, certificate, or `hash_b` may be selected or read. The corrected blocked manifest
 hashes to
@@ -79,6 +85,14 @@ flowchart LR
 - [`slab_recipe.py`](slab_recipe.py) evaluates explicit, schema-checked int8 fusion,
   slicing, transposition, and stacking recipes while recording intermediate digests. It
   never guesses a missing transform.
+- [`registry.py`](registry.py) validates the strict checkpoint-registry schema and derives
+  T0 or structural eligibility for external T1 review from retained per-shard transport
+  facts. It rejects incomplete shard coverage, relabeled paths, redirect reuse, shared
+  streams, truncated transfers, digest mismatch, missing transcripts, unsafe tier
+  language, candidate material, and model-weight bytes. Its output contract is
+  [`e000-registry-prequalification-v0.schema.json`](../../schemas/e000-registry-prequalification-v0.schema.json).
+  The CLI rejects duplicate JSON members and non-finite numbers, and binds its report to
+  the exact input-file digest. Version 0 cannot assign T1 or emit T2.
 - [`pearl-oracle/`](pearl-oracle/) calls pinned Pearl `zk_pow::api` types for structured
   header/config serialization and V3 seed derivation, and `pearl-blake3` for `job_key` and
   matrix-root parity.
@@ -107,6 +121,7 @@ python3 experiments/e-000/conformance.py
 python3 experiments/e-000/audit_reviewer_freeze.py
 python3 experiments/e-000/verify_pearl_oracle.py
 python3 -m unittest tests.test_e000_conformance -v
+python3 -m unittest tests.test_e000_registry -v
 ```
 
 The expected result is synthetic parser/hash parity with `candidate_inspected=false`.
@@ -115,8 +130,10 @@ comparison.
 
 ## Remaining gates before any candidate
 
-1. Freeze a finite T1-or-better checkpoint registry and a source-cited transformation
-   recipe, including the tensor-parallel degree set.
+1. Apply the implemented registry prequalifier to a finite checkpoint registry, obtain
+   external reviewer adjudication of T1 for every shard, and freeze it with a source-cited
+   transformation recipe and finite tensor-parallel degree set. The current repository
+   contains the contract and synthetic adversarial tests, not an adjudicated real registry.
 2. Retain two truly code-path-independent checkpoint-to-root implementations and compare
    every intermediate transcript field.
 3. Make all 30 frozen controls produce their exact diagnostics in both implementations,

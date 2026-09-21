@@ -1,0 +1,98 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aeye.local/schemas/e000-registry-prequalification-v0.schema.json",
+  "title": "Aeye E-000 registry prequalification report",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "experiment_id",
+    "policy_id",
+    "registry_artifact_sha256",
+    "registry_canonical_sha256",
+    "manifest_sha256",
+    "prequalification_status",
+    "required_minimum_tier",
+    "candidate_inspected",
+    "reviewer_adjudication_required",
+    "t2_evaluated",
+    "entry_results",
+    "findings",
+    "claim_ceiling"
+  ],
+  "properties": {
+    "schema_version": {"const": "aeye.e000-registry-prequalification.v0"},
+    "experiment_id": {"const": "E-000"},
+    "policy_id": {"const": "ADR-0014"},
+    "registry_artifact_sha256": {
+      "oneOf": [{"$ref": "#/$defs/sha256"}, {"type": "null"}]
+    },
+    "registry_canonical_sha256": {
+      "oneOf": [{"$ref": "#/$defs/sha256"}, {"type": "null"}]
+    },
+    "manifest_sha256": {"$ref": "#/$defs/sha256"},
+    "prequalification_status": {
+      "enum": ["eligible_for_review", "below_minimum", "invalid_input"]
+    },
+    "required_minimum_tier": {"const": "T1"},
+    "candidate_inspected": {"const": false},
+    "reviewer_adjudication_required": {"const": true},
+    "t2_evaluated": {"const": false},
+    "entry_results": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/entry_result"}
+    },
+    "findings": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/finding"}
+    },
+    "claim_ceiling": {"type": "string", "minLength": 1}
+  },
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "finding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "path", "message"],
+      "properties": {
+        "code": {"type": "string", "pattern": "^[A-Z0-9-]+$"},
+        "path": {"type": "string"},
+        "message": {"type": "string", "minLength": 1}
+      }
+    },
+    "entry_result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "entry_id",
+        "prequalification_status",
+        "observed_tier",
+        "candidate_tier",
+        "candidate_tier_statement",
+        "reviewer_adjudication_required",
+        "t2_evaluated",
+        "t2_non_claim",
+        "findings"
+      ],
+      "properties": {
+        "entry_id": {"type": ["string", "null"]},
+        "prequalification_status": {
+          "enum": ["eligible_for_review", "below_minimum", "invalid_input"]
+        },
+        "observed_tier": {"enum": ["T0", null]},
+        "candidate_tier": {"enum": ["T1", null]},
+        "candidate_tier_statement": {"type": ["string", "null"]},
+        "reviewer_adjudication_required": {"const": true},
+        "t2_evaluated": {"const": false},
+        "t2_non_claim": {"type": "string", "minLength": 1},
+        "findings": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/finding"}
+        }
+      }
+    }
+  }
+}
