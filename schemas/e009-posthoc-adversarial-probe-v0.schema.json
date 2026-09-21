@@ -1,0 +1,123 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aeye.local/schemas/e009-posthoc-adversarial-probe-v0.schema.json",
+  "title": "Aeye E-009 post-hoc adversarial probe",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "status",
+    "experiment_id",
+    "run_id",
+    "provenance",
+    "attack",
+    "observation",
+    "field_multiplication_counts",
+    "interpretation"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "aeye.e009-posthoc-adversarial-probe.v0"
+    },
+    "status": {
+      "const": "observed-post-hoc"
+    },
+    "experiment_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "run_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["origin", "appraisal", "relationship_to_r1"],
+      "properties": {
+        "origin": {"type": "string", "minLength": 1},
+        "appraisal": {"type": "string", "minLength": 1},
+        "relationship_to_r1": {"type": "string", "minLength": 1}
+      }
+    },
+    "attack": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "target_event",
+        "changed_coordinate",
+        "honest_value",
+        "forged_value",
+        "downstream_regenerated",
+        "roots_and_challenges_regenerated",
+        "retained_acceptance_fields_falsified"
+      ],
+      "properties": {
+        "target_event": {"const": "q_linear"},
+        "changed_coordinate": {"const": 0},
+        "honest_value": {"type": "integer", "minimum": 0},
+        "forged_value": {"type": "integer", "minimum": 0},
+        "downstream_regenerated": {"const": true},
+        "roots_and_challenges_regenerated": {"const": true},
+        "retained_acceptance_fields_falsified": {"const": true}
+      }
+    },
+    "observation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "naturally_rejected_coded_checks",
+        "total_coded_checks",
+        "finding_codes",
+        "only_coded_relation_findings",
+        "honest_regeneration_finding_codes",
+        "honest_output_token",
+        "forged_output_token"
+      ],
+      "properties": {
+        "naturally_rejected_coded_checks": {"type": "integer", "minimum": 1},
+        "total_coded_checks": {"const": 80},
+        "finding_codes": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "only_coded_relation_findings": {"const": true},
+        "honest_regeneration_finding_codes": {"maxItems": 0},
+        "honest_output_token": {"type": "string", "minLength": 1},
+        "forged_output_token": {"type": "string", "minLength": 1}
+      }
+    },
+    "field_multiplication_counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "preprocessing_authentication",
+        "exact_matrix_vector_replay",
+        "ratio_numerator",
+        "ratio_denominator",
+        "ratio_decimal",
+        "scope"
+      ],
+      "properties": {
+        "preprocessing_authentication": {"type": "integer", "minimum": 1},
+        "exact_matrix_vector_replay": {"type": "integer", "minimum": 1},
+        "ratio_numerator": {"type": "integer", "minimum": 1},
+        "ratio_denominator": {"type": "integer", "minimum": 1},
+        "ratio_decimal": {"type": "number", "exclusiveMinimum": 1},
+        "scope": {"type": "string", "minLength": 1}
+      }
+    },
+    "interpretation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["supported", "limitation", "non_claim"],
+      "properties": {
+        "supported": {"type": "string", "minLength": 1},
+        "limitation": {"type": "string", "minLength": 1},
+        "non_claim": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "schema_version": "aeye.negative-fixture.v0",
+  "base_kind": "receipt",
+  "base_path": "fixtures/valid/minimal-receipt.json",
+  "purpose": "Missing coverage must remain unknown rather than being converted to a misleading zero over zero.",
+  "mutations": [
+    {"op": "set", "pointer": "/claimed_results/EXECUTION/coverage/numerator", "value": 0},
+    {"op": "set", "pointer": "/claimed_results/EXECUTION/coverage/denominator", "value": 0}
+  ]
+}

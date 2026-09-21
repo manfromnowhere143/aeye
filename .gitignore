@@ -1,0 +1,14 @@
+.DS_Store
+.venv*/
+__pycache__/
+*.pyc
+**/target/
+
+# Reproducible external checkouts and extraction products are evidence inputs,
+# not Aeye source. Their exact commits live in the source ledger.
+evidence/external/
+evidence/papers/*.pdf
+evidence/standards/*.txt
+evidence/changes/*.patch
+prompts/
+tmp/

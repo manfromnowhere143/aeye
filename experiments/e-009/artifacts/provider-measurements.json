@@ -1,0 +1,65 @@
+{
+  "diagnostics": [
+    "These are local Python toy measurements, not production serving or Pearl overhead.",
+    "Offline preprocessing is reported separately and is not hidden from the total cost surface.",
+    "The baseline and protected path execute the identical frozen toy causal block."
+  ],
+  "environment": {
+    "implementation": "CPython",
+    "machine": "arm64",
+    "platform": "macOS-14.4-arm64-arm-64bit-Mach-O",
+    "processor": "arm",
+    "python": "3.14.2"
+  },
+  "experiment_id": "E-009",
+  "protocol": {
+    "baseline": "Execute the identical frozen causal block and serialize only its output object, with no commitments, code preprocessing, challenges, receipt, or verification.",
+    "clock": "time.perf_counter_ns",
+    "repetitions": 1000,
+    "statistics": [
+      "minimum_ns",
+      "median_ns",
+      "p95_ns",
+      "mean_ns"
+    ],
+    "warmup": 100
+  },
+  "run_id": "E-009-R1",
+  "schema_version": "aeye.e009-provider-measurements.v0",
+  "serialized_sizes_bytes": {
+    "audit": 66470,
+    "identical_no_aeye_output_canonical_json": 222,
+    "offline_input_model_and_profiles": 6271,
+    "output": 252,
+    "protected_transfer_bundle": 85584,
+    "receipt": 10097,
+    "synthetic_pearl_work": 946,
+    "trace": 7819
+  },
+  "timings": {
+    "identical_no_aeye_execution": {
+      "mean_ns": 29751,
+      "median_ns": 29458,
+      "minimum_ns": 28208,
+      "p95_ns": 31541
+    },
+    "offline_coded_preprocessing_all_five_matrices": {
+      "mean_ns": 168255,
+      "median_ns": 167334,
+      "minimum_ns": 160708,
+      "p95_ns": 175042
+    },
+    "online_execution_trace_and_subject": {
+      "mean_ns": 113290,
+      "median_ns": 112041,
+      "minimum_ns": 107708,
+      "p95_ns": 119000
+    },
+    "post_subject_challenge_and_all_coded_responses": {
+      "mean_ns": 1469670,
+      "median_ns": 1461354,
+      "minimum_ns": 1398209,
+      "p95_ns": 1567292
+    }
+  }
+}

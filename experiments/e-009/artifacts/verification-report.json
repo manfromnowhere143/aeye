@@ -1,0 +1,105 @@
+{
+  "appraisal_policy": {
+    "artifact_digest": "sha256:fc2bd49a2bdb6a058e91576736653d8d30dcf6d35e08703bfba9f99950a8bb0b",
+    "policy_id": "aeye:e009-r1-appraisal",
+    "version": "v0"
+  },
+  "conflicts": [],
+  "generated_at": "2026-09-20T19:50:00Z",
+  "receipt_digest": "sha256:b17a2b9c0b0b882604989986f67a8d86d60ef71ea10aec1cb9875c77282139f0",
+  "receipt_path": "experiments/e-009/artifacts/receipt.json",
+  "report_id": "e009:r1:independent-code-path-appraisal",
+  "results": {
+    "DEMAND": {
+      "assumptions": [],
+      "assurance": "none",
+      "coverage": {
+        "denominator": null,
+        "known": false,
+        "numerator": null,
+        "scope": "No qualifying signed independent authorization or economic event is represented.",
+        "unit": "unknown"
+      },
+      "diagnostics": [
+        "The operator's experiment instruction is provenance, not DEMAND evidence.",
+        "No demand relation was presented to the verifier."
+      ],
+      "evidence_refs": [],
+      "status": "unsupported"
+    },
+    "EXECUTION": {
+      "assumptions": [
+        "e009.coded-mvm-mds-soundness",
+        "e009.fiat-shamir-random-oracle-and-bounded-grinding",
+        "e009.verifier-code-correctness",
+        "sha256.collision-resistance"
+      ],
+      "assurance": "sampled",
+      "coverage": {
+        "denominator": 13,
+        "known": true,
+        "numerator": 13,
+        "scope": "Frozen E-009 event universe: five sampled coded-linear and eight exact relations.",
+        "unit": "event"
+      },
+      "diagnostics": [
+        "Limited to E-009-R1 and conditional on the reported coded-audit bound and Fiat-Shamir assumptions.",
+        "A separately implemented verifier accepted all 13 events and the conditional coded-audit equations."
+      ],
+      "evidence_refs": [
+        "e009:r1:coded-execution-audit"
+      ],
+      "status": "satisfied"
+    },
+    "SEMANTICS": {
+      "assumptions": [
+        "e009.finite-field-profile-fidelity",
+        "e009.verifier-code-correctness",
+        "sha256.collision-resistance"
+      ],
+      "assurance": "hybrid",
+      "coverage": {
+        "denominator": 13,
+        "known": true,
+        "numerator": 13,
+        "scope": "Exact declared finite-field/hard-attention profile; no hardware mapping.",
+        "unit": "event"
+      },
+      "diagnostics": [
+        "Only the declared prime-field, centered-decode, hard-attention semantics are in scope; this is not GPU or ordinary transformer semantics.",
+        "Conformance is exact only for the frozen finite-field/hard-attention profile."
+      ],
+      "evidence_refs": [
+        "e009:r1:declared-semantics-conformance"
+      ],
+      "status": "satisfied"
+    },
+    "WORK": {
+      "assumptions": [
+        "synthetic.pearl.no-certificate",
+        "sha256.collision-resistance"
+      ],
+      "assurance": "commitment_only",
+      "coverage": {
+        "denominator": null,
+        "known": false,
+        "numerator": null,
+        "scope": "No native Pearl statement or certificate exists in E-009.",
+        "unit": "unknown"
+      },
+      "diagnostics": [
+        "Synthetic clean-operand roots do not establish Pearl WORK.",
+        "Independent code-path replay confirms only root equality; no Pearl verifier was executed."
+      ],
+      "evidence_refs": [
+        "e009:r1:synthetic-pearl-operands"
+      ],
+      "status": "unknown"
+    }
+  },
+  "schema_version": "aeye.verification-report.v0",
+  "verifier": {
+    "independence_statement": "This verifier shares no generator modules or arithmetic helpers. It is code-path separation by the same research process, not independent human, institutional, or third-party review.",
+    "principal_id": "e009:independent-code-path-verifier"
+  }
+}

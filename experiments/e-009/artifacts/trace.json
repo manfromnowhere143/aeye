@@ -1,0 +1,365 @@
+{
+  "event_count": 13,
+  "events": [
+    {
+      "event_id": "request_input",
+      "inputs": {
+        "request_root": "sha256:6647790d928b9573b93ec2902bb6bbeb79ae83512b0d42b464392c31fe21e39b"
+      },
+      "job_id": "sha256:cabf1d8548f01004d79c6832ec22cceba6f9d08c039eff41a36238ac9d76bd18",
+      "outputs": {
+        "x": [
+          2,
+          2305843009213693950,
+          3,
+          1
+        ]
+      },
+      "sequence": 0,
+      "verification": "exact"
+    },
+    {
+      "event_id": "q_linear",
+      "inputs": {
+        "matrix_name": "Wq",
+        "operand_root_a": "sha256:346004e2c62d312904f9d91ef791f24d859ab26389692b8b21fd1254a20f1639",
+        "operand_root_b": "sha256:612598b60ec4693baa69697d89305da4c9fa865b6f300605c215160188b0ac9d",
+        "x": [
+          2,
+          2305843009213693950,
+          3,
+          1
+        ]
+      },
+      "job_id": "sha256:cabf1d8548f01004d79c6832ec22cceba6f9d08c039eff41a36238ac9d76bd18",
+      "outputs": {
+        "y": [
+          4,
+          2,
+          4
+        ]
+      },
+      "sequence": 1,
+      "verification": "coded_linear"
+    },
+    {
+      "event_id": "k_linear",
+      "inputs": {
+        "matrix_name": "Wk",
+        "operand_root_a": "sha256:a296b09b2aad4d596532c962156eb4a61beecefaa9ce44fc8bee810403c01148",
+        "operand_root_b": "sha256:60c3338acc32b8355a08188d6b2236998c4d5cb37e39fa7d5640be33480c508f",
+        "x": [
+          2,
+          2305843009213693950,
+          3,
+          1
+        ]
+      },
+      "job_id": "sha256:cabf1d8548f01004d79c6832ec22cceba6f9d08c039eff41a36238ac9d76bd18",
+      "outputs": {
+        "y": [
+          1,
+          2305843009213693948,
+          6
+        ]
+      },
+      "sequence": 2,
+      "verification": "coded_linear"
+    },
+    {
+      "event_id": "v_linear",
+      "inputs": {
+        "matrix_name": "Wv",
+        "operand_root_a": "sha256:3757a3e6a2e143ca198c7ce83a24f0852bad2acbad18e9e123ad70ce3eb2bd65",
+        "operand_root_b": "sha256:b5f1d0496186e41ceb629178df5a45739e63b4536087105ba2b7033548939dd0",
+        "x": [
+          2,
+          2305843009213693950,
+          3,
+          1
+        ]
+      },
+      "job_id": "sha256:cabf1d8548f01004d79c6832ec22cceba6f9d08c039eff41a36238ac9d76bd18",
+      "outputs": {
+        "y": [
+          3,
+          2,
+          0,
+          4
+        ]
+      },
+      "sequence": 3,
+      "verification": "coded_linear"
+    },
+    {
+      "event_id": "cache_append",
+      "inputs": {
+        "initial_keys": [
+          [
+            1,
+            0,
+            1
+          ]
+        ],
+        "initial_values": [
+          [
+            1,
+            1,
+            0,
+            2
+          ]
+        ],
+        "k": [
+          1,
+          2305843009213693948,
+          6
+        ],
+        "v": [
+          3,
+          2,
+          0,
+          4
+        ]
+      },
+      "job_id": "sha256:cabf1d8548f01004d79c6832ec22cceba6f9d08c039eff41a36238ac9d76bd18",
+      "outputs": {
+        "keys": [
+          [
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            2305843009213693948,
+            6
+          ]
+        ],
+        "values": [
+          [
+            1,
+            1,
+            0,
+            2
+          ],
+          [
+            3,
+            2,
+            0,
+            4
+          ]
+        ]
+      },
+      "sequence": 4,
+      "verification": "exact"
+    },
+    {
+      "event_id": "attention_scores",
+      "inputs": {
+        "keys": [
+          [
+            1,
+            0,
+            1
+          ],
+          [
+            1,
+            2305843009213693948,
+            6
+          ]
+        ],
+        "q": [
+          4,
+          2,
+          4
+        ]
+      },
+      "job_id": "sha256:cabf1d8548f01004d79c6832ec22cceba6f9d08c039eff41a36238ac9d76bd18",
+      "outputs": {
+        "scores": [
+          8,
+          22
+        ]
+      },
+      "sequence": 5,
+      "verification": "exact"
+    },
+    {
+      "event_id": "hard_attention_select",
+      "inputs": {
+        "scores": [
+          8,
+          22
+        ],
+        "values": [
+          [
+            1,
+            1,
+            0,
+            2
+          ],
+          [
+            3,
+            2,
+            0,
+            4
+          ]
+        ]
+      },
+      "job_id": "sha256:cabf1d8548f01004d79c6832ec22cceba6f9d08c039eff41a36238ac9d76bd18",
+      "outputs": {
+        "selected_index": 1,
+        "selected_value": [
+          3,
+          2,
+          0,
+          4
+        ]
+      },
+      "sequence": 6,
+      "verification": "exact"
+    },
+    {
+      "event_id": "residual",
+      "inputs": {
+        "selected_value": [
+          3,
+          2,
+          0,
+          4
+        ],
+        "x": [
+          2,
+          2305843009213693950,
+          3,
+          1
+        ]
+      },
+      "job_id": "sha256:cabf1d8548f01004d79c6832ec22cceba6f9d08c039eff41a36238ac9d76bd18",
+      "outputs": {
+        "residual": [
+          5,
+          1,
+          3,
+          5
+        ]
+      },
+      "sequence": 7,
+      "verification": "exact"
+    },
+    {
+      "event_id": "mlp_linear",
+      "inputs": {
+        "matrix_name": "W1",
+        "operand_root_a": "sha256:8605c62a28cba50575c040215a5f6bbf1fbea7e4d8dcf166b4491725cf8f7282",
+        "operand_root_b": "sha256:9f8cf4e9758e0cce8fbfc6d06a6fe72ea865be8ea6a7ae58e43f644841eb0f32",
+        "x": [
+          5,
+          1,
+          3,
+          5
+        ]
+      },
+      "job_id": "sha256:cabf1d8548f01004d79c6832ec22cceba6f9d08c039eff41a36238ac9d76bd18",
+      "outputs": {
+        "y": [
+          9,
+          2305843009213693949,
+          2305843009213693949,
+          3,
+          1
+        ]
+      },
+      "sequence": 8,
+      "verification": "coded_linear"
+    },
+    {
+      "event_id": "relu",
+      "inputs": {
+        "mlp": [
+          9,
+          2305843009213693949,
+          2305843009213693949,
+          3,
+          1
+        ]
+      },
+      "job_id": "sha256:cabf1d8548f01004d79c6832ec22cceba6f9d08c039eff41a36238ac9d76bd18",
+      "outputs": {
+        "relu": [
+          9,
+          0,
+          0,
+          3,
+          1
+        ]
+      },
+      "sequence": 9,
+      "verification": "exact"
+    },
+    {
+      "event_id": "logits_linear",
+      "inputs": {
+        "matrix_name": "W2",
+        "operand_root_a": "sha256:7239cf5ec90a8acad32ef22676291bae7d276b1675902f8d3cab9c2152b1ee50",
+        "operand_root_b": "sha256:90d0502ca82cf6895551e5c1f61128001cfdbf0dd51b01f234e695587f2f4706",
+        "x": [
+          9,
+          0,
+          0,
+          3,
+          1
+        ]
+      },
+      "job_id": "sha256:cabf1d8548f01004d79c6832ec22cceba6f9d08c039eff41a36238ac9d76bd18",
+      "outputs": {
+        "y": [
+          9,
+          7,
+          9,
+          13,
+          1,
+          2305843009213693945
+        ]
+      },
+      "sequence": 10,
+      "verification": "coded_linear"
+    },
+    {
+      "event_id": "argmax",
+      "inputs": {
+        "logits": [
+          9,
+          7,
+          9,
+          13,
+          1,
+          2305843009213693945
+        ]
+      },
+      "job_id": "sha256:cabf1d8548f01004d79c6832ec22cceba6f9d08c039eff41a36238ac9d76bd18",
+      "outputs": {
+        "token_id": 3
+      },
+      "sequence": 11,
+      "verification": "exact"
+    },
+    {
+      "event_id": "output_emit",
+      "inputs": {
+        "token_id": 3
+      },
+      "job_id": "sha256:cabf1d8548f01004d79c6832ec22cceba6f9d08c039eff41a36238ac9d76bd18",
+      "outputs": {
+        "token": "iris",
+        "token_id": 3
+      },
+      "sequence": 12,
+      "verification": "exact"
+    }
+  ],
+  "experiment_id": "E-009",
+  "job_id": "sha256:cabf1d8548f01004d79c6832ec22cceba6f9d08c039eff41a36238ac9d76bd18",
+  "run_id": "E-009-R1",
+  "schema_version": "aeye.e009-trace.v0"
+}

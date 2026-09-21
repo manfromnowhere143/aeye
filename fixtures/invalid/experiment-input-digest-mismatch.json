@@ -1,0 +1,9 @@
+{
+  "schema_version": "aeye.negative-fixture.v0",
+  "base_kind": "experiment",
+  "base_path": "experiments/e-009/manifest.json",
+  "purpose": "A frozen experiment implementation digest must match the exact retained bytes.",
+  "mutations": [
+    {"op": "set", "pointer": "/frozen_inputs/4/value", "value": "0000000000000000000000000000000000000000000000000000000000000000"}
+  ]
+}

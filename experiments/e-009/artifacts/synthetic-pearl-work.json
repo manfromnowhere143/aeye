@@ -1,0 +1,20 @@
+{
+  "diagnostic": "Only clean operand roots are represented. No Pearl relation or certificate was generated or verified.",
+  "job_id": "sha256:cabf1d8548f01004d79c6832ec22cceba6f9d08c039eff41a36238ac9d76bd18",
+  "native_pearl_certificate_present": false,
+  "native_pearl_relation_present": false,
+  "operand_event_id": "q_linear",
+  "operand_root_a": "sha256:346004e2c62d312904f9d91ef791f24d859ab26389692b8b21fd1254a20f1639",
+  "operand_root_b": "sha256:612598b60ec4693baa69697d89305da4c9fa865b6f300605c215160188b0ac9d",
+  "schema_version": "aeye.e009-synthetic-pearl-work.v0",
+  "statement_id": "aeye:synthetic-pearl-clean-operands:v0",
+  "status": "synthetic_only",
+  "work_context": {
+    "certificate": null,
+    "experiment_id": "E-009",
+    "kind": "synthetic-clean-operand-context",
+    "pearl_version": null,
+    "run_id": "E-009-R1"
+  },
+  "work_context_root": "sha256:02d27304cfcf978ef7fcb694f3b5690ccb5ec2e25ee0f57db0bf1f1d1d577564"
+}

@@ -1,0 +1,219 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aeye.local/schemas/e009-posthoc-claim-appraisal-v0.schema.json",
+  "title": "Aeye E-009 post-hoc claim-appraisal correction",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "status",
+    "experiment_id",
+    "run_id",
+    "provenance",
+    "defect",
+    "corrected_appraisal",
+    "probes",
+    "interpretation"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "aeye.e009-posthoc-claim-appraisal.v0"
+    },
+    "status": {
+      "const": "observed-post-hoc"
+    },
+    "experiment_id": {
+      "const": "E-009"
+    },
+    "run_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "review_input",
+        "reproduction",
+        "relationship_to_r1"
+      ],
+      "properties": {
+        "review_input": {"type": "string", "minLength": 1},
+        "reproduction": {"type": "string", "minLength": 1},
+        "relationship_to_r1": {"type": "string", "minLength": 1}
+      }
+    },
+    "defect": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "finding_id",
+        "frozen_verifier_path",
+        "frozen_verifier_digest",
+        "observed_behavior",
+        "preservation_rule"
+      ],
+      "properties": {
+        "finding_id": {"const": "E009-POSTHOC-CLAIM-METADATA-TRUST"},
+        "frozen_verifier_path": {"const": "experiments/e-009/independent_verify.py"},
+        "frozen_verifier_digest": {"$ref": "#/$defs/digest"},
+        "observed_behavior": {"type": "string", "minLength": 1},
+        "preservation_rule": {"type": "string", "minLength": 1}
+      }
+    },
+    "corrected_appraisal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "underlying_relation_replay",
+        "policy_id",
+        "policy_version",
+        "policy_digest",
+        "result_source",
+        "results"
+      ],
+      "properties": {
+        "underlying_relation_replay": {"const": "accepted"},
+        "policy_id": {"const": "aeye:e009-r1-claim-appraisal"},
+        "policy_version": {"const": "v1-post-hoc"},
+        "policy_digest": {"$ref": "#/$defs/digest"},
+        "result_source": {"type": "string", "minLength": 1},
+        "results": {"$ref": "#/$defs/resultVector"}
+      }
+    },
+    "probes": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "case_id",
+          "frozen_accepted",
+          "frozen_finding_codes",
+          "corrected_accepted",
+          "corrected_finding_codes"
+        ],
+        "properties": {
+          "case_id": {
+            "enum": [
+              "unchanged",
+              "inflated_coverage",
+              "removed_assumptions",
+              "unknown_statement_id",
+              "wrong_output_control"
+            ]
+          },
+          "frozen_accepted": {"type": "boolean"},
+          "frozen_finding_codes": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {"type": "string", "minLength": 1}
+          },
+          "corrected_accepted": {"type": "boolean"},
+          "corrected_finding_codes": {
+            "type": "array",
+            "uniqueItems": true,
+            "items": {"type": "string", "minLength": 1}
+          }
+        }
+      }
+    },
+    "interpretation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["supported", "limitation", "non_claim"],
+      "properties": {
+        "supported": {"type": "string", "minLength": 1},
+        "limitation": {"type": "string", "minLength": 1},
+        "non_claim": {"type": "string", "minLength": 1}
+      }
+    }
+  },
+  "$defs": {
+    "digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["known", "scope", "unit", "numerator", "denominator"],
+      "properties": {
+        "known": {"type": "boolean"},
+        "scope": {"type": "string", "minLength": 1},
+        "unit": {
+          "enum": ["event", "unknown"]
+        },
+        "numerator": {},
+        "denominator": {}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"known": {"const": true}}},
+          "then": {
+            "properties": {
+              "numerator": {"type": "integer", "minimum": 0},
+              "denominator": {"type": "integer", "minimum": 1}
+            }
+          },
+          "else": {
+            "properties": {
+              "numerator": {"type": "null"},
+              "denominator": {"type": "null"},
+              "unit": {"const": "unknown"}
+            }
+          }
+        }
+      ]
+    },
+    "claimResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "assurance",
+        "coverage",
+        "assumptions",
+        "evidence_refs",
+        "diagnostics"
+      ],
+      "properties": {
+        "status": {
+          "enum": ["satisfied", "failed", "unknown", "unsupported", "invalid"]
+        },
+        "assurance": {
+          "enum": ["commitment_only", "sampled", "hybrid", "none"]
+        },
+        "coverage": {"$ref": "#/$defs/coverage"},
+        "assumptions": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "evidence_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "diagnostics": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "resultVector": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["WORK", "EXECUTION", "SEMANTICS", "DEMAND"],
+      "properties": {
+        "WORK": {"$ref": "#/$defs/claimResult"},
+        "EXECUTION": {"$ref": "#/$defs/claimResult"},
+        "SEMANTICS": {"$ref": "#/$defs/claimResult"},
+        "DEMAND": {"$ref": "#/$defs/claimResult"}
+      }
+    }
+  }
+}

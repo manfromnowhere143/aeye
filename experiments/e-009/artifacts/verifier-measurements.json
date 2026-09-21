@@ -1,0 +1,36 @@
+{
+  "diagnostics": [
+    "Local Python toy result only; it is not a production verifier benchmark.",
+    "Schema parsing and disk I/O are excluded from the timed relation replay and remain part of untimed end-to-end acceptance."
+  ],
+  "environment": {
+    "implementation": "CPython",
+    "machine": "arm64",
+    "platform": "macOS-14.4-arm64-arm-64bit-Mach-O",
+    "processor": "arm",
+    "python": "3.14.2"
+  },
+  "experiment_id": "E-009",
+  "protocol": {
+    "clock": "time.perf_counter_ns",
+    "repetitions": 250,
+    "scope": "Complete independent relation replay excluding JSON Schema and file-integrity checks; includes preprocessing authentication, 80 coded equations, exact state/nonlinear/decode checks, and policy checks.",
+    "statistics": [
+      "minimum_ns",
+      "median_ns",
+      "p95_ns",
+      "mean_ns"
+    ],
+    "warmup": 100
+  },
+  "run_id": "E-009-R1",
+  "schema_version": "aeye.e009-verifier-measurements.v0",
+  "timings": {
+    "independent_relation_replay": {
+      "mean_ns": 1960024,
+      "median_ns": 1940771,
+      "minimum_ns": 1852584,
+      "p95_ns": 2131667
+    }
+  }
+}

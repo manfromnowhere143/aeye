@@ -1,0 +1,125 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aeye.local/schemas/e000-slab-recipe-v0.schema.json",
+  "title": "Aeye E-000 runtime slab recipe",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "protocol", "sources", "steps", "output"],
+  "properties": {
+    "schema_version": {"const": "aeye.e000-slab-recipe.v0"},
+    "protocol": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["pearl_commit", "vllm_version", "certificate_version"],
+      "properties": {
+        "pearl_commit": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "vllm_version": {"const": "0.20.2"},
+        "certificate_version": {"const": 3}
+      }
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["source_id", "path", "sha256", "rows", "cols", "dtype", "layout"],
+        "properties": {
+          "source_id": {"type": "string", "pattern": "^[a-zA-Z0-9._:-]+$"},
+          "path": {"type": "string", "minLength": 1},
+          "sha256": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+          "rows": {"type": "integer", "minimum": 1},
+          "cols": {"type": "integer", "minimum": 1},
+          "dtype": {"const": "int8_twos_complement"},
+          "layout": {"const": "c_row_major_contiguous"},
+          "checkpoint_tensor": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "steps": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/step"}
+    },
+    "output": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["matrix_id", "expected_rows", "expected_cols", "semantic_layout"],
+      "properties": {
+        "matrix_id": {"type": "string", "pattern": "^[a-zA-Z0-9._:-]+$"},
+        "expected_rows": {"type": "integer", "minimum": 1},
+        "expected_cols": {"type": "integer", "minimum": 1},
+        "semantic_layout": {"const": "pearl_B_transpose_n_by_k_c_row_major"}
+      }
+    }
+  },
+  "$defs": {
+    "range": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["label", "start", "stop"],
+      "properties": {
+        "label": {"type": "string", "minLength": 1},
+        "start": {"type": "integer", "minimum": 0},
+        "stop": {"type": "integer", "minimum": 1}
+      }
+    },
+    "step": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["step_id", "op", "input", "start", "stop"],
+          "properties": {
+            "step_id": {"type": "string", "pattern": "^[a-zA-Z0-9._:-]+$"},
+            "op": {"enum": ["slice_rows", "slice_columns"]},
+            "input": {"type": "string"},
+            "start": {"type": "integer", "minimum": 0},
+            "stop": {"type": "integer", "minimum": 1}
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["step_id", "op", "input", "ranges"],
+          "properties": {
+            "step_id": {"type": "string", "pattern": "^[a-zA-Z0-9._:-]+$"},
+            "op": {"const": "select_row_ranges"},
+            "input": {"type": "string"},
+            "ranges": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/range"}}
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["step_id", "op", "input"],
+          "properties": {
+            "step_id": {"type": "string", "pattern": "^[a-zA-Z0-9._:-]+$"},
+            "op": {"const": "transpose"},
+            "input": {"type": "string"}
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["step_id", "op", "inputs"],
+          "properties": {
+            "step_id": {"type": "string", "pattern": "^[a-zA-Z0-9._:-]+$"},
+            "op": {"const": "concat_rows"},
+            "inputs": {"type": "array", "minItems": 1, "items": {"type": "string"}}
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["step_id", "op", "inputs", "expert_ids"],
+          "properties": {
+            "step_id": {"type": "string", "pattern": "^[a-zA-Z0-9._:-]+$"},
+            "op": {"const": "stack_experts"},
+            "inputs": {"type": "array", "minItems": 1, "items": {"type": "string"}},
+            "expert_ids": {"type": "array", "minItems": 1, "items": {"type": "integer", "minimum": 0}}
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "schema_version": "aeye.negative-fixture.v0",
+  "base_kind": "receipt",
+  "base_path": "fixtures/valid/pearl-execution-coupled-receipt.json",
+  "purpose": "A valid work relation and a valid execution relation cannot be coupled when their native operand roots differ.",
+  "mutations": [
+    {"op": "set", "pointer": "/evidence/1/native_public_inputs/operand_root_b", "value": "sha256:8888888888888888888888888888888888888888888888888888888888888888"}
+  ]
+}

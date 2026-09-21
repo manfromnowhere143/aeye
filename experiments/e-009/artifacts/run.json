@@ -1,0 +1,74 @@
+{
+  "artifacts": {
+    "audit": {
+      "bytes": 66470,
+      "path": "experiments/e-009/artifacts/audit.json",
+      "sha256": "sha256:0485d195746f8a0e1f6b3da0ef6a4766b02201d648a7f38c76a0709204bc55c5"
+    },
+    "output": {
+      "bytes": 252,
+      "path": "experiments/e-009/artifacts/output.json",
+      "sha256": "sha256:5e60c3f882a559aaa796a59a8f2be292cae39b06378712cae7e59c5b6da0bfcc"
+    },
+    "provider_measurements": {
+      "bytes": 1905,
+      "path": "experiments/e-009/artifacts/provider-measurements.json",
+      "sha256": "sha256:d10af0fb089839867c788416952ce24ee6f3eb16ff9b8bd71e8eb85409ac989b"
+    },
+    "receipt": {
+      "bytes": 10097,
+      "path": "experiments/e-009/artifacts/receipt.json",
+      "sha256": "sha256:b17a2b9c0b0b882604989986f67a8d86d60ef71ea10aec1cb9875c77282139f0"
+    },
+    "synthetic_pearl_work": {
+      "bytes": 946,
+      "path": "experiments/e-009/artifacts/synthetic-pearl-work.json",
+      "sha256": "sha256:067afa2151a5e48322c1c8d3481230f23e8c6b703ecec7031447d0770fcb5862"
+    },
+    "trace": {
+      "bytes": 7819,
+      "path": "experiments/e-009/artifacts/trace.json",
+      "sha256": "sha256:115c16165384861e02ffbd1fe2a2916b138f8d97d5a4658fa1564d80320506b4"
+    }
+  },
+  "experiment_id": "E-009",
+  "input": {
+    "path": "experiments/e-009/input.json",
+    "sha256": "sha256:5cd092ab1cbe8c823a8d12b9cd8e65c08fefeb4e56d5e6b81235fcd57891a8f2"
+  },
+  "non_claims": [
+    "This is not a language model or ordinary softmax transformer.",
+    "This is not a Pearl certificate, Pearl verifier, mining result, or claim about Pearl security.",
+    "This has no FP8, B200, GPU, native-serving, energy, wall-clock production, privacy, or physical-work semantics.",
+    "The deterministic Fiat-Shamir audit is conditional on its stated random-oracle, subject-binding, and bounded-grinding assumptions.",
+    "Code-path separation is not human, organizational, or third-party independence.",
+    "Operator authorization of the experiment does not satisfy the DEMAND coordinate."
+  ],
+  "observations": {
+    "all_provider_coded_checks_accept": true,
+    "coded_linear_event_count": 5,
+    "conditional_union_bound": {
+      "denominator": 879739394437072646331137080735906636585112866347967803758474882198572762381573180545284038373241014982063151504018551605597031414237058297877196988694840183895951260339263524967582736899358576896627155550413988006270707886636874112271387894640275557462239467646428393109423517146315201604838856635931750678801676993822720000000000000000000000000000000000000000000000000000000000000000,
+      "numerator": 438581606206150725072319941288939154752013312892506807236645620530685427059445262755701672335265612629471877617213722736518810601372828672832477047380558717501574611475098390051316917616975877242337015295299836915439746787936222509286797119765396279137361182057340475027575186773915411282424539772480678603255055496105725320628705660354290318386746423548142507
+    },
+    "event_count": 13,
+    "exact_event_count": 8,
+    "output_token": "iris",
+    "output_token_id": 3
+  },
+  "run_id": "E-009-R1",
+  "schema_version": "aeye.e009-run.v0",
+  "subject": {
+    "client_nonce": "6fb1f6465946458765f633800a15e4a79d1491431bd08fba92bec503e1dfe36e",
+    "demand_root": "sha256:e54feb897716689ffb28743ba4c25a7e8fc90b04c3daf02c12d802cbfdbed7cc",
+    "execution_root": "sha256:318bd001219684f9138fb0c546c5044c23c642bf20e4ca1c75995c485ca9f835",
+    "freshness_domain": "aeye-e009-r1:2026-09-20",
+    "intent_id": "sha256:43626d2a327b9c1268ac04a1ecf92c56b92d1e8317e33e6e644ae74f0196f64f",
+    "job_id": "sha256:cabf1d8548f01004d79c6832ec22cceba6f9d08c039eff41a36238ac9d76bd18",
+    "model_root": "sha256:1848d21df4c7d24a0b27a59b651b20463a1962a9f2117f714ebdbd87c0d91b72",
+    "output_root": "sha256:649ec0dc3a76bfde9e135840973125c49ae1f254989ce0436e3227bcdde490e5",
+    "request_root": "sha256:6647790d928b9573b93ec2902bb6bbeb79ae83512b0d42b464392c31fe21e39b",
+    "subject_root": "sha256:af2545f671e8ec803241f274298be52382725ca66b1bc0e5107e426ae95c7a07",
+    "trace_root": "sha256:90fde488c49e36a7a545176d6a2144d8c30ab4f6680a7b655b64dbc18e3c792e"
+  }
+}

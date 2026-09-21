@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aeye.invalid/schemas/e009-cost-decomposition-v0.schema.json",
+  "title": "Aeye E-009 post-hoc cost decomposition v0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "status", "experiment_id", "run_id", "measured_at", "environment", "protocol", "timings", "serialized_sizes_bytes", "coverage", "limitations"],
+  "properties": {
+    "schema_version": {"const": "aeye.e009-cost-decomposition.v0"},
+    "status": {"const": "exploratory-post-hoc"},
+    "experiment_id": {"const": "E-009"},
+    "run_id": {"const": "E-009-R1"},
+    "measured_at": {"type": "string", "format": "date-time"},
+    "environment": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["python", "implementation", "platform", "machine", "processor"],
+      "properties": {
+        "python": {"type": "string", "minLength": 1},
+        "implementation": {"type": "string", "minLength": 1},
+        "platform": {"type": "string", "minLength": 1},
+        "machine": {"type": "string", "minLength": 1},
+        "processor": {"type": "string", "minLength": 1}
+      }
+    },
+    "protocol": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["clock", "warmup", "repetitions", "statistics", "relationship_to_r1"],
+      "properties": {
+        "clock": {"const": "time.perf_counter_ns"},
+        "warmup": {"type": "integer", "minimum": 1},
+        "repetitions": {"type": "integer", "minimum": 1},
+        "statistics": {"const": ["minimum_ns", "median_ns", "p95_ns", "mean_ns"]},
+        "relationship_to_r1": {"type": "string", "minLength": 1}
+      }
+    },
+    "timings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["client_challenge_derivation", "provider_coded_response_construction", "audit_json_serialization", "audit_json_parsing"],
+      "properties": {
+        "client_challenge_derivation": {"$ref": "#/$defs/distribution"},
+        "provider_coded_response_construction": {"$ref": "#/$defs/distribution"},
+        "audit_json_serialization": {"$ref": "#/$defs/distribution"},
+        "audit_json_parsing": {"$ref": "#/$defs/distribution"}
+      }
+    },
+    "serialized_sizes_bytes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["challenge_terms_canonical_json", "coded_responses_canonical_json", "audit_file", "provider_bundle", "all_original_r1_json_artifacts"],
+      "properties": {
+        "challenge_terms_canonical_json": {"type": "integer", "minimum": 1},
+        "coded_responses_canonical_json": {"type": "integer", "minimum": 1},
+        "audit_file": {"type": "integer", "minimum": 1},
+        "provider_bundle": {"type": "integer", "minimum": 1},
+        "all_original_r1_json_artifacts": {"type": "integer", "minimum": 1}
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["client", "provider", "verifier", "preprocessing", "network", "storage", "privacy"],
+      "properties": {
+        "client": {"type": "string", "minLength": 1},
+        "provider": {"type": "string", "minLength": 1},
+        "verifier": {"type": "string", "minLength": 1},
+        "preprocessing": {"type": "string", "minLength": 1},
+        "network": {"type": "string", "minLength": 1},
+        "storage": {"type": "string", "minLength": 1},
+        "privacy": {"type": "string", "minLength": 1}
+      }
+    },
+    "limitations": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+  },
+  "$defs": {
+    "distribution": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["minimum_ns", "median_ns", "p95_ns", "mean_ns"],
+      "properties": {
+        "minimum_ns": {"type": "integer", "minimum": 0},
+        "median_ns": {"type": "integer", "minimum": 0},
+        "p95_ns": {"type": "integer", "minimum": 0},
+        "mean_ns": {"type": "integer", "minimum": 0}
+      }
+    }
+  }
+}

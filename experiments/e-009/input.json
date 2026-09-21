@@ -1,0 +1,112 @@
+{
+  "schema_version": "aeye.e009-input.v0",
+  "experiment_id": "E-009",
+  "run_id": "E-009-R1",
+  "frozen_at": "2026-09-20T19:30:00Z",
+  "model": {
+    "model_id": "aeye/e009/toy-causal-block",
+    "revision": "r1",
+    "architecture": "finite-field-transformer-shaped-causal-block-with-hard-attention",
+    "dimensions": {"model": 4, "key": 3, "value": 4, "hidden": 5, "vocabulary": 6},
+    "matrices": {
+      "Wq": [[1, 0, 1, -1], [0, 1, 1, 0], [1, -1, 0, 1]],
+      "Wk": [[1, 1, 0, 0], [0, 1, -1, 1], [1, 0, 1, 1]],
+      "Wv": [[1, 0, 0, 1], [0, 1, 1, 0], [1, 1, 0, -1], [0, 0, 1, 1]],
+      "W1": [[1, -1, 0, 1], [-1, 0, 1, 0], [0, 1, -1, 0], [1, 0, 1, -1], [-1, 1, 0, 1]],
+      "W2": [[1, 0, 0, 0, 0], [0, 0, 0, 2, 1], [0, 0, 0, 3, 0], [1, 0, 0, 1, 1], [0, 0, 0, -1, 4], [-1, 0, 0, 1, 0]]
+    },
+    "initial_cache": {"keys": [[1, 0, 1]], "values": [[1, 1, 0, 2]]},
+    "vocabulary": ["amber", "blue", "cobalt", "iris", "jade", "violet"]
+  },
+  "request": {
+    "request_id": "aeye/e009/request/r1",
+    "input_vector": [2, -1, 3, 1],
+    "client_nonce": "6fb1f6465946458765f633800a15e4a79d1491431bd08fba92bec503e1dfe36e",
+    "freshness_domain": "aeye-e009-r1:2026-09-20"
+  },
+  "demand": {
+    "status": "unsupported",
+    "policy": "none",
+    "operator_record": "experiments/e-009/OPERATOR_AUTHORIZATION.md",
+    "interpretation": "The operator authorized this isolated research run; no signed independent request or qualifying economic event is represented."
+  },
+  "arithmetic_profile": {
+    "profile_id": "aeye:finite-field-hard-attention:v0",
+    "field_prime": 2305843009213693951,
+    "field_encoding": "signed integer z is encoded as z mod p",
+    "signed_decode": "residue r decodes to r when r <= (p-1)/2 and to r-p otherwise",
+    "linear_rule": "matrix-vector products and dot products are evaluated exactly in F_p",
+    "relu_rule": "decode to the centered integer, apply max(0,z), then encode in F_p",
+    "selection_rule": "compare centered integers; ties select the lowest index",
+    "overflow_rule": "field reduction after every addition and multiplication",
+    "hardware_mapping": "none"
+  },
+  "event_universe": [
+    {"sequence": 0, "event_id": "request_input", "relation": "request-root and input equality", "matrix": null, "verification": "exact"},
+    {"sequence": 1, "event_id": "q_linear", "relation": "q=Wq*x", "matrix": "Wq", "verification": "coded_linear"},
+    {"sequence": 2, "event_id": "k_linear", "relation": "k=Wk*x", "matrix": "Wk", "verification": "coded_linear"},
+    {"sequence": 3, "event_id": "v_linear", "relation": "v=Wv*x", "matrix": "Wv", "verification": "coded_linear"},
+    {"sequence": 4, "event_id": "cache_append", "relation": "append current k and v to the committed initial cache", "matrix": null, "verification": "exact"},
+    {"sequence": 5, "event_id": "attention_scores", "relation": "field dot products q dot each cached key", "matrix": null, "verification": "exact"},
+    {"sequence": 6, "event_id": "hard_attention_select", "relation": "centered-score argmax and selected cached value", "matrix": null, "verification": "exact"},
+    {"sequence": 7, "event_id": "residual", "relation": "selected_value+x", "matrix": null, "verification": "exact"},
+    {"sequence": 8, "event_id": "mlp_linear", "relation": "mlp=W1*residual", "matrix": "W1", "verification": "coded_linear"},
+    {"sequence": 9, "event_id": "relu", "relation": "centered ReLU", "matrix": null, "verification": "exact"},
+    {"sequence": 10, "event_id": "logits_linear", "relation": "logits=W2*relu", "matrix": "W2", "verification": "coded_linear"},
+    {"sequence": 11, "event_id": "argmax", "relation": "centered-logit argmax with lowest-index tie break", "matrix": null, "verification": "exact"},
+    {"sequence": 12, "event_id": "output_emit", "relation": "token id and vocabulary token equality", "matrix": null, "verification": "exact"}
+  ],
+  "audit_profile": {
+    "profile_id": "aeye:e009-coded-mvm:v0",
+    "generator": {
+      "kind": "reed-solomon-vandermonde-mds",
+      "evaluation_points": "1..N in the field",
+      "block_length_rule": "N=2m",
+      "preprocessing": "Q=G^T M"
+    },
+    "challenge": {
+      "source": "fiat-shamir-from-final-subject",
+      "hash": "SHA-256",
+      "domain": "aeye/e009/coded-mvm-challenge/v0",
+      "sparsity": 4,
+      "repetitions": 16,
+      "position_sampling": "uniform-without-replacement",
+      "coefficient_sampling": "uniform-nonzero-field-element",
+      "temporal_rule": "subject_root before challenge"
+    },
+    "soundness": {
+      "per_relation_bound": "((1-delta)^t + 1/(p-1))^ell",
+      "composition": "union-bound-over-five-linear-relations",
+      "code_sampling_failure": 0
+    }
+  },
+  "commitment_profile": {
+    "canonical_json": "UTF-8 JSON, sorted keys, separators comma/colon, no NaN",
+    "digest": "SHA-256",
+    "framing": "ASCII domain, zero byte, then each byte-string prefixed by unsigned 64-bit big-endian length",
+    "intent_domain": "aeye/intent/v0",
+    "job_domain": "aeye/job/v0",
+    "subject_domain": "aeye/execution-subject/v0",
+    "operand_domain": "aeye/e009/clean-operand/v0"
+  },
+  "measurement_profile": {
+    "clock": "time.perf_counter_ns",
+    "warmup": 100,
+    "provider_repetitions": 1000,
+    "verifier_repetitions": 250,
+    "statistics": ["minimum_ns", "median_ns", "p95_ns", "mean_ns"],
+    "baseline": "Execute the identical frozen causal block and serialize only its output object, with no commitments, code preprocessing, challenges, receipt, or verification."
+  },
+  "artifact_times": {
+    "receipt_issued_at": "2026-09-20T19:40:00Z",
+    "report_generated_at": "2026-09-20T19:50:00Z"
+  },
+  "non_claims": [
+    "This is not a language model or ordinary softmax transformer.",
+    "This is not a Pearl certificate, Pearl verifier, mining result, or claim about Pearl security.",
+    "This has no FP8, B200, GPU, native-serving, energy, wall-clock production, privacy, or physical-work semantics.",
+    "The deterministic Fiat-Shamir audit is conditional on its stated random-oracle, subject-binding, and bounded-grinding assumptions.",
+    "Code-path separation is not human, organizational, or third-party independence.",
+    "Operator authorization of the experiment does not satisfy the DEMAND coordinate."
+  ]
+}

@@ -1,0 +1,9 @@
+[package]
+name = "aeye-e000-pearl-oracle"
+version = "0.0.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+pearl-blake3 = { path = "../../../evidence/external/pearl/pearl-blake3" }
+zk-pow = { path = "../../../evidence/external/pearl/zk-pow" }

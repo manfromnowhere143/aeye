@@ -1,0 +1,6 @@
+# Retained evidence is content-addressed and must never be normalized or rendered as a
+# source diff. Markdown uses two trailing spaces intentionally for hard line breaks.
+evidence/papers/*.pdf binary
+evidence/changes/*.patch binary
+evidence/standards/*.txt binary
+*.md whitespace=-trailing-space,-blank-at-eof

@@ -1,0 +1,2638 @@
+{
+  "all_relations_accept": true,
+  "assumptions": [
+    "fixed Reed-Solomon/Vandermonde generator is MDS over the declared field",
+    "SHA-256 Fiat-Shamir transform is modeled as a random oracle",
+    "the final subject is binding and grinding is bounded",
+    "preprocessing Q is authenticated against the frozen model matrix"
+  ],
+  "challenge_domain": "aeye/e009/coded-mvm-challenge/v0",
+  "challenge_sequence": 4,
+  "challenge_source": "fiat-shamir-from-final-subject",
+  "conditional_union_bound": {
+    "denominator": 879739394437072646331137080735906636585112866347967803758474882198572762381573180545284038373241014982063151504018551605597031414237058297877196988694840183895951260339263524967582736899358576896627155550413988006270707886636874112271387894640275557462239467646428393109423517146315201604838856635931750678801676993822720000000000000000000000000000000000000000000000000000000000000000,
+    "numerator": 438581606206150725072319941288939154752013312892506807236645620530685427059445262755701672335265612629471877617213722736518810601372828672832477047380558717501574611475098390051316917616975877242337015295299836915439746787936222509286797119765396279137361182057340475027575186773915411282424539772480678603255055496105725320628705660354290318386746423548142507
+  },
+  "experiment_id": "E-009",
+  "field_prime": 2305843009213693951,
+  "relations": [
+    {
+      "accepted": true,
+      "block_length": 6,
+      "checks": [
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 734306072798521734,
+              "position": 1
+            },
+            {
+              "coefficient": 647648564601421792,
+              "position": 2
+            },
+            {
+              "coefficient": 46502789770191614,
+              "position": 3
+            },
+            {
+              "coefficient": 325427075646830033,
+              "position": 5
+            }
+          ],
+          "left": 1560631439454758148,
+          "repetition": 0,
+          "right": 1560631439454758148
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 1406345777714054814,
+              "position": 0
+            },
+            {
+              "coefficient": 533528111572670931,
+              "position": 3
+            },
+            {
+              "coefficient": 2009229489160080899,
+              "position": 4
+            },
+            {
+              "coefficient": 104879173551864411,
+              "position": 5
+            }
+          ],
+          "left": 684832591430853512,
+          "repetition": 1,
+          "right": 684832591430853512
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 2015209131605316135,
+              "position": 0
+            },
+            {
+              "coefficient": 82379995940624402,
+              "position": 2
+            },
+            {
+              "coefficient": 956018433531280629,
+              "position": 3
+            },
+            {
+              "coefficient": 1226122262831475361,
+              "position": 4
+            }
+          ],
+          "left": 1180923100690619798,
+          "repetition": 2,
+          "right": 1180923100690619798
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 1251763859281074424,
+              "position": 0
+            },
+            {
+              "coefficient": 1809779370688913282,
+              "position": 2
+            },
+            {
+              "coefficient": 1942518666390775993,
+              "position": 3
+            },
+            {
+              "coefficient": 1883327359901285962,
+              "position": 5
+            }
+          ],
+          "left": 552335699973712164,
+          "repetition": 3,
+          "right": 552335699973712164
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 486916450990435741,
+              "position": 0
+            },
+            {
+              "coefficient": 1482275083928432336,
+              "position": 3
+            },
+            {
+              "coefficient": 223619715408001727,
+              "position": 4
+            },
+            {
+              "coefficient": 778994613196255079,
+              "position": 5
+            }
+          ],
+          "left": 176067487589726148,
+          "repetition": 4,
+          "right": 176067487589726148
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 749176606500646849,
+              "position": 1
+            },
+            {
+              "coefficient": 1987588610669750232,
+              "position": 2
+            },
+            {
+              "coefficient": 1767892705663121260,
+              "position": 3
+            },
+            {
+              "coefficient": 163998919285121653,
+              "position": 5
+            }
+          ],
+          "left": 225355284838523021,
+          "repetition": 5,
+          "right": 225355284838523021
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 1281726039167579060,
+              "position": 1
+            },
+            {
+              "coefficient": 801995731847104584,
+              "position": 2
+            },
+            {
+              "coefficient": 501519442985354942,
+              "position": 4
+            },
+            {
+              "coefficient": 83072651226780273,
+              "position": 5
+            }
+          ],
+          "left": 2073331757996072263,
+          "repetition": 6,
+          "right": 2073331757996072263
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 1113090235770470530,
+              "position": 0
+            },
+            {
+              "coefficient": 1462357787326742988,
+              "position": 3
+            },
+            {
+              "coefficient": 940894332019542149,
+              "position": 4
+            },
+            {
+              "coefficient": 1057481336224071306,
+              "position": 5
+            }
+          ],
+          "left": 2124064255861026762,
+          "repetition": 7,
+          "right": 2124064255861026762
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 1415375338445246136,
+              "position": 0
+            },
+            {
+              "coefficient": 1935991774321236362,
+              "position": 3
+            },
+            {
+              "coefficient": 2220704366749196015,
+              "position": 4
+            },
+            {
+              "coefficient": 217914708218081467,
+              "position": 5
+            }
+          ],
+          "left": 1982235569711178808,
+          "repetition": 8,
+          "right": 1982235569711178808
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 155245587457942990,
+              "position": 0
+            },
+            {
+              "coefficient": 34578314805787175,
+              "position": 2
+            },
+            {
+              "coefficient": 78307329499848111,
+              "position": 3
+            },
+            {
+              "coefficient": 1755234004971709191,
+              "position": 4
+            }
+          ],
+          "left": 1665221135176488570,
+          "repetition": 9,
+          "right": 1665221135176488570
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 228812411633107531,
+              "position": 0
+            },
+            {
+              "coefficient": 1033714714251858885,
+              "position": 2
+            },
+            {
+              "coefficient": 1916333809216776239,
+              "position": 3
+            },
+            {
+              "coefficient": 1095930013613943694,
+              "position": 5
+            }
+          ],
+          "left": 1894291176431537064,
+          "repetition": 10,
+          "right": 1894291176431537064
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 440428910924088821,
+              "position": 0
+            },
+            {
+              "coefficient": 1963696803766074703,
+              "position": 1
+            },
+            {
+              "coefficient": 507986945495647566,
+              "position": 4
+            },
+            {
+              "coefficient": 112399257608274533,
+              "position": 5
+            }
+          ],
+          "left": 606039896701261581,
+          "repetition": 11,
+          "right": 606039896701261581
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 661720444452515395,
+              "position": 0
+            },
+            {
+              "coefficient": 2014815701676110416,
+              "position": 1
+            },
+            {
+              "coefficient": 799311228714863946,
+              "position": 4
+            },
+            {
+              "coefficient": 1648515226117430282,
+              "position": 5
+            }
+          ],
+          "left": 1722484906211309571,
+          "repetition": 12,
+          "right": 1722484906211309571
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 1262525680955219148,
+              "position": 0
+            },
+            {
+              "coefficient": 498964970906762214,
+              "position": 1
+            },
+            {
+              "coefficient": 965229684566263686,
+              "position": 2
+            },
+            {
+              "coefficient": 1085608572317178390,
+              "position": 3
+            }
+          ],
+          "left": 1627437498578064997,
+          "repetition": 13,
+          "right": 1627437498578064997
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 791538143731323879,
+              "position": 2
+            },
+            {
+              "coefficient": 1065362007346490405,
+              "position": 3
+            },
+            {
+              "coefficient": 1816916910661961951,
+              "position": 4
+            },
+            {
+              "coefficient": 1291928010558747639,
+              "position": 5
+            }
+          ],
+          "left": 871384555687845138,
+          "repetition": 14,
+          "right": 871384555687845138
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 287698730669718785,
+              "position": 0
+            },
+            {
+              "coefficient": 1959167606800744116,
+              "position": 1
+            },
+            {
+              "coefficient": 748623280361707300,
+              "position": 4
+            },
+            {
+              "coefficient": 1039595613637208398,
+              "position": 5
+            }
+          ],
+          "left": 1815770815322808884,
+          "repetition": 15,
+          "right": 1815770815322808884
+        }
+      ],
+      "conditional_soundness_bound": {
+        "denominator": 1183466363933485840548003040506409375615986944153904723927185242518633802222876838905920584317427430445684520232386031375167691531778339452594151594573822889311973815414988589507106003300048266315633109029307059044755558498430083970571477022317633892467447961088850888074247648880860900878906250000000000000000,
+        "numerator": 344663756441228783245284961382075678610161622759925962722177354344779325910778981314170847935877439206269864013429853757485379796996755575802544611184365622414845668922379081982316512840163931696587949278567469877182127160991546234935057360623751639925886402684326857427401127041
+      },
+      "event_id": "q_linear",
+      "generator": [
+        [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        [
+          1,
+          4,
+          9,
+          16,
+          25,
+          36
+        ]
+      ],
+      "generator_digest": "sha256:301f904fde196e67d1ffe48348f4835d0a9f51c2692e032129e622f51ebdfebb",
+      "input": [
+        2,
+        2305843009213693950,
+        3,
+        1
+      ],
+      "matrix_digest": "sha256:78d59f13d7e58a7b531a8be1223fafe62d29cd62c4d0aefc2ef38a8b047c6b70",
+      "matrix_name": "Wq",
+      "message_length": 3,
+      "minimum_distance": 4,
+      "operand_root_a": "sha256:346004e2c62d312904f9d91ef791f24d859ab26389692b8b21fd1254a20f1639",
+      "operand_root_b": "sha256:612598b60ec4693baa69697d89305da4c9fa865b6f300605c215160188b0ac9d",
+      "output": [
+        4,
+        2,
+        4
+      ],
+      "preprocessing": [
+        [
+          2,
+          0,
+          2,
+          0
+        ],
+        [
+          5,
+          2305843009213693949,
+          3,
+          3
+        ],
+        [
+          10,
+          2305843009213693945,
+          4,
+          8
+        ],
+        [
+          17,
+          2305843009213693939,
+          5,
+          15
+        ],
+        [
+          26,
+          2305843009213693931,
+          6,
+          24
+        ],
+        [
+          37,
+          2305843009213693921,
+          7,
+          35
+        ]
+      ],
+      "preprocessing_digest": "sha256:8ef8782333077dca6931e6c9cd49fde1ff4ee55bd95293d711a72161a6943a45",
+      "relative_distance": {
+        "denominator": 3,
+        "numerator": 2
+      }
+    },
+    {
+      "accepted": true,
+      "block_length": 6,
+      "checks": [
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 1520486055438715706,
+              "position": 0
+            },
+            {
+              "coefficient": 1499274465196530989,
+              "position": 1
+            },
+            {
+              "coefficient": 2257780667565531298,
+              "position": 4
+            },
+            {
+              "coefficient": 330752549416879106,
+              "position": 5
+            }
+          ],
+          "left": 1617717561750014861,
+          "repetition": 0,
+          "right": 1617717561750014861
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 1624755466845515779,
+              "position": 0
+            },
+            {
+              "coefficient": 1751117435284728198,
+              "position": 1
+            },
+            {
+              "coefficient": 326487614662603082,
+              "position": 2
+            },
+            {
+              "coefficient": 260005737243573479,
+              "position": 3
+            }
+          ],
+          "left": 796351773923485982,
+          "repetition": 1,
+          "right": 796351773923485982
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 714567702999534860,
+              "position": 1
+            },
+            {
+              "coefficient": 1955729325733918371,
+              "position": 2
+            },
+            {
+              "coefficient": 389729884806575524,
+              "position": 4
+            },
+            {
+              "coefficient": 730988681169402090,
+              "position": 5
+            }
+          ],
+          "left": 2250756029376480950,
+          "repetition": 2,
+          "right": 2250756029376480950
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 180870317247481746,
+              "position": 0
+            },
+            {
+              "coefficient": 2223459826648499594,
+              "position": 1
+            },
+            {
+              "coefficient": 2106190774263517717,
+              "position": 4
+            },
+            {
+              "coefficient": 1709992126168771028,
+              "position": 5
+            }
+          ],
+          "left": 1005123710764017564,
+          "repetition": 3,
+          "right": 1005123710764017564
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 1402411331431774695,
+              "position": 2
+            },
+            {
+              "coefficient": 1215593283875232473,
+              "position": 3
+            },
+            {
+              "coefficient": 475422146434222655,
+              "position": 4
+            },
+            {
+              "coefficient": 168249628998529700,
+              "position": 5
+            }
+          ],
+          "left": 803492401443283190,
+          "repetition": 4,
+          "right": 803492401443283190
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 1375297622956591903,
+              "position": 1
+            },
+            {
+              "coefficient": 1765823748865091242,
+              "position": 2
+            },
+            {
+              "coefficient": 1358469422592073374,
+              "position": 4
+            },
+            {
+              "coefficient": 491511066744819221,
+              "position": 5
+            }
+          ],
+          "left": 233622481596169413,
+          "repetition": 5,
+          "right": 233622481596169413
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 1053806201797097125,
+              "position": 0
+            },
+            {
+              "coefficient": 516959727579942804,
+              "position": 3
+            },
+            {
+              "coefficient": 1271938911770398179,
+              "position": 4
+            },
+            {
+              "coefficient": 472280704052295453,
+              "position": 5
+            }
+          ],
+          "left": 1529704505602096995,
+          "repetition": 6,
+          "right": 1529704505602096995
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 2093015188298864261,
+              "position": 1
+            },
+            {
+              "coefficient": 788222992995988404,
+              "position": 2
+            },
+            {
+              "coefficient": 1508421484301348847,
+              "position": 4
+            },
+            {
+              "coefficient": 745934453974369295,
+              "position": 5
+            }
+          ],
+          "left": 725024747629745554,
+          "repetition": 7,
+          "right": 725024747629745554
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 656094180893193847,
+              "position": 1
+            },
+            {
+              "coefficient": 582447149860391895,
+              "position": 2
+            },
+            {
+              "coefficient": 2138036742179112140,
+              "position": 3
+            },
+            {
+              "coefficient": 713806361261046258,
+              "position": 4
+            }
+          ],
+          "left": 2168654284999461964,
+          "repetition": 8,
+          "right": 2168654284999461964
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 830122862173251951,
+              "position": 1
+            },
+            {
+              "coefficient": 1062433567613339826,
+              "position": 3
+            },
+            {
+              "coefficient": 858166738203444784,
+              "position": 4
+            },
+            {
+              "coefficient": 1883907630109718773,
+              "position": 5
+            }
+          ],
+          "left": 474143029581465421,
+          "repetition": 9,
+          "right": 474143029581465421
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 64034616492683537,
+              "position": 0
+            },
+            {
+              "coefficient": 438097072518118197,
+              "position": 1
+            },
+            {
+              "coefficient": 888160587821328131,
+              "position": 4
+            },
+            {
+              "coefficient": 2077524791810722464,
+              "position": 5
+            }
+          ],
+          "left": 924149192631297558,
+          "repetition": 10,
+          "right": 924149192631297558
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 1180298910662436941,
+              "position": 0
+            },
+            {
+              "coefficient": 1960162244571324778,
+              "position": 1
+            },
+            {
+              "coefficient": 2071900176780184758,
+              "position": 2
+            },
+            {
+              "coefficient": 2275029613820141563,
+              "position": 4
+            }
+          ],
+          "left": 1648013122689737439,
+          "repetition": 11,
+          "right": 1648013122689737439
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 1630928321265615364,
+              "position": 1
+            },
+            {
+              "coefficient": 1144981965540232783,
+              "position": 2
+            },
+            {
+              "coefficient": 1973063356300998110,
+              "position": 4
+            },
+            {
+              "coefficient": 454798759597044004,
+              "position": 5
+            }
+          ],
+          "left": 2082363375829355049,
+          "repetition": 12,
+          "right": 2082363375829355049
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 1550061690805679838,
+              "position": 1
+            },
+            {
+              "coefficient": 2187535944109568647,
+              "position": 2
+            },
+            {
+              "coefficient": 1155284139215827711,
+              "position": 3
+            },
+            {
+              "coefficient": 773540317661039653,
+              "position": 4
+            }
+          ],
+          "left": 1437067262822893983,
+          "repetition": 13,
+          "right": 1437067262822893983
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 1396770406400770498,
+              "position": 1
+            },
+            {
+              "coefficient": 720936844785477790,
+              "position": 2
+            },
+            {
+              "coefficient": 1242829349555549226,
+              "position": 3
+            },
+            {
+              "coefficient": 2142039379253547060,
+              "position": 4
+            }
+          ],
+          "left": 102667048139299874,
+          "repetition": 14,
+          "right": 102667048139299874
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 1686816109190885137,
+              "position": 0
+            },
+            {
+              "coefficient": 125325406515322152,
+              "position": 1
+            },
+            {
+              "coefficient": 1596490979445463698,
+              "position": 4
+            },
+            {
+              "coefficient": 1696256642183134367,
+              "position": 5
+            }
+          ],
+          "left": 1180597911440139353,
+          "repetition": 15,
+          "right": 1180597911440139353
+        }
+      ],
+      "conditional_soundness_bound": {
+        "denominator": 1183466363933485840548003040506409375615986944153904723927185242518633802222876838905920584317427430445684520232386031375167691531778339452594151594573822889311973815414988589507106003300048266315633109029307059044755558498430083970571477022317633892467447961088850888074247648880860900878906250000000000000000,
+        "numerator": 344663756441228783245284961382075678610161622759925962722177354344779325910778981314170847935877439206269864013429853757485379796996755575802544611184365622414845668922379081982316512840163931696587949278567469877182127160991546234935057360623751639925886402684326857427401127041
+      },
+      "event_id": "k_linear",
+      "generator": [
+        [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6
+        ],
+        [
+          1,
+          4,
+          9,
+          16,
+          25,
+          36
+        ]
+      ],
+      "generator_digest": "sha256:301f904fde196e67d1ffe48348f4835d0a9f51c2692e032129e622f51ebdfebb",
+      "input": [
+        2,
+        2305843009213693950,
+        3,
+        1
+      ],
+      "matrix_digest": "sha256:7de138cd081a26bd878349eeab76ca7b00bdac939e7aeea3b6e3e3bf8c248e21",
+      "matrix_name": "Wk",
+      "message_length": 3,
+      "minimum_distance": 4,
+      "operand_root_a": "sha256:a296b09b2aad4d596532c962156eb4a61beecefaa9ce44fc8bee810403c01148",
+      "operand_root_b": "sha256:60c3338acc32b8355a08188d6b2236998c4d5cb37e39fa7d5640be33480c508f",
+      "output": [
+        1,
+        2305843009213693948,
+        6
+      ],
+      "preprocessing": [
+        [
+          2,
+          2,
+          0,
+          2
+        ],
+        [
+          5,
+          3,
+          2,
+          6
+        ],
+        [
+          10,
+          4,
+          6,
+          12
+        ],
+        [
+          17,
+          5,
+          12,
+          20
+        ],
+        [
+          26,
+          6,
+          20,
+          30
+        ],
+        [
+          37,
+          7,
+          30,
+          42
+        ]
+      ],
+      "preprocessing_digest": "sha256:33b1cbb8bb11b27c3f6edf47f86f44f440d4fa2cf65ecd3ce0caa4f75da466cb",
+      "relative_distance": {
+        "denominator": 3,
+        "numerator": 2
+      }
+    },
+    {
+      "accepted": true,
+      "block_length": 8,
+      "checks": [
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 1936187667116131632,
+              "position": 0
+            },
+            {
+              "coefficient": 1243925957937397803,
+              "position": 4
+            },
+            {
+              "coefficient": 1261994705192856559,
+              "position": 6
+            },
+            {
+              "coefficient": 223790374584610707,
+              "position": 7
+            }
+          ],
+          "left": 270508734149380452,
+          "repetition": 0,
+          "right": 270508734149380452
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 963225388015449528,
+              "position": 0
+            },
+            {
+              "coefficient": 79904981844576500,
+              "position": 1
+            },
+            {
+              "coefficient": 2220206737494612002,
+              "position": 3
+            },
+            {
+              "coefficient": 542965137171128508,
+              "position": 6
+            }
+          ],
+          "left": 617564798970694259,
+          "repetition": 1,
+          "right": 617564798970694259
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 830154352617318438,
+              "position": 0
+            },
+            {
+              "coefficient": 1520480617647603061,
+              "position": 1
+            },
+            {
+              "coefficient": 549081036568887385,
+              "position": 3
+            },
+            {
+              "coefficient": 614168150643442090,
+              "position": 7
+            }
+          ],
+          "left": 203282481294906653,
+          "repetition": 2,
+          "right": 203282481294906653
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 694440305737400263,
+              "position": 0
+            },
+            {
+              "coefficient": 1438907109484355680,
+              "position": 3
+            },
+            {
+              "coefficient": 618862910588304623,
+              "position": 4
+            },
+            {
+              "coefficient": 2113691676212272454,
+              "position": 7
+            }
+          ],
+          "left": 1755065567186616793,
+          "repetition": 3,
+          "right": 1755065567186616793
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 2215907950284842225,
+              "position": 0
+            },
+            {
+              "coefficient": 229126706283068209,
+              "position": 4
+            },
+            {
+              "coefficient": 1457514130138678707,
+              "position": 5
+            },
+            {
+              "coefficient": 2277066288071316851,
+              "position": 7
+            }
+          ],
+          "left": 1017077239516951856,
+          "repetition": 4,
+          "right": 1017077239516951856
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 278661149043799011,
+              "position": 1
+            },
+            {
+              "coefficient": 2009014289390727297,
+              "position": 4
+            },
+            {
+              "coefficient": 1297490025768490448,
+              "position": 5
+            },
+            {
+              "coefficient": 70957610357177564,
+              "position": 7
+            }
+          ],
+          "left": 2059632232323196811,
+          "repetition": 5,
+          "right": 2059632232323196811
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 853429404424500051,
+              "position": 0
+            },
+            {
+              "coefficient": 1965359009563338079,
+              "position": 2
+            },
+            {
+              "coefficient": 1559297531651227366,
+              "position": 4
+            },
+            {
+              "coefficient": 1327182893124909467,
+              "position": 6
+            }
+          ],
+          "left": 1006622538406199324,
+          "repetition": 6,
+          "right": 1006622538406199324
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 1759311856147749274,
+              "position": 0
+            },
+            {
+              "coefficient": 2012531003023366005,
+              "position": 1
+            },
+            {
+              "coefficient": 816176578643265037,
+              "position": 3
+            },
+            {
+              "coefficient": 1711079256545985013,
+              "position": 4
+            }
+          ],
+          "left": 210328174817015493,
+          "repetition": 7,
+          "right": 210328174817015493
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 1903240129336927724,
+              "position": 0
+            },
+            {
+              "coefficient": 1348299015221090351,
+              "position": 1
+            },
+            {
+              "coefficient": 801060177309329024,
+              "position": 3
+            },
+            {
+              "coefficient": 725537232385763621,
+              "position": 4
+            }
+          ],
+          "left": 937075696453378102,
+          "repetition": 8,
+          "right": 937075696453378102
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 691911509254900098,
+              "position": 0
+            },
+            {
+              "coefficient": 361878908053412335,
+              "position": 1
+            },
+            {
+              "coefficient": 319490474057049821,
+              "position": 5
+            },
+            {
+              "coefficient": 416367235802381988,
+              "position": 6
+            }
+          ],
+          "left": 980511712615160607,
+          "repetition": 9,
+          "right": 980511712615160607
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 648780186877587188,
+              "position": 2
+            },
+            {
+              "coefficient": 1069808497999235456,
+              "position": 3
+            },
+            {
+              "coefficient": 1952930046530692519,
+              "position": 5
+            },
+            {
+              "coefficient": 327758295765044482,
+              "position": 7
+            }
+          ],
+          "left": 165663066934964798,
+          "repetition": 10,
+          "right": 165663066934964798
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 563812434482212542,
+              "position": 3
+            },
+            {
+              "coefficient": 1169007634448160885,
+              "position": 4
+            },
+            {
+              "coefficient": 368184711169757258,
+              "position": 5
+            },
+            {
+              "coefficient": 807330584055033114,
+              "position": 7
+            }
+          ],
+          "left": 978176883545251400,
+          "repetition": 11,
+          "right": 978176883545251400
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 1787823596059106799,
+              "position": 2
+            },
+            {
+              "coefficient": 195857309837714591,
+              "position": 3
+            },
+            {
+              "coefficient": 751189823829241392,
+              "position": 4
+            },
+            {
+              "coefficient": 2149372802673110660,
+              "position": 5
+            }
+          ],
+          "left": 2006868513800743367,
+          "repetition": 12,
+          "right": 2006868513800743367
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 1791328835487254606,
+              "position": 0
+            },
+            {
+              "coefficient": 1541229523700763497,
+              "position": 1
+            },
+            {
+              "coefficient": 815819495214506710,
+              "position": 3
+            },
+            {
+              "coefficient": 1700608893650510271,
+              "position": 5
+            }
+          ],
+          "left": 1860601544174075591,
+          "repetition": 13,
+          "right": 1860601544174075591
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 1100028582956807879,
+              "position": 1
+            },
+            {
+              "coefficient": 1287022347342208454,
+              "position": 3
+            },
+            {
+              "coefficient": 865378040266152396,
+              "position": 4
+            },
+            {
+              "coefficient": 132740866909036822,
+              "position": 7
+            }
+          ],
+          "left": 351586619841052192,
+          "repetition": 14,
+          "right": 351586619841052192
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 2267663366495711037,
+              "position": 2
+            },
+            {
+              "coefficient": 1162955722342630890,
+              "position": 3
+            },
+            {
+              "coefficient": 359297367259260545,
+              "position": 5
+            },
+            {
+              "coefficient": 1610273436949279404,
+              "position": 6
+            }
+          ],
+          "left": 1594860995150752614,
+          "repetition": 15,
+          "right": 1594860995150752614
+        }
+      ],
+      "conditional_soundness_bound": {
+        "denominator": 61172327492847068623095813063339576533304481315933508614025822553601508338922972402740205883171822360354796921525280321053258757264362212319301535539198599426238750597555236989178106473284174785328663370464496417173529955289792321222259299971543392469934128461246231854743139623757472162937762496353178903924808089600000000000000000000000000000000,
+        "numerator": 33462327044614109682525496321827248906789267372836244387946526894018074193615718832612827918130788433525232996573500118692218158726840584247482171619125870061291618627047989069405350372244936815235637046787420514822766086548570105669843785808505627169427360099967739048734265016609215229955246776469329615379478901832961
+      },
+      "event_id": "v_linear",
+      "generator": [
+        [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8
+        ],
+        [
+          1,
+          4,
+          9,
+          16,
+          25,
+          36,
+          49,
+          64
+        ],
+        [
+          1,
+          8,
+          27,
+          64,
+          125,
+          216,
+          343,
+          512
+        ]
+      ],
+      "generator_digest": "sha256:cdb06df71608a864ed62e588c8b885f10e0a564656aa970c3a74c45379870266",
+      "input": [
+        2,
+        2305843009213693950,
+        3,
+        1
+      ],
+      "matrix_digest": "sha256:8a4b3eb4388a68b0dedbbe2beaa48e4fd6fdc509c1d0154b15299aff831608a9",
+      "matrix_name": "Wv",
+      "message_length": 4,
+      "minimum_distance": 5,
+      "operand_root_a": "sha256:3757a3e6a2e143ca198c7ce83a24f0852bad2acbad18e9e123ad70ce3eb2bd65",
+      "operand_root_b": "sha256:b5f1d0496186e41ceb629178df5a45739e63b4536087105ba2b7033548939dd0",
+      "output": [
+        3,
+        2,
+        0,
+        4
+      ],
+      "preprocessing": [
+        [
+          2,
+          2,
+          2,
+          1
+        ],
+        [
+          5,
+          6,
+          10,
+          5
+        ],
+        [
+          10,
+          12,
+          30,
+          19
+        ],
+        [
+          17,
+          20,
+          68,
+          49
+        ],
+        [
+          26,
+          30,
+          130,
+          101
+        ],
+        [
+          37,
+          42,
+          222,
+          181
+        ],
+        [
+          50,
+          56,
+          350,
+          295
+        ],
+        [
+          65,
+          72,
+          520,
+          449
+        ]
+      ],
+      "preprocessing_digest": "sha256:87d1e5ac03a2e7d020b371490e2e64773b33e64dabba243e015a25e1fb0e7dfd",
+      "relative_distance": {
+        "denominator": 8,
+        "numerator": 5
+      }
+    },
+    {
+      "accepted": true,
+      "block_length": 10,
+      "checks": [
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 1106022497665378808,
+              "position": 1
+            },
+            {
+              "coefficient": 260643820676277256,
+              "position": 2
+            },
+            {
+              "coefficient": 1596403116258853346,
+              "position": 6
+            },
+            {
+              "coefficient": 1794176010495274837,
+              "position": 8
+            }
+          ],
+          "left": 1166927839612939158,
+          "repetition": 0,
+          "right": 1166927839612939158
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 2157483060018583422,
+              "position": 2
+            },
+            {
+              "coefficient": 1811079479139113117,
+              "position": 4
+            },
+            {
+              "coefficient": 1323558961096513912,
+              "position": 6
+            },
+            {
+              "coefficient": 810015343176802495,
+              "position": 9
+            }
+          ],
+          "left": 565000860218571811,
+          "repetition": 1,
+          "right": 565000860218571811
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 1275704552525841150,
+              "position": 0
+            },
+            {
+              "coefficient": 889607742934101974,
+              "position": 2
+            },
+            {
+              "coefficient": 2106588055348480702,
+              "position": 4
+            },
+            {
+              "coefficient": 1615574108880119195,
+              "position": 5
+            }
+          ],
+          "left": 437098586449459843,
+          "repetition": 2,
+          "right": 437098586449459843
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 692347822339913844,
+              "position": 3
+            },
+            {
+              "coefficient": 2179806109336318451,
+              "position": 6
+            },
+            {
+              "coefficient": 1699091838330124040,
+              "position": 7
+            },
+            {
+              "coefficient": 525043155040154888,
+              "position": 8
+            }
+          ],
+          "left": 2044719319191874058,
+          "repetition": 3,
+          "right": 2044719319191874058
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 913835285232019028,
+              "position": 1
+            },
+            {
+              "coefficient": 2249500988039288637,
+              "position": 7
+            },
+            {
+              "coefficient": 1096841103580750825,
+              "position": 8
+            },
+            {
+              "coefficient": 176836741472981133,
+              "position": 9
+            }
+          ],
+          "left": 100738743072417049,
+          "repetition": 4,
+          "right": 100738743072417049
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 1179194801159075579,
+              "position": 2
+            },
+            {
+              "coefficient": 744826416960395541,
+              "position": 5
+            },
+            {
+              "coefficient": 1500553759146990665,
+              "position": 6
+            },
+            {
+              "coefficient": 2094516545248359344,
+              "position": 7
+            }
+          ],
+          "left": 430351773913138678,
+          "repetition": 5,
+          "right": 430351773913138678
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 917593243197427120,
+              "position": 1
+            },
+            {
+              "coefficient": 1071365359995410481,
+              "position": 2
+            },
+            {
+              "coefficient": 1044899273708086072,
+              "position": 4
+            },
+            {
+              "coefficient": 82548989059545930,
+              "position": 5
+            }
+          ],
+          "left": 2252026884166372016,
+          "repetition": 6,
+          "right": 2252026884166372016
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 1965514614362170032,
+              "position": 0
+            },
+            {
+              "coefficient": 580979720240004085,
+              "position": 2
+            },
+            {
+              "coefficient": 2192724369175535810,
+              "position": 3
+            },
+            {
+              "coefficient": 833170027882754104,
+              "position": 9
+            }
+          ],
+          "left": 693886303562019647,
+          "repetition": 7,
+          "right": 693886303562019647
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 1313442750281032841,
+              "position": 0
+            },
+            {
+              "coefficient": 454987748820175727,
+              "position": 2
+            },
+            {
+              "coefficient": 1948521775148908244,
+              "position": 6
+            },
+            {
+              "coefficient": 1851984645919642396,
+              "position": 8
+            }
+          ],
+          "left": 832586116188766684,
+          "repetition": 8,
+          "right": 832586116188766684
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 18236989020595527,
+              "position": 0
+            },
+            {
+              "coefficient": 165892964489592418,
+              "position": 1
+            },
+            {
+              "coefficient": 1215511319682148532,
+              "position": 3
+            },
+            {
+              "coefficient": 1704233646028619680,
+              "position": 8
+            }
+          ],
+          "left": 1746391431181199902,
+          "repetition": 9,
+          "right": 1746391431181199902
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 520440843934789381,
+              "position": 0
+            },
+            {
+              "coefficient": 285978346039712676,
+              "position": 3
+            },
+            {
+              "coefficient": 1585499302621772698,
+              "position": 5
+            },
+            {
+              "coefficient": 2168421997832152483,
+              "position": 6
+            }
+          ],
+          "left": 1374399124066894707,
+          "repetition": 10,
+          "right": 1374399124066894707
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 1483607351235413086,
+              "position": 1
+            },
+            {
+              "coefficient": 1017064730738805376,
+              "position": 2
+            },
+            {
+              "coefficient": 2241179947613049608,
+              "position": 4
+            },
+            {
+              "coefficient": 26435932796898894,
+              "position": 5
+            }
+          ],
+          "left": 1060530587970627900,
+          "repetition": 11,
+          "right": 1060530587970627900
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 814663421786959770,
+              "position": 1
+            },
+            {
+              "coefficient": 742627884492431048,
+              "position": 3
+            },
+            {
+              "coefficient": 428210534582929785,
+              "position": 4
+            },
+            {
+              "coefficient": 1429351168859110611,
+              "position": 5
+            }
+          ],
+          "left": 388166701644921048,
+          "repetition": 12,
+          "right": 388166701644921048
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 2248355454055053996,
+              "position": 0
+            },
+            {
+              "coefficient": 726680534068396867,
+              "position": 1
+            },
+            {
+              "coefficient": 901019988867438212,
+              "position": 6
+            },
+            {
+              "coefficient": 1597172903045592578,
+              "position": 7
+            }
+          ],
+          "left": 112378602792921905,
+          "repetition": 13,
+          "right": 112378602792921905
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 2068494351999346222,
+              "position": 0
+            },
+            {
+              "coefficient": 977824178208964134,
+              "position": 6
+            },
+            {
+              "coefficient": 1836087380244866867,
+              "position": 7
+            },
+            {
+              "coefficient": 1247180217083139725,
+              "position": 8
+            }
+          ],
+          "left": 402740052444000355,
+          "repetition": 14,
+          "right": 402740052444000355
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 153008864110816852,
+              "position": 1
+            },
+            {
+              "coefficient": 586806304664701950,
+              "position": 3
+            },
+            {
+              "coefficient": 524670039069729884,
+              "position": 6
+            },
+            {
+              "coefficient": 2016636183928052717,
+              "position": 8
+            }
+          ],
+          "left": 1942711471416820385,
+          "repetition": 15,
+          "right": 1942711471416820385
+        }
+      ],
+      "conditional_soundness_bound": {
+        "denominator": 14870169084777830421615573756629770087378494712093446192450155698826233539038451157511205076985360670033513668109965903665814651502369997706891370826086199076047304549154511081784004284060190434315283277330581846494311027398038341723931005607046692265850596014566986049487695709103718400001525878906250000000000000000,
+        "numerator": 506005633268276676012101278583604521694964981690223358150577984882157483140397017774824527678668731015392061240219432906660307768042705694299854722239826347342290502916328458074171430220211933689908249676487397098646033912991863750576449667887499050849634833671323566886901755571658988891521
+      },
+      "event_id": "mlp_linear",
+      "generator": [
+        [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10
+        ],
+        [
+          1,
+          4,
+          9,
+          16,
+          25,
+          36,
+          49,
+          64,
+          81,
+          100
+        ],
+        [
+          1,
+          8,
+          27,
+          64,
+          125,
+          216,
+          343,
+          512,
+          729,
+          1000
+        ],
+        [
+          1,
+          16,
+          81,
+          256,
+          625,
+          1296,
+          2401,
+          4096,
+          6561,
+          10000
+        ]
+      ],
+      "generator_digest": "sha256:af85b2beea3ee266d4e839905471ba507e0afc87969ff002b4b08a7f1748f08b",
+      "input": [
+        5,
+        1,
+        3,
+        5
+      ],
+      "matrix_digest": "sha256:ad9ea987696f37565444cb44c051b9837b811c8d7e68c61019c342db352c7f23",
+      "matrix_name": "W1",
+      "message_length": 5,
+      "minimum_distance": 6,
+      "operand_root_a": "sha256:8605c62a28cba50575c040215a5f6bbf1fbea7e4d8dcf166b4491725cf8f7282",
+      "operand_root_b": "sha256:9f8cf4e9758e0cce8fbfc6d06a6fe72ea865be8ea6a7ae58e43f644841eb0f32",
+      "output": [
+        9,
+        2305843009213693949,
+        2305843009213693949,
+        3,
+        1
+      ],
+      "preprocessing": [
+        [
+          0,
+          1,
+          1,
+          1
+        ],
+        [
+          2305843009213693942,
+          19,
+          6,
+          9
+        ],
+        [
+          2305843009213693895,
+          89,
+          21,
+          55
+        ],
+        [
+          2305843009213693756,
+          271,
+          52,
+          193
+        ],
+        [
+          2305843009213693447,
+          649,
+          105,
+          501
+        ],
+        [
+          2305843009213692866,
+          1331,
+          186,
+          1081
+        ],
+        [
+          2305843009213691887,
+          2449,
+          301,
+          2059
+        ],
+        [
+          2305843009213690360,
+          4159,
+          456,
+          3585
+        ],
+        [
+          2305843009213688111,
+          6641,
+          657,
+          5833
+        ],
+        [
+          2305843009213684942,
+          10099,
+          910,
+          9001
+        ]
+      ],
+      "preprocessing_digest": "sha256:84618a3ed816d4a4749bf8e994861c7556da6ff22ab10cbaef376326f21dbf40",
+      "relative_distance": {
+        "denominator": 5,
+        "numerator": 3
+      }
+    },
+    {
+      "accepted": true,
+      "block_length": 12,
+      "checks": [
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 1687027523553012615,
+              "position": 4
+            },
+            {
+              "coefficient": 680139964127311304,
+              "position": 5
+            },
+            {
+              "coefficient": 607883310090274429,
+              "position": 7
+            },
+            {
+              "coefficient": 1046484725391084019,
+              "position": 8
+            }
+          ],
+          "left": 1726483007880019792,
+          "repetition": 0,
+          "right": 1726483007880019792
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 317101923077429707,
+              "position": 3
+            },
+            {
+              "coefficient": 241307089578009742,
+              "position": 4
+            },
+            {
+              "coefficient": 2175619695604104747,
+              "position": 6
+            },
+            {
+              "coefficient": 1070050000926155605,
+              "position": 11
+            }
+          ],
+          "left": 659402911209856126,
+          "repetition": 1,
+          "right": 659402911209856126
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 1782956008341155142,
+              "position": 3
+            },
+            {
+              "coefficient": 786256371457465823,
+              "position": 6
+            },
+            {
+              "coefficient": 1467513296318377637,
+              "position": 7
+            },
+            {
+              "coefficient": 224406786052604937,
+              "position": 8
+            }
+          ],
+          "left": 2250333498551277066,
+          "repetition": 2,
+          "right": 2250333498551277066
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 925662475117125656,
+              "position": 0
+            },
+            {
+              "coefficient": 2099291738286615972,
+              "position": 1
+            },
+            {
+              "coefficient": 1550482440123256571,
+              "position": 4
+            },
+            {
+              "coefficient": 20966341978551453,
+              "position": 8
+            }
+          ],
+          "left": 169762885136291927,
+          "repetition": 3,
+          "right": 169762885136291927
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 1801493234331999952,
+              "position": 3
+            },
+            {
+              "coefficient": 258932139379791891,
+              "position": 4
+            },
+            {
+              "coefficient": 1075353195026727247,
+              "position": 5
+            },
+            {
+              "coefficient": 1435406731789229346,
+              "position": 11
+            }
+          ],
+          "left": 2052853588209929717,
+          "repetition": 4,
+          "right": 2052853588209929717
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 1260545397264405566,
+              "position": 0
+            },
+            {
+              "coefficient": 2135956305822976916,
+              "position": 3
+            },
+            {
+              "coefficient": 1294858856461947952,
+              "position": 6
+            },
+            {
+              "coefficient": 717434042680358361,
+              "position": 9
+            }
+          ],
+          "left": 1458094229659389197,
+          "repetition": 5,
+          "right": 1458094229659389197
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 1251709798172483880,
+              "position": 0
+            },
+            {
+              "coefficient": 692909770894882626,
+              "position": 3
+            },
+            {
+              "coefficient": 2292602150970015535,
+              "position": 5
+            },
+            {
+              "coefficient": 1231021420815030749,
+              "position": 10
+            }
+          ],
+          "left": 478201628705443965,
+          "repetition": 6,
+          "right": 478201628705443965
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 540359724316347536,
+              "position": 3
+            },
+            {
+              "coefficient": 1702899022487805954,
+              "position": 4
+            },
+            {
+              "coefficient": 925202969413992167,
+              "position": 7
+            },
+            {
+              "coefficient": 940256633117832626,
+              "position": 9
+            }
+          ],
+          "left": 1641267637785970356,
+          "repetition": 7,
+          "right": 1641267637785970356
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 1746605023992486830,
+              "position": 1
+            },
+            {
+              "coefficient": 929403801324032486,
+              "position": 3
+            },
+            {
+              "coefficient": 242601986657471935,
+              "position": 5
+            },
+            {
+              "coefficient": 1935526694642761783,
+              "position": 10
+            }
+          ],
+          "left": 1582527726043124225,
+          "repetition": 8,
+          "right": 1582527726043124225
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 685927200131281644,
+              "position": 2
+            },
+            {
+              "coefficient": 198177649787570019,
+              "position": 3
+            },
+            {
+              "coefficient": 1819109778455576227,
+              "position": 8
+            },
+            {
+              "coefficient": 2028737772107042987,
+              "position": 10
+            }
+          ],
+          "left": 286030268276321466,
+          "repetition": 9,
+          "right": 286030268276321466
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 382160146173510746,
+              "position": 1
+            },
+            {
+              "coefficient": 1758983038127081049,
+              "position": 5
+            },
+            {
+              "coefficient": 530459398727114744,
+              "position": 7
+            },
+            {
+              "coefficient": 1864372355009729549,
+              "position": 10
+            }
+          ],
+          "left": 1070371287690425963,
+          "repetition": 10,
+          "right": 1070371287690425963
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 11837232674255038,
+              "position": 2
+            },
+            {
+              "coefficient": 1571656396076417256,
+              "position": 8
+            },
+            {
+              "coefficient": 145790016458336744,
+              "position": 9
+            },
+            {
+              "coefficient": 861478194728582556,
+              "position": 11
+            }
+          ],
+          "left": 562622990891276324,
+          "repetition": 11,
+          "right": 562622990891276324
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 826098707741791220,
+              "position": 1
+            },
+            {
+              "coefficient": 2095681672491390013,
+              "position": 2
+            },
+            {
+              "coefficient": 882597397504003048,
+              "position": 5
+            },
+            {
+              "coefficient": 1430322492649458520,
+              "position": 7
+            }
+          ],
+          "left": 738700883759833319,
+          "repetition": 12,
+          "right": 738700883759833319
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 1998918876882974477,
+              "position": 3
+            },
+            {
+              "coefficient": 993276934453768561,
+              "position": 5
+            },
+            {
+              "coefficient": 1309632031000571769,
+              "position": 7
+            },
+            {
+              "coefficient": 64325521956982432,
+              "position": 11
+            }
+          ],
+          "left": 1455785772506168093,
+          "repetition": 13,
+          "right": 1455785772506168093
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 1272077786227372324,
+              "position": 2
+            },
+            {
+              "coefficient": 1749273516419037096,
+              "position": 4
+            },
+            {
+              "coefficient": 2226003212004238836,
+              "position": 5
+            },
+            {
+              "coefficient": 736374291901025889,
+              "position": 6
+            }
+          ],
+          "left": 917673438903530944,
+          "repetition": 14,
+          "right": 917673438903530944
+        },
+        {
+          "accepted": true,
+          "challenge": [
+            {
+              "coefficient": 1504843733226737413,
+              "position": 2
+            },
+            {
+              "coefficient": 728286315819060906,
+              "position": 3
+            },
+            {
+              "coefficient": 736976624615897360,
+              "position": 7
+            },
+            {
+              "coefficient": 467634312916017645,
+              "position": 11
+            }
+          ],
+          "left": 117275309072092296,
+          "repetition": 15,
+          "right": 117275309072092296
+        }
+      ],
+      "conditional_soundness_bound": {
+        "denominator": 6144908683633473559733040729089919267583961130687742054638044551470592355226910537192253663949023571205766532831023574845844633511060790376811267263452803137916731138289418478735602020048712684516518997613438321321299587515906017126548485094497042410976063466955174643844996000265110295299712032796338321725849600000000000000000000000000000000,
+        "numerator": 2850991771778830681882284585960232049649861106515258342285954831468679200002951368208161976438541823888909050785180173164289611908584364632193397422654348921038414047601325189578569712996667512269566881907447811326082924767780032050184093498212975744273777492196906509540855305046023732302147952742203859170253438687361
+      },
+      "event_id": "logits_linear",
+      "generator": [
+        [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+        ],
+        [
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12
+        ],
+        [
+          1,
+          4,
+          9,
+          16,
+          25,
+          36,
+          49,
+          64,
+          81,
+          100,
+          121,
+          144
+        ],
+        [
+          1,
+          8,
+          27,
+          64,
+          125,
+          216,
+          343,
+          512,
+          729,
+          1000,
+          1331,
+          1728
+        ],
+        [
+          1,
+          16,
+          81,
+          256,
+          625,
+          1296,
+          2401,
+          4096,
+          6561,
+          10000,
+          14641,
+          20736
+        ],
+        [
+          1,
+          32,
+          243,
+          1024,
+          3125,
+          7776,
+          16807,
+          32768,
+          59049,
+          100000,
+          161051,
+          248832
+        ]
+      ],
+      "generator_digest": "sha256:14077fc05f02fe4b5d67f8f6471b8a13c009010399812d8151c5b41049f09f40",
+      "input": [
+        9,
+        0,
+        0,
+        3,
+        1
+      ],
+      "matrix_digest": "sha256:2eb8333a7dec376d24157a5f4bafacc4a990c23700a39f2529ca2031277e09c1",
+      "matrix_name": "W2",
+      "message_length": 6,
+      "minimum_distance": 7,
+      "operand_root_a": "sha256:7239cf5ec90a8acad32ef22676291bae7d276b1675902f8d3cab9c2152b1ee50",
+      "operand_root_b": "sha256:90d0502ca82cf6895551e5c1f61128001cfdbf0dd51b01f234e695587f2f4706",
+      "output": [
+        9,
+        7,
+        9,
+        13,
+        1,
+        2305843009213693945
+      ],
+      "preprocessing": [
+        [
+          1,
+          0,
+          0,
+          6,
+          6
+        ],
+        [
+          2305843009213693928,
+          0,
+          0,
+          40,
+          74
+        ],
+        [
+          2305843009213693736,
+          0,
+          0,
+          222,
+          354
+        ],
+        [
+          2305843009213692992,
+          0,
+          0,
+          888,
+          1092
+        ],
+        [
+          2305843009213690952,
+          0,
+          0,
+          2710,
+          2630
+        ],
+        [
+          2305843009213686392,
+          0,
+          0,
+          6816,
+          5406
+        ],
+        [
+          2305843009213677488,
+          0,
+          0,
+          14910,
+          9954
+        ],
+        [
+          2305843009213661696,
+          0,
+          0,
+          29392,
+          16904
+        ],
+        [
+          2305843009213635632,
+          0,
+          0,
+          53478,
+          26982
+        ],
+        [
+          2305843009213594952,
+          0,
+          0,
+          91320,
+          41010
+        ],
+        [
+          2305843009213534232,
+          0,
+          0,
+          148126,
+          59906
+        ],
+        [
+          2305843009213446848,
+          0,
+          0,
+          230280,
+          84684
+        ]
+      ],
+      "preprocessing_digest": "sha256:1d117b33811f5ac41416f44eb9cf01429429f31829b6ce7ee902772e905afeaa",
+      "relative_distance": {
+        "denominator": 12,
+        "numerator": 7
+      }
+    }
+  ],
+  "repetitions": 16,
+  "run_id": "E-009-R1",
+  "schema_version": "aeye.e009-audit.v0",
+  "sparsity": 4,
+  "subject_root": "sha256:af2545f671e8ec803241f274298be52382725ca66b1bc0e5107e426ae95c7a07"
+}

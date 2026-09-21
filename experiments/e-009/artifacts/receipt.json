@@ -1,0 +1,287 @@
+{
+  "claimed_results": {
+    "DEMAND": {
+      "assumptions": [],
+      "assurance": "none",
+      "coverage": {
+        "denominator": null,
+        "known": false,
+        "numerator": null,
+        "scope": "No qualifying signed independent authorization or economic event is represented.",
+        "unit": "unknown"
+      },
+      "diagnostics": [
+        "The operator's experiment instruction is provenance, not DEMAND evidence."
+      ],
+      "evidence_refs": [],
+      "status": "unsupported"
+    },
+    "EXECUTION": {
+      "assumptions": [
+        "e009.coded-mvm-mds-soundness",
+        "e009.fiat-shamir-random-oracle-and-bounded-grinding",
+        "e009.verifier-code-correctness",
+        "sha256.collision-resistance"
+      ],
+      "assurance": "sampled",
+      "coverage": {
+        "denominator": 13,
+        "known": true,
+        "numerator": 13,
+        "scope": "Frozen E-009 event universe: five sampled coded-linear and eight exact relations.",
+        "unit": "event"
+      },
+      "diagnostics": [
+        "Limited to E-009-R1 and conditional on the reported coded-audit bound and Fiat-Shamir assumptions."
+      ],
+      "evidence_refs": [
+        "e009:r1:coded-execution-audit"
+      ],
+      "status": "satisfied"
+    },
+    "SEMANTICS": {
+      "assumptions": [
+        "e009.finite-field-profile-fidelity",
+        "e009.verifier-code-correctness",
+        "sha256.collision-resistance"
+      ],
+      "assurance": "hybrid",
+      "coverage": {
+        "denominator": 13,
+        "known": true,
+        "numerator": 13,
+        "scope": "Exact declared finite-field/hard-attention profile; no hardware mapping.",
+        "unit": "event"
+      },
+      "diagnostics": [
+        "Only the declared prime-field, centered-decode, hard-attention semantics are in scope; this is not GPU or ordinary transformer semantics."
+      ],
+      "evidence_refs": [
+        "e009:r1:declared-semantics-conformance"
+      ],
+      "status": "satisfied"
+    },
+    "WORK": {
+      "assumptions": [
+        "synthetic.pearl.no-certificate",
+        "sha256.collision-resistance"
+      ],
+      "assurance": "commitment_only",
+      "coverage": {
+        "denominator": null,
+        "known": false,
+        "numerator": null,
+        "scope": "No native Pearl statement or certificate exists in E-009.",
+        "unit": "unknown"
+      },
+      "diagnostics": [
+        "Synthetic clean-operand roots do not establish Pearl WORK."
+      ],
+      "evidence_refs": [
+        "e009:r1:synthetic-pearl-operands"
+      ],
+      "status": "unknown"
+    }
+  },
+  "conflicts": [],
+  "cross_evidence_bindings": [
+    {
+      "binding_id": "e009:r1:synthetic-pearl-to-q-linear",
+      "binding_type": "pearl_work_to_execution",
+      "diagnostics": [
+        "Equality is real for the frozen clean q_linear operands; the WORK-side relation is synthetic and does not establish Pearl WORK."
+      ],
+      "equal_fields": [
+        "operand_root_a",
+        "operand_root_b"
+      ],
+      "execution_evidence_ref": "e009:r1:coded-execution-audit",
+      "work_evidence_ref": "e009:r1:synthetic-pearl-operands"
+    }
+  ],
+  "evidence": [
+    {
+      "artifact_digest": "sha256:067afa2151a5e48322c1c8d3481230f23e8c6b703ecec7031447d0770fcb5862",
+      "assumptions": [
+        {
+          "assumption_id": "synthetic.pearl.no-certificate",
+          "kind": "availability",
+          "status": "unsupported",
+          "version": "E-009-R1"
+        },
+        {
+          "assumption_id": "sha256.collision-resistance",
+          "kind": "standard",
+          "status": "reviewed",
+          "version": "FIPS-180-4"
+        }
+      ],
+      "assurance": "commitment_only",
+      "coordinates": [
+        "WORK"
+      ],
+      "coverage": {
+        "denominator": null,
+        "known": false,
+        "numerator": null,
+        "scope": "No native Pearl statement or certificate exists in E-009.",
+        "unit": "unknown"
+      },
+      "evidence_id": "e009:r1:synthetic-pearl-operands",
+      "evidence_type": "pearl_pouw",
+      "native_public_inputs": {
+        "aeye_intent_id": null,
+        "aeye_job_id": null,
+        "aeye_subject_root": null,
+        "operand_root_a": "sha256:346004e2c62d312904f9d91ef791f24d859ab26389692b8b21fd1254a20f1639",
+        "operand_root_b": "sha256:612598b60ec4693baa69697d89305da4c9fa865b6f300605c215160188b0ac9d",
+        "work_context_root": "sha256:02d27304cfcf978ef7fcb694f3b5690ccb5ec2e25ee0f57db0bf1f1d1d577564"
+      },
+      "producer_id": "e009:provider-generator",
+      "receipt_job_id": "sha256:cabf1d8548f01004d79c6832ec22cceba6f9d08c039eff41a36238ac9d76bd18",
+      "scope": {
+        "kind": "job",
+        "membership_proof_ref": null,
+        "scope_id": "E-009-R1"
+      },
+      "statement_id": "aeye:synthetic-pearl-clean-operands:v0"
+    },
+    {
+      "artifact_digest": "sha256:0485d195746f8a0e1f6b3da0ef6a4766b02201d648a7f38c76a0709204bc55c5",
+      "assumptions": [
+        {
+          "assumption_id": "e009.coded-mvm-mds-soundness",
+          "kind": "computational",
+          "status": "declared",
+          "version": "v0"
+        },
+        {
+          "assumption_id": "e009.fiat-shamir-random-oracle-and-bounded-grinding",
+          "kind": "computational",
+          "status": "declared",
+          "version": "v0"
+        },
+        {
+          "assumption_id": "e009.verifier-code-correctness",
+          "kind": "trust",
+          "status": "declared",
+          "version": "independent-code-path-v0"
+        },
+        {
+          "assumption_id": "sha256.collision-resistance",
+          "kind": "standard",
+          "status": "reviewed",
+          "version": "FIPS-180-4"
+        }
+      ],
+      "assurance": "sampled",
+      "coordinates": [
+        "EXECUTION"
+      ],
+      "coverage": {
+        "denominator": 13,
+        "known": true,
+        "numerator": 13,
+        "scope": "Frozen E-009 event universe: five sampled coded-linear and eight exact relations.",
+        "unit": "event"
+      },
+      "evidence_id": "e009:r1:coded-execution-audit",
+      "evidence_type": "sampled_audit",
+      "native_public_inputs": {
+        "aeye_intent_id": null,
+        "aeye_job_id": "sha256:cabf1d8548f01004d79c6832ec22cceba6f9d08c039eff41a36238ac9d76bd18",
+        "aeye_subject_root": "sha256:af2545f671e8ec803241f274298be52382725ca66b1bc0e5107e426ae95c7a07",
+        "operand_root_a": "sha256:346004e2c62d312904f9d91ef791f24d859ab26389692b8b21fd1254a20f1639",
+        "operand_root_b": "sha256:612598b60ec4693baa69697d89305da4c9fa865b6f300605c215160188b0ac9d",
+        "work_context_root": null
+      },
+      "producer_id": "e009:provider-generator",
+      "receipt_job_id": "sha256:cabf1d8548f01004d79c6832ec22cceba6f9d08c039eff41a36238ac9d76bd18",
+      "scope": {
+        "kind": "job",
+        "membership_proof_ref": null,
+        "scope_id": "E-009-R1"
+      },
+      "statement_id": "aeye:e009-complete-causal-block:v0"
+    },
+    {
+      "artifact_digest": "sha256:115c16165384861e02ffbd1fe2a2916b138f8d97d5a4658fa1564d80320506b4",
+      "assumptions": [
+        {
+          "assumption_id": "e009.finite-field-profile-fidelity",
+          "kind": "trust",
+          "status": "declared",
+          "version": "aeye:finite-field-hard-attention:v0"
+        },
+        {
+          "assumption_id": "e009.verifier-code-correctness",
+          "kind": "trust",
+          "status": "declared",
+          "version": "independent-code-path-v0"
+        },
+        {
+          "assumption_id": "sha256.collision-resistance",
+          "kind": "standard",
+          "status": "reviewed",
+          "version": "FIPS-180-4"
+        }
+      ],
+      "assurance": "hybrid",
+      "coordinates": [
+        "SEMANTICS"
+      ],
+      "coverage": {
+        "denominator": 13,
+        "known": true,
+        "numerator": 13,
+        "scope": "Exact declared finite-field/hard-attention profile; no hardware mapping.",
+        "unit": "event"
+      },
+      "evidence_id": "e009:r1:declared-semantics-conformance",
+      "evidence_type": "arithmetic_conformance",
+      "native_public_inputs": {
+        "aeye_intent_id": null,
+        "aeye_job_id": null,
+        "aeye_subject_root": "sha256:af2545f671e8ec803241f274298be52382725ca66b1bc0e5107e426ae95c7a07",
+        "operand_root_a": null,
+        "operand_root_b": null,
+        "work_context_root": null
+      },
+      "producer_id": "e009:provider-generator",
+      "receipt_job_id": "sha256:cabf1d8548f01004d79c6832ec22cceba6f9d08c039eff41a36238ac9d76bd18",
+      "scope": {
+        "kind": "job",
+        "membership_proof_ref": null,
+        "scope_id": "E-009-R1"
+      },
+      "statement_id": "aeye:finite-field-hard-attention:v0"
+    }
+  ],
+  "issued_at": "2026-09-20T19:40:00Z",
+  "issuer": {
+    "principal_id": "e009:provider-generator"
+  },
+  "receipt_profile": "aeye.research-json.v0",
+  "schema_version": "aeye.receipt.v0",
+  "subject": {
+    "client_nonce": "6fb1f6465946458765f633800a15e4a79d1491431bd08fba92bec503e1dfe36e",
+    "demand_root": "sha256:e54feb897716689ffb28743ba4c25a7e8fc90b04c3daf02c12d802cbfdbed7cc",
+    "execution_root": "sha256:318bd001219684f9138fb0c546c5044c23c642bf20e4ca1c75995c485ca9f835",
+    "freshness_domain": "aeye-e009-r1:2026-09-20",
+    "intent_id": "sha256:43626d2a327b9c1268ac04a1ecf92c56b92d1e8317e33e6e644ae74f0196f64f",
+    "job_id": "sha256:cabf1d8548f01004d79c6832ec22cceba6f9d08c039eff41a36238ac9d76bd18",
+    "model_root": "sha256:1848d21df4c7d24a0b27a59b651b20463a1962a9f2117f714ebdbd87c0d91b72",
+    "output_root": "sha256:649ec0dc3a76bfde9e135840973125c49ae1f254989ce0436e3227bcdde490e5",
+    "request_root": "sha256:6647790d928b9573b93ec2902bb6bbeb79ae83512b0d42b464392c31fe21e39b",
+    "subject_root": "sha256:af2545f671e8ec803241f274298be52382725ca66b1bc0e5107e426ae95c7a07",
+    "trace_root": "sha256:90fde488c49e36a7a545176d6a2144d8c30ab4f6680a7b655b64dbc18e3c792e"
+  },
+  "timeline": {
+    "authorization_fixed_sequence": 1,
+    "challenge_sampled_sequence": 4,
+    "intent_fixed_sequence": 0,
+    "job_fixed_sequence": 2,
+    "receipt_sealed_sequence": 5,
+    "subject_fixed_sequence": 3
+  }
+}

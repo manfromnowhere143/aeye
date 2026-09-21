@@ -1,0 +1,37 @@
+{
+  "conditional_union_bound": {
+    "denominator": 879739394437072646331137080735906636585112866347967803758474882198572762381573180545284038373241014982063151504018551605597031414237058297877196988694840183895951260339263524967582736899358576896627155550413988006270707886636874112271387894640275557462239467646428393109423517146315201604838856635931750678801676993822720000000000000000000000000000000000000000000000000000000000000000,
+    "numerator": 438581606206150725072319941288939154752013312892506807236645620530685427059445262755701672335265612629471877617213722736518810601372828672832477047380558717501574611475098390051316917616975877242337015295299836915439746787936222509286797119765396279137361182057340475027575186773915411282424539772480678603255055496105725320628705660354290318386746423548142507
+  },
+  "coordinate_results": {
+    "DEMAND": "unsupported",
+    "EXECUTION": "satisfied",
+    "SEMANTICS": "satisfied",
+    "WORK": "unknown"
+  },
+  "event_coverage": {
+    "coded_linear": 5,
+    "denominator": 13,
+    "exact": 8,
+    "numerator": 13
+  },
+  "experiment_id": "E-009",
+  "independence": "code-path only; no independent person or institution reviewed this result",
+  "mutation_controls": {
+    "all_expected_failures_observed": true,
+    "rejected": 8,
+    "total": 8
+  },
+  "non_claims": [
+    "This is not a language model or ordinary softmax transformer.",
+    "This is not a Pearl certificate, Pearl verifier, mining result, or claim about Pearl security.",
+    "This has no FP8, B200, GPU, native-serving, energy, wall-clock production, privacy, or physical-work semantics.",
+    "The deterministic Fiat-Shamir audit is conditional on its stated random-oracle, subject-binding, and bounded-grinding assumptions.",
+    "Code-path separation is not human, organizational, or third-party independence.",
+    "Operator authorization of the experiment does not satisfy the DEMAND coordinate."
+  ],
+  "run_id": "E-009-R1",
+  "schema_version": "aeye.e009-result.v0",
+  "status": "supported",
+  "unmodified_bundle_accepted": true
+}

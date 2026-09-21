@@ -1,0 +1,64 @@
+{
+  "schema_version": "aeye.experiment-manifest.v0",
+  "experiment_id": "E-008",
+  "title": "Pearl FP8 certificate-v4 verifier parity and claim-boundary gate",
+  "status": "proposed",
+  "question": "Can two independent implementations reproduce the proposed certificate-v4 selected-tile verifier and Blackwell/B200 arithmetic on frozen vectors, reject preregistered degenerate cases, and preserve the boundary between Pearl WORK and Aeye EXECUTION?",
+  "authorization": {
+    "mode": "isolated_read_only",
+    "network_writes": false,
+    "credentials": false,
+    "private_data": false,
+    "spending": false
+  },
+  "frozen_inputs": [
+    {"input_id": "fp8_specification", "value": "evidence/papers/pearl-fp-whitepaper-2026-09.pdf", "status": "fixed"},
+    {"input_id": "fp8_specification_sha256", "value": "83c7fa383868773ce1758c6b104910aa0c6d41096fae1426ecfd903874d085f8", "status": "fixed"},
+    {"input_id": "retained_pr_patch", "value": "evidence/changes/pearl-pr-311.patch", "status": "fixed"},
+    {"input_id": "retained_pr_patch_sha256", "value": "7bb512461078b0272c7eac8b1b4bd9b9537275cd8e522d9aa49b65af259a0fa5", "status": "fixed"},
+    {"input_id": "pr_head_at_retrieval", "value": "f7fe16c83dd89a91cb957e3a3644e232ecd7da2a", "status": "fixed"},
+    {"input_id": "certificate_version", "value": 4, "status": "fixed"},
+    {"input_id": "target_device_profile", "value": "Blackwell SM100 / B200 as declared by the retained proposal", "status": "fixed"},
+    {"input_id": "immutable_reference_vectors", "value": null, "status": "blocked"},
+    {"input_id": "authorized_target_device", "value": null, "status": "blocked"},
+    {"input_id": "second_independent_verifier", "value": null, "status": "blocked"}
+  ],
+  "procedure": [
+    "Translate the retained specification into an explicit relation manifest covering Device, Quant, dimensions, periodic partitions, commitments, selected tile, ticket, and jackpot-policy checks; retain every ambiguity instead of resolving it by convention.",
+    "Audit the retained PR patch against that manifest and classify each difference as implementation detail, specification gap, contradiction, or unknown; do not treat the open PR as activated consensus.",
+    "Construct immutable ordinary, boundary, and adversarial vectors for post-noise quantization, selected-tile multiplication, correction, transcript hashing, and jackpot checks in two implementations that do not share parser or arithmetic code.",
+    "Cross-check the declared bit-exact arithmetic against retained vectors from an authorized target B200 path; a CPU emulator may be one implementation but cannot certify its own physical fidelity.",
+    "Measure native tile work, quantization, noise generation, hashing, commitment construction/verification, memory movement, and verifier work separately; keep the specification's MAC work model distinct from end-to-end cost.",
+    "Emit only a certificate-v4 WORK/profile result. Do not infer request, model-graph, full execution, output, hardware origin, or demand."
+  ],
+  "acceptance": [
+    "The specification-to-code map has no unresolved consensus-critical parser, quantization, arithmetic, commitment, ticket, or jackpot ambiguity for the tested profile.",
+    "Two independent implementations agree byte-for-byte on every accepted vector and reject every known-bad vector for the preregistered reason.",
+    "The independent arithmetic result agrees with retained authorized B200 outputs for all ordinary, boundary, and adversarial cases.",
+    "The report preserves quantized-subspace hardness as a declared non-standard assumption and reports its scope rather than assigning a numeric security level.",
+    "The result is reported only as proposed certificate-v4 WORK verification and bounded arithmetic conformance, never as Aeye EXECUTION or useful demand."
+  ],
+  "failure": [
+    "Any unresolved divergence between the specification and retained implementation blocks a general certificate-v4 verifier claim.",
+    "Any vector disagreement is retained and classified; parameters may not be adjusted after observing the target output.",
+    "Absence of independent B200 outputs blocks physical arithmetic-conformance acceptance even if two software implementations agree.",
+    "A security conclusion derived from average-case vectors without a formal assumption or adversarial analysis is unsupported.",
+    "Any attempt to reuse certificate-v3 INT vectors, parser rules, or hardness identifiers fails the version firewall."
+  ],
+  "known_bad_controls": [
+    "Change one Device or Quant parameter while retaining all other bytes; the relation identifier or verification result must change.",
+    "Change one operand commitment or disclosed strip after the ticket is fixed; authentication must fail.",
+    "Use zero/no-noise or below-floor noise where the jackpot policy forbids it; the policy check must reject.",
+    "Use a tamed or low-unpredictability product outside the accepted bounds; the policy check must reject.",
+    "Truncate, round, or accumulate under a non-B200 arithmetic profile while preserving the profile label; conformance must fail.",
+    "Attach a valid certificate-v4 WORK object to an execution proof with a different operand root; the Aeye cross-evidence validator must reject."
+  ],
+  "blocking_conditions": [
+    "No immutable certificate-v4 reference-vector suite is retained.",
+    "No authorized Blackwell/B200 execution path and independent captured vectors are identified.",
+    "No second parser/arithmetic implementation independent of the retained PR exists in Aeye.",
+    "The retained PR was open and unmerged at retrieval, so activation and final consensus rules are unknown.",
+    "Operator acceptance of this proposed experiment manifest has not been recorded."
+  ],
+  "result": null
+}

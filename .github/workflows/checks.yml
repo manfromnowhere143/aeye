@@ -1,0 +1,62 @@
+name: checks
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+  merge_group:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: aeye-checks-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: verify py${{ matrix.python-version }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.12", "3.14"]
+
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+
+      - uses: astral-sh/setup-uv@37802adc94f370d6bfd71619e3f0bf239e1f3b78 # v7
+        with:
+          version: "0.11.28"
+          enable-cache: true
+          cache-dependency-glob: requirements-dev.lock
+
+      - name: Create locked verification environment
+        run: |
+          uv python install "${{ matrix.python-version }}"
+          uv venv --python "${{ matrix.python-version }}" .venv
+          uv pip sync --python .venv/bin/python --require-hashes requirements-dev.lock
+
+      - name: Compile Python sources
+        run: .venv/bin/python -m compileall -q scripts experiments tests
+
+      - name: Materialize exact external evidence
+        run: .venv/bin/python scripts/hydrate_external_evidence.py
+
+      - name: Validate repository packet
+        run: .venv/bin/python scripts/validate.py
+
+      - name: Replay E-009 independently
+        run: .venv/bin/python experiments/e-009/independent_verify.py
+
+      - name: Run unit tests
+        run: .venv/bin/python -m unittest discover -s tests -v
+
+      - name: Require unchanged tracked bytes
+        run: git diff --exit-code

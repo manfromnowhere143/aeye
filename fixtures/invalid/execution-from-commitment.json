@@ -1,0 +1,9 @@
+{
+  "schema_version": "aeye.negative-fixture.v0",
+  "base_kind": "receipt",
+  "base_path": "fixtures/valid/minimal-receipt.json",
+  "purpose": "A self-consistent trace commitment cannot satisfy the execution relation.",
+  "mutations": [
+    {"op": "set", "pointer": "/claimed_results/EXECUTION/status", "value": "satisfied"}
+  ]
+}

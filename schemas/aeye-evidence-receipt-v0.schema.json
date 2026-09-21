@@ -1,0 +1,350 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aeye.invalid/schemas/aeye-evidence-receipt-v0.schema.json",
+  "title": "Aeye Evidence Receipt research schema v0",
+  "description": "Research interchange schema. It is not an accepted production wire format.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "receipt_profile",
+    "issued_at",
+    "issuer",
+    "subject",
+    "timeline",
+    "evidence",
+    "cross_evidence_bindings",
+    "claimed_results",
+    "conflicts"
+  ],
+  "properties": {
+    "schema_version": {"const": "aeye.receipt.v0"},
+    "receipt_profile": {"const": "aeye.research-json.v0"},
+    "issued_at": {"type": "string", "format": "date-time"},
+    "issuer": {"$ref": "#/$defs/principal"},
+    "subject": {"$ref": "#/$defs/subject"},
+    "timeline": {"$ref": "#/$defs/timeline"},
+    "evidence": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/evidence"}
+    },
+    "cross_evidence_bindings": {
+      "type": "array",
+      "items": {"$ref": "#/$defs/crossEvidenceBinding"}
+    },
+    "claimed_results": {"$ref": "#/$defs/resultVector"},
+    "conflicts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["conflict_id", "evidence_refs", "description"],
+        "properties": {
+          "conflict_id": {"type": "string", "minLength": 1},
+          "evidence_refs": {
+            "type": "array",
+            "minItems": 2,
+            "uniqueItems": true,
+            "items": {"type": "string", "minLength": 1}
+          },
+          "description": {"type": "string", "minLength": 1}
+        }
+      }
+    }
+  },
+  "$defs": {
+    "digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "principal": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["principal_id"],
+      "properties": {
+        "principal_id": {"type": "string", "minLength": 1}
+      }
+    },
+    "subject": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "intent_id",
+        "job_id",
+        "request_root",
+        "model_root",
+        "execution_root",
+        "demand_root",
+        "trace_root",
+        "output_root",
+        "subject_root",
+        "freshness_domain",
+        "client_nonce"
+      ],
+      "properties": {
+        "intent_id": {"$ref": "#/$defs/digest"},
+        "job_id": {"$ref": "#/$defs/digest"},
+        "request_root": {"$ref": "#/$defs/digest"},
+        "model_root": {"$ref": "#/$defs/digest"},
+        "execution_root": {"$ref": "#/$defs/digest"},
+        "demand_root": {"$ref": "#/$defs/digest"},
+        "trace_root": {"$ref": "#/$defs/digest"},
+        "output_root": {"$ref": "#/$defs/digest"},
+        "subject_root": {"$ref": "#/$defs/digest"},
+        "freshness_domain": {"type": "string", "minLength": 1},
+        "client_nonce": {"type": "string", "pattern": "^[0-9a-f]{32,128}$"}
+      }
+    },
+    "timeline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "intent_fixed_sequence",
+        "authorization_fixed_sequence",
+        "job_fixed_sequence",
+        "subject_fixed_sequence",
+        "challenge_sampled_sequence",
+        "receipt_sealed_sequence"
+      ],
+      "properties": {
+        "intent_fixed_sequence": {"type": "integer", "minimum": 0},
+        "authorization_fixed_sequence": {"type": "integer", "minimum": 0},
+        "job_fixed_sequence": {"type": "integer", "minimum": 0},
+        "subject_fixed_sequence": {"type": "integer", "minimum": 0},
+        "challenge_sampled_sequence": {
+          "oneOf": [
+            {"type": "integer", "minimum": 0},
+            {"type": "null"}
+          ]
+        },
+        "receipt_sealed_sequence": {"type": "integer", "minimum": 0}
+      }
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["known", "scope", "unit", "numerator", "denominator"],
+      "properties": {
+        "known": {"type": "boolean"},
+        "scope": {"type": "string", "minLength": 1},
+        "unit": {
+          "enum": [
+            "job",
+            "winning_pouw_instance",
+            "event",
+            "operation",
+            "arithmetic_work",
+            "request",
+            "authorization_event",
+            "aggregate_member",
+            "unknown"
+          ]
+        },
+        "numerator": {},
+        "denominator": {}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"known": {"const": true}}},
+          "then": {
+            "properties": {
+              "numerator": {"type": "integer", "minimum": 0},
+              "denominator": {"type": "integer", "minimum": 1}
+            }
+          },
+          "else": {
+            "properties": {
+              "numerator": {"type": "null"},
+              "denominator": {"type": "null"},
+              "unit": {"const": "unknown"}
+            }
+          }
+        }
+      ]
+    },
+    "assumption": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["assumption_id", "version", "kind", "status"],
+      "properties": {
+        "assumption_id": {"type": "string", "minLength": 1},
+        "version": {"type": "string", "minLength": 1},
+        "kind": {
+          "enum": ["standard", "computational", "conjectural", "empirical", "trust", "economic", "availability"]
+        },
+        "status": {"enum": ["declared", "reviewed", "unsupported", "falsified"]}
+      }
+    },
+    "scope": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "scope_id", "membership_proof_ref"],
+      "properties": {
+        "kind": {"enum": ["job", "aggregate"]},
+        "scope_id": {"type": "string", "minLength": 1},
+        "membership_proof_ref": {
+          "oneOf": [
+            {"type": "string", "minLength": 1},
+            {"type": "null"}
+          ]
+        }
+      }
+    },
+    "nullableDigest": {
+      "oneOf": [
+        {"$ref": "#/$defs/digest"},
+        {"type": "null"}
+      ]
+    },
+    "nativePublicInputs": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "Public inputs authenticated by the native evidence relation. Null is explicit absence; receipt placement is not a proof binding.",
+      "required": [
+        "aeye_intent_id",
+        "aeye_job_id",
+        "aeye_subject_root",
+        "work_context_root",
+        "operand_root_a",
+        "operand_root_b"
+      ],
+      "properties": {
+        "aeye_intent_id": {"$ref": "#/$defs/nullableDigest"},
+        "aeye_job_id": {"$ref": "#/$defs/nullableDigest"},
+        "aeye_subject_root": {"$ref": "#/$defs/nullableDigest"},
+        "work_context_root": {"$ref": "#/$defs/nullableDigest"},
+        "operand_root_a": {"$ref": "#/$defs/nullableDigest"},
+        "operand_root_b": {"$ref": "#/$defs/nullableDigest"}
+      }
+    },
+    "evidence": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evidence_id",
+        "evidence_type",
+        "statement_id",
+        "producer_id",
+        "receipt_job_id",
+        "native_public_inputs",
+        "coordinates",
+        "assurance",
+        "scope",
+        "coverage",
+        "artifact_digest",
+        "assumptions"
+      ],
+      "properties": {
+        "evidence_id": {"type": "string", "minLength": 1},
+        "evidence_type": {
+          "enum": [
+            "pearl_pouw",
+            "execution_proof",
+            "sampled_audit",
+            "optimistic_dispute",
+            "attestation",
+            "arithmetic_conformance",
+            "authorization",
+            "payment",
+            "commitment",
+            "registry_observation"
+          ]
+        },
+        "statement_id": {"type": "string", "minLength": 1},
+        "producer_id": {"type": "string", "minLength": 1},
+        "receipt_job_id": {
+          "$ref": "#/$defs/digest",
+          "description": "Issuer-declared receipt scope. This field is not a native proof public input."
+        },
+        "native_public_inputs": {"$ref": "#/$defs/nativePublicInputs"},
+        "coordinates": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": {"enum": ["WORK", "EXECUTION", "SEMANTICS", "DEMAND"]}
+        },
+        "assurance": {
+          "enum": ["commitment_only", "sampled", "optimistic", "attested", "cryptographic", "hybrid", "none"]
+        },
+        "scope": {"$ref": "#/$defs/scope"},
+        "coverage": {"$ref": "#/$defs/coverage"},
+        "artifact_digest": {"$ref": "#/$defs/digest"},
+        "assumptions": {
+          "type": "array",
+          "items": {"$ref": "#/$defs/assumption"}
+        }
+      }
+    },
+    "crossEvidenceBinding": {
+      "type": "object",
+      "additionalProperties": false,
+      "description": "A structural equality check across native evidence public inputs. It never upgrades either coordinate.",
+      "required": [
+        "binding_id",
+        "binding_type",
+        "work_evidence_ref",
+        "execution_evidence_ref",
+        "equal_fields",
+        "diagnostics"
+      ],
+      "properties": {
+        "binding_id": {"type": "string", "minLength": 1},
+        "binding_type": {"const": "pearl_work_to_execution"},
+        "work_evidence_ref": {"type": "string", "minLength": 1},
+        "execution_evidence_ref": {"type": "string", "minLength": 1},
+        "equal_fields": {
+          "const": ["operand_root_a", "operand_root_b"]
+        },
+        "diagnostics": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "claimResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "assurance", "coverage", "assumptions", "evidence_refs", "diagnostics"],
+      "properties": {
+        "status": {"enum": ["satisfied", "failed", "unknown", "unsupported", "invalid"]},
+        "assurance": {
+          "enum": ["commitment_only", "sampled", "optimistic", "attested", "cryptographic", "hybrid", "none"]
+        },
+        "coverage": {"$ref": "#/$defs/coverage"},
+        "assumptions": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "evidence_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "diagnostics": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string", "minLength": 1}
+        }
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"status": {"const": "satisfied"}}},
+          "then": {"properties": {"evidence_refs": {"minItems": 1}}}
+        }
+      ]
+    },
+    "resultVector": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["WORK", "EXECUTION", "SEMANTICS", "DEMAND"],
+      "properties": {
+        "WORK": {"$ref": "#/$defs/claimResult"},
+        "EXECUTION": {"$ref": "#/$defs/claimResult"},
+        "SEMANTICS": {"$ref": "#/$defs/claimResult"},
+        "DEMAND": {"$ref": "#/$defs/claimResult"}
+      }
+    }
+  }
+}

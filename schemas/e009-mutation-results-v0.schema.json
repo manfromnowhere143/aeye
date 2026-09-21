@@ -1,0 +1,33 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aeye.invalid/schemas/e009-mutation-results-v0.schema.json",
+  "title": "Aeye E-009 mutation results v0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "experiment_id", "run_id", "case_count", "all_rejected", "all_expected_failures_observed", "outcomes"],
+  "properties": {
+    "schema_version": {"const": "aeye.e009-mutation-results.v0"},
+    "experiment_id": {"const": "E-009"},
+    "run_id": {"const": "E-009-R1"},
+    "case_count": {"const": 8},
+    "all_rejected": {"const": true},
+    "all_expected_failures_observed": {"const": true},
+    "outcomes": {
+      "type": "array",
+      "minItems": 8,
+      "maxItems": 8,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["case_id", "expected_code", "observed_codes", "rejected", "expected_failure_observed"],
+        "properties": {
+          "case_id": {"type": "string", "minLength": 1},
+          "expected_code": {"type": "string", "minLength": 1},
+          "observed_codes": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "string", "minLength": 1}},
+          "rejected": {"const": true},
+          "expected_failure_observed": {"const": true}
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "schema_version": "aeye.negative-fixture.v0",
+  "base_kind": "receipt",
+  "base_path": "fixtures/valid/minimal-receipt.json",
+  "purpose": "An intent that omits or changes a pre-authorization input must not retain the original identifier.",
+  "mutations": [
+    {"op": "set", "pointer": "/subject/intent_id", "value": "sha256:0000000000000000000000000000000000000000000000000000000000000000"}
+  ]
+}

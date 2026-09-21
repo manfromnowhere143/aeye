@@ -1,0 +1,17 @@
+Aeye
+Copyright 2026 Daniel Wahnich
+
+Aeye-authored code, schemas, fixtures, experiment programs, and documentation
+are licensed under the Apache License, Version 2.0.
+
+The Apache License for Aeye does not apply to third-party research evidence.
+Paper, standard, patch, and external-repository payloads are not distributed in
+the public Git tree. They may be materialized locally from content-addressed
+public locators and remain subject to their authors', publishers', standards
+bodies', or upstream projects' terms. Their ledger entries record provenance
+and do not relicense them.
+
+Pearl, Hawkeye, DeepProve, Maverick, and other project and product names are
+used only to identify research subjects and sources. Their names and marks
+belong to their respective owners. No affiliation, sponsorship, endorsement,
+or acceptance of Aeye is claimed.

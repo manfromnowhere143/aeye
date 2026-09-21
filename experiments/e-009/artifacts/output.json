@@ -1,0 +1,9 @@
+{
+  "experiment_id": "E-009",
+  "job_id": "sha256:cabf1d8548f01004d79c6832ec22cceba6f9d08c039eff41a36238ac9d76bd18",
+  "run_id": "E-009-R1",
+  "schema_version": "aeye.e009-output.v0",
+  "source_event_id": "argmax",
+  "token": "iris",
+  "token_id": 3
+}

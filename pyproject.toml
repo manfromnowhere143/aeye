@@ -1,0 +1,23 @@
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+extend-exclude = [
+  "evidence/changes",
+  "evidence/external",
+  "evidence/papers",
+  "evidence/standards",
+]
+
+[tool.ruff.lint]
+select = ["E", "F"]
+ignore = ["E501"]
+
+[tool.ruff.lint.per-file-ignores]
+# These two preregistered E-009 implementations are retained byte-for-byte. Their narrow
+# lint findings do not affect execution; changing them would invalidate the frozen digests.
+"experiments/e-009/generate.py" = ["F401"]
+"experiments/e-009/independent_verify.py" = ["E731", "F401"]
+
+[tool.codespell]
+ignore-words-list = "aer"
+skip = "*.json,*.lock,*.pdf,*.patch,*.txt,./evidence/changes/**,./evidence/external/**,./evidence/papers/**,./evidence/standards/**,./tmp/**,target"

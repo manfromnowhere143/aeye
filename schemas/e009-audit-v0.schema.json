@@ -1,0 +1,137 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aeye.invalid/schemas/e009-audit-v0.schema.json",
+  "title": "Aeye E-009 coded linear audit v0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "experiment_id",
+    "run_id",
+    "subject_root",
+    "challenge_sequence",
+    "challenge_source",
+    "challenge_domain",
+    "field_prime",
+    "sparsity",
+    "repetitions",
+    "relations",
+    "all_relations_accept",
+    "conditional_union_bound",
+    "assumptions"
+  ],
+  "properties": {
+    "schema_version": {"const": "aeye.e009-audit.v0"},
+    "experiment_id": {"const": "E-009"},
+    "run_id": {"const": "E-009-R1"},
+    "subject_root": {"$ref": "#/$defs/digest"},
+    "challenge_sequence": {"const": 4},
+    "challenge_source": {"const": "fiat-shamir-from-final-subject"},
+    "challenge_domain": {"const": "aeye/e009/coded-mvm-challenge/v0"},
+    "field_prime": {"const": 2305843009213693951},
+    "sparsity": {"const": 4},
+    "repetitions": {"const": 16},
+    "relations": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "items": {"$ref": "#/$defs/relation"}
+    },
+    "all_relations_accept": {"type": "boolean"},
+    "conditional_union_bound": {"$ref": "#/$defs/fraction"},
+    "assumptions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1}
+    }
+  },
+  "$defs": {
+    "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "vector": {"type": "array", "minItems": 1, "items": {"type": "integer", "minimum": 0}},
+    "matrix": {"type": "array", "minItems": 1, "items": {"$ref": "#/$defs/vector"}},
+    "fraction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["numerator", "denominator"],
+      "properties": {
+        "numerator": {"type": "integer", "minimum": 0},
+        "denominator": {"type": "integer", "minimum": 1}
+      }
+    },
+    "challengeTerm": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["position", "coefficient"],
+      "properties": {
+        "position": {"type": "integer", "minimum": 0},
+        "coefficient": {"type": "integer", "minimum": 1, "maximum": 2305843009213693950}
+      }
+    },
+    "check": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repetition", "challenge", "left", "right", "accepted"],
+      "properties": {
+        "repetition": {"type": "integer", "minimum": 0, "maximum": 15},
+        "challenge": {
+          "type": "array",
+          "minItems": 4,
+          "maxItems": 4,
+          "items": {"$ref": "#/$defs/challengeTerm"}
+        },
+        "left": {"type": "integer", "minimum": 0, "maximum": 2305843009213693950},
+        "right": {"type": "integer", "minimum": 0, "maximum": 2305843009213693950},
+        "accepted": {"type": "boolean"}
+      }
+    },
+    "relation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "event_id",
+        "matrix_name",
+        "operand_root_a",
+        "operand_root_b",
+        "matrix_digest",
+        "message_length",
+        "block_length",
+        "minimum_distance",
+        "relative_distance",
+        "generator",
+        "generator_digest",
+        "preprocessing",
+        "preprocessing_digest",
+        "input",
+        "output",
+        "checks",
+        "accepted",
+        "conditional_soundness_bound"
+      ],
+      "properties": {
+        "event_id": {"enum": ["q_linear", "k_linear", "v_linear", "mlp_linear", "logits_linear"]},
+        "matrix_name": {"enum": ["Wq", "Wk", "Wv", "W1", "W2"]},
+        "operand_root_a": {"$ref": "#/$defs/digest"},
+        "operand_root_b": {"$ref": "#/$defs/digest"},
+        "matrix_digest": {"$ref": "#/$defs/digest"},
+        "message_length": {"type": "integer", "minimum": 1},
+        "block_length": {"type": "integer", "minimum": 2},
+        "minimum_distance": {"type": "integer", "minimum": 1},
+        "relative_distance": {"$ref": "#/$defs/fraction"},
+        "generator": {"$ref": "#/$defs/matrix"},
+        "generator_digest": {"$ref": "#/$defs/digest"},
+        "preprocessing": {"$ref": "#/$defs/matrix"},
+        "preprocessing_digest": {"$ref": "#/$defs/digest"},
+        "input": {"$ref": "#/$defs/vector"},
+        "output": {"$ref": "#/$defs/vector"},
+        "checks": {
+          "type": "array",
+          "minItems": 16,
+          "maxItems": 16,
+          "items": {"$ref": "#/$defs/check"}
+        },
+        "accepted": {"type": "boolean"},
+        "conditional_soundness_bound": {"$ref": "#/$defs/fraction"}
+      }
+    }
+  }
+}

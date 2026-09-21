@@ -1,0 +1,9 @@
+{
+  "schema_version": "aeye.negative-fixture.v0",
+  "base_kind": "receipt",
+  "base_path": "fixtures/valid/minimal-receipt.json",
+  "purpose": "Evidence for another job cannot be replayed without an explicit aggregate membership proof.",
+  "mutations": [
+    {"op": "set", "pointer": "/evidence/0/receipt_job_id", "value": "sha256:9999999999999999999999999999999999999999999999999999999999999999"}
+  ]
+}

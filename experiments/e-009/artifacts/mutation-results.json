@@ -1,0 +1,117 @@
+{
+  "all_expected_failures_observed": true,
+  "all_rejected": true,
+  "case_count": 8,
+  "experiment_id": "E-009",
+  "outcomes": [
+    {
+      "case_id": "execution_operand_root_mismatch",
+      "expected_code": "CROSS_EVIDENCE_BINDING_MISMATCH",
+      "expected_failure_observed": true,
+      "observed_codes": [
+        "CROSS_EVIDENCE_BINDING_MISMATCH"
+      ],
+      "rejected": true
+    },
+    {
+      "case_id": "altered_linear_output",
+      "expected_code": "CODED_LINEAR_REJECT",
+      "expected_failure_observed": true,
+      "observed_codes": [
+        "ATTENTION_INPUT_MISMATCH",
+        "ATTENTION_SCORE_MISMATCH",
+        "ATTENTION_SELECTION_INPUT_MISMATCH",
+        "AUDIT_ACCEPTANCE_MISMATCH",
+        "AUDIT_SUBJECT_MISMATCH",
+        "CHALLENGE_DERIVATION_MISMATCH",
+        "CODED_CHECK_TRANSCRIPT_MISMATCH",
+        "CODED_LINEAR_REJECT",
+        "EXECUTION_SUBJECT_BINDING_MISSING",
+        "RELATION_ACCEPTANCE_MISMATCH",
+        "SEMANTICS_SUBJECT_BINDING_MISSING",
+        "SUBJECT_BINDING_MISMATCH"
+      ],
+      "rejected": true
+    },
+    {
+      "case_id": "skipped_nonlinear_event",
+      "expected_code": "EVENT_UNIVERSE_MISMATCH",
+      "expected_failure_observed": true,
+      "observed_codes": [
+        "AUDIT_SUBJECT_MISMATCH",
+        "CHALLENGE_DERIVATION_MISMATCH",
+        "CODED_CHECK_TRANSCRIPT_MISMATCH",
+        "EVENT_COUNT_MISMATCH",
+        "EVENT_SEQUENCE_MISMATCH",
+        "EVENT_UNIVERSE_MISMATCH",
+        "EXECUTION_SUBJECT_BINDING_MISSING",
+        "LINEAR_EVENT_MALFORMED",
+        "LINEAR_INPUT_EDGE_MISMATCH",
+        "SEMANTICS_SUBJECT_BINDING_MISSING",
+        "SUBJECT_BINDING_MISMATCH",
+        "UNION_BOUND_MISMATCH"
+      ],
+      "rejected": true
+    },
+    {
+      "case_id": "output_graft",
+      "expected_code": "OUTPUT_TRACE_MISMATCH",
+      "expected_failure_observed": true,
+      "observed_codes": [
+        "AUDIT_SUBJECT_MISMATCH",
+        "CHALLENGE_DERIVATION_MISMATCH",
+        "CODED_CHECK_TRANSCRIPT_MISMATCH",
+        "EXECUTION_SUBJECT_BINDING_MISSING",
+        "OUTPUT_TRACE_MISMATCH",
+        "SEMANTICS_SUBJECT_BINDING_MISSING",
+        "SUBJECT_BINDING_MISMATCH"
+      ],
+      "rejected": true
+    },
+    {
+      "case_id": "challenge_before_subject",
+      "expected_code": "CHALLENGE_ORDER",
+      "expected_failure_observed": true,
+      "observed_codes": [
+        "CHALLENGE_ORDER"
+      ],
+      "rejected": true
+    },
+    {
+      "case_id": "cross_request_row_graft",
+      "expected_code": "REQUEST_ROW_GRAFT",
+      "expected_failure_observed": true,
+      "observed_codes": [
+        "AUDIT_SUBJECT_MISMATCH",
+        "AUDIT_TRACE_INPUT_MISMATCH",
+        "CHALLENGE_DERIVATION_MISMATCH",
+        "CODED_CHECK_TRANSCRIPT_MISMATCH",
+        "EXECUTION_SUBJECT_BINDING_MISSING",
+        "REQUEST_ROW_GRAFT",
+        "SEMANTICS_SUBJECT_BINDING_MISSING",
+        "SUBJECT_BINDING_MISMATCH"
+      ],
+      "rejected": true
+    },
+    {
+      "case_id": "wrong_model_preprocessing",
+      "expected_code": "PREPROCESSING_AUTHENTICATION_FAILED",
+      "expected_failure_observed": true,
+      "observed_codes": [
+        "PREPROCESSING_AUTHENTICATION_FAILED"
+      ],
+      "rejected": true
+    },
+    {
+      "case_id": "synthetic_work_coordinate_laundering",
+      "expected_code": "SYNTHETIC_WORK_UPGRADE",
+      "expected_failure_observed": true,
+      "observed_codes": [
+        "SYNTHETIC_WORK_UPGRADE"
+      ],
+      "rejected": true
+    }
+  ],
+  "run_id": "E-009-R1",
+  "schema_version": "aeye.e009-mutation-results.v0"
+}

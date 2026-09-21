@@ -1,0 +1,47 @@
+{
+  "attack": {
+    "changed_coordinate": 0,
+    "downstream_regenerated": true,
+    "forged_value": 5,
+    "honest_value": 4,
+    "retained_acceptance_fields_falsified": true,
+    "roots_and_challenges_regenerated": true,
+    "target_event": "q_linear"
+  },
+  "experiment_id": "E-009",
+  "field_multiplication_counts": {
+    "exact_matrix_vector_replay": 90,
+    "preprocessing_authentication": 832,
+    "ratio_decimal": 9.244444,
+    "ratio_denominator": 90,
+    "ratio_numerator": 832,
+    "scope": "field multiplications only; excludes additions, hashing, parsing, and all other verifier work"
+  },
+  "interpretation": {
+    "limitation": "Binding, ordering, and exact downstream-event checks add no separate rejection after the dishonest issuer regenerates a causally self-consistent downstream trace.",
+    "non_claim": "This probe is not an exhaustive malicious-provider proof, independent peer review, a native Pearl test, or a production security result.",
+    "supported": "The independent verifier rejects the self-consistent forged transcript by recomputing the coded q_linear relation rather than trusting issuer acceptance fields."
+  },
+  "observation": {
+    "finding_codes": [
+      "AUDIT_ACCEPTANCE_MISMATCH",
+      "CODED_CHECK_TRANSCRIPT_MISMATCH",
+      "CODED_LINEAR_REJECT",
+      "RELATION_ACCEPTANCE_MISMATCH"
+    ],
+    "forged_output_token": "iris",
+    "honest_output_token": "iris",
+    "honest_regeneration_finding_codes": [],
+    "naturally_rejected_coded_checks": 16,
+    "only_coded_relation_findings": true,
+    "total_coded_checks": 80
+  },
+  "provenance": {
+    "appraisal": "untrusted machine review independently replayed by the Aeye implementation owner",
+    "origin": "separate same-workstation machine-review scratch probe",
+    "relationship_to_r1": "not preregistered; does not change the frozen R1 result"
+  },
+  "run_id": "E-009-R1",
+  "schema_version": "aeye.e009-posthoc-adversarial-probe.v0",
+  "status": "observed-post-hoc"
+}

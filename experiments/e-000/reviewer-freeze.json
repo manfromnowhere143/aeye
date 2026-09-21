@@ -1,0 +1,840 @@
+{
+  "acceptance_predicate": {
+    "all_required": [
+      "terminal state MATCH under the precedence rule",
+      "no INVALID code raised at any phase",
+      "phases 1-9 completed in order with content-addressed records",
+      "operator acceptance record cites this file's SHA-256 and the amended manifest's SHA-256",
+      "registry frozen at tier T1 or better before Phase 4, with the tier stated beside the result",
+      "every recipe parameter fixed with pinned source file:line",
+      "both implementations agree byte-for-byte at every transcript stage",
+      "Pearl parity oracle agrees on the root and job_key for the frozen slab and fixtures",
+      "all 30 known-bad controls produce their expected diagnostics",
+      "candidate eligibility record complete, including two-source finality >= 100 and consensus-drift check",
+      "operator non-self-mining attestation retained",
+      "checkpoint bytes used match frozen registry digests",
+      "the result is reported only as registered-runtime-slab participation for one block"
+    ],
+    "claim": "For the selected mainnet certificate-v3 block, hash_b equals the keyed BLAKE3 root of a runtime weight slab reconstructed from a frozen public checkpoint revision through the frozen pinned transformation recipe, without miner-provided operand bytes."
+  },
+  "byte_path_requirements": {
+    "contract": [
+      {
+        "id": "D1",
+        "rule": "Parse the certificate envelope version-first; dispatch strictly on version 3; never parse a V3 body with V1 fixed-size logic even though a dense body is also 164 bytes."
+      },
+      {
+        "id": "D2",
+        "rule": "V3 body layout is the V2 layout; ProofCommitment domain is version 3; Salted seed derivation is a property of the version and is not on the wire."
+      },
+      {
+        "id": "D3",
+        "rule": "Dense public_data length is exactly 164; any other length for a mainnet V3 certificate at height >= 91630 is consensus-invalid at the pin and must be classified INVALID for reconstruction, not parsed as MoE."
+      },
+      {
+        "id": "D4",
+        "rule": "Full block header serialization and the 76-byte IncompleteBlockHeader must be reconstructed from retained header bytes: version LE32 | prev_block (32, wire/internal order) | merkle_root (32, wire/internal order) | timestamp LE32 | nbits LE32. The Go FFI reverses to display order and Rust reverses back; the net preimage uses wire order. Both implementations must document which order they use and produce the identical 76 bytes."
+      },
+      {
+        "id": "D5",
+        "rule": "Certificate block-hash binding: certificate.Hash must equal header.BlockHash(); header.ProofCommitment must equal SHA256d(LE32(3) || public_data). Both are checked before any hash_b use."
+      },
+      {
+        "id": "D6",
+        "rule": "MiningConfiguration 52 bytes: common_dim LE32 | rank LE16 | mma_type LE16 (0 only) | rows_pattern 6 | cols_pattern 6 | trailer 32 = e LE16 | top_k LE16 | 28 zero bytes; e must be 0 for dense; reserved bytes must be zero; round-trip must be byte-identical."
+      },
+      {
+        "id": "D7",
+        "rule": "job_key = BLAKE3(unkeyed)(header_76 || mining_config_52); exactly 128 bytes of preimage."
+      },
+      {
+        "id": "D8",
+        "rule": "hash_b is public_data[84:116]; hash_a is [52:84]; hash_jackpot is [116:148]; m,n,t_rows,t_cols are LE32 at [148:164]."
+      },
+      {
+        "id": "D9",
+        "rule": "int8 values are serialized as two's-complement single bytes; the miner path casts int8 to uint8 modulo 256 before hashing. A saturating or erroring cast is a wrong implementation."
+      },
+      {
+        "id": "D10",
+        "rule": "Orientation: the hashed tensor is B_T with shape n x k, row-major, C-contiguous, exactly as passed to the kernel (w_q.contiguous()). A transposed, Fortran-ordered, or strided view is wrong."
+      },
+      {
+        "id": "D11",
+        "rule": "Fusion: where the pinned vLLM 0.20.2 path stores fused QKV or fused gate/up parameters, the slab is the fused runtime parameter in runtime order. The exact fused ordering, per-partition sizes, and whether hashing happens per fused parameter or per sub-projection must be frozen from pinned source with file:line before Phase 4. Unresolved -> BLOCKED."
+      },
+      {
+        "id": "D12",
+        "rule": "Tensor parallelism: the TP degree set and the row/column slicing rule per parameter class must be frozen from pinned vLLM source with file:line. Every TP rank of every enumerated degree is a distinct registry slab. Unresolved -> BLOCKED."
+      },
+      {
+        "id": "D13",
+        "rule": "Expert parallelism, MoE stacking, per-expert n versus stacked rows: out of scope by consensus exclusion; any MoE artifact in the V3 lane is INVALID. Registry may contain MoE models only if their dense (non-expert) parameters are enumerated as dense slabs under the frozen recipe."
+      },
+      {
+        "id": "D14",
+        "rule": "Padding: zero-pad to a multiple of 1024 bytes; leaf count = ceil(len/1024); root = standard keyed BLAKE3 of the padded bytes. Unpadded, doubly padded, or leaf-size-mismatched constructions are wrong."
+      },
+      {
+        "id": "D15",
+        "rule": "Every transform parameter in the recipe has status fixed with source, or the run is BLOCKED before Phase 4. No default may be inferred from convenience, from a matching shape, or from the observed target."
+      },
+      {
+        "id": "D16",
+        "rule": "Material not bound by hash_b and therefore outside any E-000 claim: weight scales, SmoothQuant scales, Hadamard block size, layer identity, model identity, checkpoint revision, tokenizer, request, activations, output. A MATCH identifies a slab byte-string, not a model execution."
+      }
+    ],
+    "sources": {
+      "gpu_path_hashes_w_q_as_B": "https://github.com/pearl-research-labs/pearl/blob/4a0c24bc18dcb67cebca93c1ad38fb04837cb1a0/miner/vllm-miner/src/vllm_miner/gemm_operators.py#L95-L138",
+      "kernel_entry_w_q_contiguous_n_x_k": "https://github.com/pearl-research-labs/pearl/blob/4a0c24bc18dcb67cebca93c1ad38fb04837cb1a0/miner/vllm-miner/src/vllm_miner/vllm_kernels.py#L187-L224",
+      "merkle_root_equals_keyed_blake3": "https://github.com/pearl-research-labs/pearl/blob/4a0c24bc18dcb67cebca93c1ad38fb04837cb1a0/pearl-blake3/src/merkle.rs#L14-L27",
+      "merkle_root_equivalence_test": "https://github.com/pearl-research-labs/pearl/blob/4a0c24bc18dcb67cebca93c1ad38fb04837cb1a0/pearl-blake3/src/merkle.rs#L455-L472",
+      "miner_tensor_hash_padding": "https://github.com/pearl-research-labs/pearl/blob/4a0c24bc18dcb67cebca93c1ad38fb04837cb1a0/miner/miner-base/src/miner_base/matrix_merkle_tree.py#L27-L47"
+    },
+    "target_function": "hash_b == BLAKE3_keyed(key=job_key, data=zero_pad_to_1024(row_major_int8_bytes(B_T))) where B_T is the runtime weight slab as passed to the mining kernel (shape n x k)"
+  },
+  "candidate_selection_rule": {
+    "blinding_statement": "Genuine cryptographic blinding is unavailable: hash_b is public. The strongest auditable separation is temporal: the candidate must not exist when the registry, recipe, and implementation are frozen and operator-accepted. Same-machine procedural separation is auditable ordering, not concealment.",
+    "forbidden": [
+      "choosing T_accept after any candidate data is observed",
+      "re-running selection with a different T_start or window",
+      "selecting by shape, model, or any public_data content beyond PublicDataLen",
+      "inserting a height, hash, certificate, hash_b, or checkpoint identity into this freeze"
+    ],
+    "inputs": [
+      "T_accept: UTC time of the operator acceptance record that cites this file's SHA-256",
+      "public mainnet header metadata after T_accept"
+    ],
+    "kind": "future-block deterministic selection",
+    "selection_time_bias_note": "The candidate is a block that did not exist at acceptance. Neither owner nor reviewer can have pre-computed its hash_b classification. Miner-side bias is out of scope for E-000 and irrelevant to the reconstruction question.",
+    "steps": [
+      "S1. Let T_start = T_accept + 3600 s. This margin exceeds MaxTimeOffsetMinutes (5 min) and several mainnet target intervals (3 min 14 s).",
+      "S2. Let H_ref be the lowest mainnet height whose header timestamp >= T_start, as agreed by two independent public sources.",
+      "S3. Scan heights h = H_ref, H_ref+1, ... in ascending order. The candidate is the first h satisfying all eligibility predicates.",
+      "S4. Eligibility predicates: (a) network is mainnet per pinned params; (b) h >= 99000; (c) certificate version field == 3; (d) PublicDataLen == 164; (e) confirmation depth >= 100 at both sources at retrieval time; (f) block hash identical at both sources; (g) consensus-drift check passes (no consensus rule activated between the pinned commit and height h in the public Pearl repository that alters certificate envelope, public_data layout, job_key derivation, mining_config encoding, or hash_b construction).",
+      "S5. Tie-breaking: none needed; heights are totally ordered and the first eligible height is unique.",
+      "S6. Exhaustion: if no eligible height exists among the first 2000 heights at or above H_ref, or the chain has not reached H_ref+100 confirmations within 14 days of T_accept, terminal state is BLOCKED with code E000-BLK-NO-ELIGIBLE-CANDIDATE. No later window may be chosen for this experiment ID.",
+      "S7. A V3 certificate at h >= 99000 with PublicDataLen != 164 is consensus-invalid at the pin and is recorded as E000-INV-CONSENSUS-CONTRADICTION; the scan continues, and the anomaly must be reported.",
+      "S8. Non-self-mined: the operator records a signed attestation that no Pearl mining was ever performed from any operator-controlled key, machine, or pool account, and the candidate's coinbase outputs are retained. This is attestation, not proof; public data cannot exclude self-mining."
+    ]
+  },
+  "claim_ceiling": {
+    "forbidden": [
+      "WORK satisfied",
+      "EXECUTION satisfied",
+      "SEMANTICS satisfied",
+      "DEMAND",
+      "full inference",
+      "valid activations",
+      "useful work",
+      "hardware origin",
+      "economic authorization",
+      "model identity beyond the slab byte-string",
+      "any rate or census inference"
+    ],
+    "four_coordinate_vector_after_MATCH": {
+      "DEMAND": "unsupported",
+      "EXECUTION": "unknown",
+      "SEMANTICS": "unknown",
+      "WORK": "unknown"
+    },
+    "note": "E-000 does not run Pearl's proof verifier and makes no statement about the STARK. If the pinned verifier is optionally run and accepts, WORK may be recorded as 'Pearl-native accepted at pin; conditional' in a separate field, never in the E-000 result.",
+    "permitted": "registered-runtime-slab participation: hash_b of one block opened to one registered weight byte-string"
+  },
+  "companion_document": "docs/E000_ACCEPTANCE_CHECKLIST_2026-09-21.md",
+  "e001_gating": {
+    "blocks_e001": [
+      "INVALID or BLOCKED terminal state",
+      "any unresolved transform parameter"
+    ],
+    "does_not_gate_e001": [
+      "the direction of the single-opening outcome",
+      "any rate",
+      "Pearl proof verification"
+    ],
+    "gates_e001": [
+      "MATCH or IN_COVERAGE_NO_MATCH with a clean run (either demonstrates the instrument executes end to end)",
+      "registry at T1 with stated tier",
+      "recipe frozen and reproduced by two implementations"
+    ]
+  },
+  "e001_rules_out_of_scope_here": {
+    "adjacent_required": [
+      "retrieval rate = retrieved / planned_sample",
+      "coverage rate = in_coverage / retrieved",
+      "conditional match rate = MATCH / in_coverage, labelled secondary"
+    ],
+    "forbidden": "any figure whose denominator silently excludes OUT_OF_COVERAGE or UNRETRIEVED",
+    "headline": "|MATCH| / |planned_sample| (whole-sample lower bound)"
+  },
+  "evidence_requirements": {
+    "no_weights_in_repo": "No model weight file or any fragment of one may be committed to Aeye. Only digests, shapes, names, and retrieval receipts are retained.",
+    "raw_artifacts": [
+      "full serialized block header bytes",
+      "full MsgCertificate bytes (version + CertificateV3 fields)",
+      "PublicData bytes (164)",
+      "block height and hash",
+      "retrieval receipts from two independent public sources with URL, UTC timestamp, HTTP status, and SHA-256 of the raw response",
+      "the 76-byte IncompleteBlockHeader bytes as reconstructed"
+    ],
+    "registry_entry_fields": [
+      "huggingface repo id",
+      "git revision SHA (40 hex)",
+      "publisher commit timestamp (publisher-asserted)",
+      "Aeye retrieval receipt UTC timestamp",
+      "complete file list with LFS sha256 for every weight and config file",
+      "config.json and quantization config digests",
+      "tensor name list with dtype and shape",
+      "transform recipe id",
+      "TP degree set",
+      "trust tier"
+    ],
+    "registry_freeze_rule": "After Phase 3 no model, revision, tensor, TP/EP layout, or transformation may be added, removed, or edited for this experiment ID. The registry digest is content-addressed and cited by the run manifest.",
+    "temporal_provenance_rule": "Phase 3 (registry freeze) completes before Phase 4 (selection), and the candidate is a future block. Therefore every registry revision predates the candidate by Aeye's own retrieval receipt time, independent of publisher-asserted timestamps. Publisher timestamps are recorded but never load-bearing.",
+    "timestamp_insufficiency": "A checkpoint 'last updated' timestamp alone is insufficient. Immutable git revision history and exact file digests are required; if unavailable for a repo, that repo is OUT of the registry.",
+    "trust_tiers": {
+      "T0": "downloaded bytes only",
+      "T1": "T0 + pinned git revision SHA + retrieval receipts + per-file sha256 + second retrieval over an independent network path",
+      "T2": "T1 + independent reproduction of the quantized checkpoint from a different publisher's base model and published recipe",
+      "publisher_signed_but_unreproduced": "remains publisher-only; never labelled source-authenticated",
+      "required_minimum": "T1"
+    }
+  },
+  "experiment_id": "E-000",
+  "freeze_timestamp_utc": "2026-09-21T05:42:23Z",
+  "implementation_independence_requirements": {
+    "definition": "Two implementations are independent for E-000 when they share no Aeye-authored source file, module, function, or fixture generator for envelope parsing, header/config serialization, job_key derivation, checkpoint parsing, transformation, padding, hashing orchestration, or comparison; when they were written against the pinned Pearl source rather than against each other; and when at least one differs from the other in programming language or in tensor-file parsing library.",
+    "explicit_non_claims": [
+      "no human independence",
+      "no institutional independence",
+      "no cryptographic independence",
+      "code-path separation is not peer review"
+    ],
+    "no_shared_aeye_helper": true,
+    "pearl_parity_oracle": "The pinned pearl-blake3 MerkleTree and the pinned Python MatrixMerkleTree (or its documented CPU equivalent) must reproduce the root on the frozen slab bytes and on every known-bad fixture. Reusing Pearl code inside either Aeye implementation is not independence; Pearl code is oracle only.",
+    "permitted_shared_primitives": [
+      "a BLAKE3 implementation, provided both pass the official BLAKE3 keyed-mode test vectors and at least one of the two is not the same codebase as the other (for example upstream library versus an independent reference implementation)",
+      "SHA-256 from a standard library",
+      "the checkpoint bytes themselves and their frozen digests",
+      "the pinned Pearl checkout as read-only oracle"
+    ],
+    "residual_common_mode_risks": [
+      "both authors are the same implementation owner and may share a misreading of the vLLM transform",
+      "both may read the same misdocumented pinned source line",
+      "both may share an upstream BLAKE3 keyed-mode bug",
+      "both run on one workstation and one operating system"
+    ],
+    "third_party_replay": "A single documented command, taking only retained public artifacts and the frozen registry identities, must reproduce every transcript stage and the terminal classification without network access other than optional re-download of checkpoint files verified against frozen digests.",
+    "transcript_comparison": "Byte-for-byte equality is required at every stage: header_76, mining_config_52, job_key, per-source-tensor digests, fused/sliced slab bytes digest and shape, padded length and leaf count, root. Equal final roots with a divergent intermediate is a FAIL of the run (E000-INV-TRANSCRIPT-DIVERGENCE), not a pass."
+  },
+  "independence_limit": {
+    "reviewer_may_not": [
+      "select or inspect any candidate block, height, hash, certificate payload, hash_b, or checkpoint revision",
+      "modify implementation code or run E-000",
+      "convert this review into operator acceptance or change E-000 status from proposed"
+    ],
+    "statement": "This freeze is same-workstation machine adversarial review. It establishes auditable ordering and pre-outcome criteria only. It does not establish organizational, institutional, cryptographic, hardware, custody, or human independence, and it is not peer review."
+  },
+  "invalidation_predicate": {
+    "any_of": [
+      "any registry, recipe, parser, or code change after Phase 8",
+      "hash_b read, logged, displayed, or compared before Phase 8",
+      "sealed hash_b digest mismatch at reveal",
+      "candidate selected by any rule other than candidate_selection_rule or with a different T_start",
+      "transcript divergence between implementations with equal roots",
+      "a V3 candidate parsed through zk-pow/src/v1 semantics or a V1 parser",
+      "any miner-captured or runtime-captured operand bytes in the provenance chain",
+      "any frozen digest mismatch (Pearl checkout, vLLM source, implementations, registry, recipe)",
+      "any recipe parameter discovered unresolved after Phase 8",
+      "operator acceptance missing or postdating Phase 4"
+    ]
+  },
+  "known_bad_controls": [
+    {
+      "control_id": "E000-KB-01",
+      "expected_diagnostic": "E000-REJ-VERSION-ROUTE",
+      "mutation": "Legacy CertificateV1 bytes (fixed 164-byte body, no PublicDataLen) presented to the V3 lane",
+      "notes": "Envelope version 1 must be rejected before any body parsing; parsing the body with V1 logic is forbidden.",
+      "phase": 6,
+      "required_outcome": "reject_or_divergent_intermediate"
+    },
+    {
+      "control_id": "E000-KB-02",
+      "expected_diagnostic": "E000-REJ-VERSION-ROUTE",
+      "mutation": "V2 certificate version field presented to the V3 lane",
+      "phase": 6,
+      "required_outcome": "reject_or_divergent_intermediate"
+    },
+    {
+      "control_id": "E000-KB-03",
+      "expected_diagnostic": "E000-REJ-VERSION-ROUTE",
+      "mutation": "Proposed certificate-v4 / FP8 material (any version field >= 4 or any FP8 profile artifact) presented to the V3 lane",
+      "phase": 6,
+      "required_outcome": "reject_or_divergent_intermediate"
+    },
+    {
+      "control_id": "E000-KB-04",
+      "expected_diagnostic": "E000-REJ-PUBLIC-DATA-LENGTH",
+      "mutation": "V3 body with PublicDataLen != 164 (MoE tail or arbitrary length)",
+      "notes": "Must be INVALID for reconstruction, not parsed as MoE.",
+      "phase": 6,
+      "required_outcome": "reject_or_divergent_intermediate"
+    },
+    {
+      "control_id": "E000-KB-05",
+      "expected_diagnostic": "E000-REJ-PUBLIC-DATA-LENGTH",
+      "mutation": "Truncated public_data (163 bytes) and extended public_data (165 bytes) with consistent PublicDataLen",
+      "phase": 6,
+      "required_outcome": "reject_or_divergent_intermediate"
+    },
+    {
+      "control_id": "E000-KB-06",
+      "expected_diagnostic": "E000-REJ-BLOCK-HASH-BINDING",
+      "mutation": "Certificate block hash differing from header.BlockHash()",
+      "phase": 6,
+      "required_outcome": "reject_or_divergent_intermediate"
+    },
+    {
+      "control_id": "E000-KB-07",
+      "expected_diagnostic": "E000-REJ-PROOF-COMMITMENT",
+      "mutation": "Header ProofCommitment differing from SHA256d(LE32(3) || public_data), including the case computed with version 2",
+      "phase": 6,
+      "required_outcome": "reject_or_divergent_intermediate"
+    },
+    {
+      "control_id": "E000-KB-08",
+      "expected_diagnostic": "E000-DIV-SLAB-DIGEST",
+      "mutation": "Unfused raw checkpoint tensor hashed where the recipe fuses QKV or gate/up",
+      "phase": 6,
+      "required_outcome": "reject_or_divergent_intermediate"
+    },
+    {
+      "control_id": "E000-KB-09",
+      "expected_diagnostic": "E000-DIV-SLAB-DIGEST",
+      "mutation": "Fused tensor with Q/K/V order permuted",
+      "phase": 6,
+      "required_outcome": "reject_or_divergent_intermediate"
+    },
+    {
+      "control_id": "E000-KB-10",
+      "expected_diagnostic": "E000-DIV-SLAB-DIGEST",
+      "mutation": "Fused tensor with gate/up order swapped",
+      "phase": 6,
+      "required_outcome": "reject_or_divergent_intermediate"
+    },
+    {
+      "control_id": "E000-KB-11",
+      "expected_diagnostic": "E000-DIV-SLAB-DIGEST",
+      "mutation": "Wrong TP rank or wrong TP degree for the enumerated slab",
+      "phase": 6,
+      "required_outcome": "reject_or_divergent_intermediate"
+    },
+    {
+      "control_id": "E000-KB-12",
+      "expected_diagnostic": "E000-REJ-MOE-OUT-OF-SCOPE",
+      "mutation": "Any EP rank/degree, expert order, omitted or duplicated expert presented as a dense V3 slab",
+      "notes": "MoE is excluded by consensus at the pin; the lane must refuse, not attempt.",
+      "phase": 6,
+      "required_outcome": "reject_or_divergent_intermediate"
+    },
+    {
+      "control_id": "E000-KB-13",
+      "expected_diagnostic": "E000-DIV-SLAB-DIGEST",
+      "mutation": "Slab transposed (k x n) instead of n x k",
+      "phase": 6,
+      "required_outcome": "reject_or_divergent_intermediate"
+    },
+    {
+      "control_id": "E000-KB-14",
+      "expected_diagnostic": "E000-DIV-SLAB-DIGEST",
+      "mutation": "Fortran-ordered or non-contiguous strided bytes",
+      "phase": 6,
+      "required_outcome": "reject_or_divergent_intermediate"
+    },
+    {
+      "control_id": "E000-KB-15",
+      "expected_diagnostic": "E000-DIV-SLAB-DIGEST",
+      "mutation": "Signed-byte encoding via saturating cast or sign-magnitude instead of two's-complement modulo-256",
+      "phase": 6,
+      "required_outcome": "reject_or_divergent_intermediate"
+    },
+    {
+      "control_id": "E000-KB-16",
+      "expected_diagnostic": "E000-DIV-LEAF-COUNT",
+      "mutation": "Leaf count changed (declared dimensions inconsistent with byte length)",
+      "phase": 6,
+      "required_outcome": "reject_or_divergent_intermediate"
+    },
+    {
+      "control_id": "E000-KB-17",
+      "expected_diagnostic": "E000-DIV-ROOT",
+      "mutation": "Padding omitted, doubled, or applied at 64-byte or per-row granularity",
+      "phase": 6,
+      "required_outcome": "reject_or_divergent_intermediate"
+    },
+    {
+      "control_id": "E000-KB-18",
+      "expected_diagnostic": "E000-DIV-ROOT",
+      "mutation": "Unkeyed BLAKE3 or derive_key mode instead of keyed mode",
+      "phase": 6,
+      "required_outcome": "reject_or_divergent_intermediate"
+    },
+    {
+      "control_id": "E000-KB-19",
+      "expected_diagnostic": "E000-DIV-ROOT",
+      "mutation": "One-bit mutation of job_key",
+      "phase": 6,
+      "required_outcome": "reject_or_divergent_intermediate"
+    },
+    {
+      "control_id": "E000-KB-20",
+      "expected_diagnostic": "E000-DIV-JOB-KEY",
+      "mutation": "IncompleteBlockHeader with prev_block/merkle_root in display order (single reversal) instead of wire order",
+      "notes": "Cancelling-error control: an implementation that applies zero reversals or two reversals agrees; exactly one reversal must diverge. Both implementations must state their convention; agreement by shared omission is detected by the Pearl oracle job_key on the fixture.",
+      "phase": 6,
+      "required_outcome": "reject_or_divergent_intermediate"
+    },
+    {
+      "control_id": "E000-KB-21",
+      "expected_diagnostic": "E000-DIV-JOB-KEY",
+      "mutation": "Header field byte order big-endian, or timestamp/nbits swapped",
+      "phase": 6,
+      "required_outcome": "reject_or_divergent_intermediate"
+    },
+    {
+      "control_id": "E000-KB-22",
+      "expected_diagnostic": "E000-REJ-MINING-CONFIG",
+      "mutation": "mining_config with non-zero reserved trailer bytes, e != 0, mma_type != 0, or 51/53-byte encoding",
+      "phase": 6,
+      "required_outcome": "reject_or_divergent_intermediate"
+    },
+    {
+      "control_id": "E000-KB-23",
+      "expected_diagnostic": "E000-REJ-SEED-DERIVATION",
+      "mutation": "Legacy seed derivation applied to a V3 fixture",
+      "notes": "Diagnostic is on the commitment_hash/noise-seed vector using the pinned seed.rs vectors. hash_b is unaffected by seed derivation; this control does not and cannot falsify hash_b reconstruction. The manifest control must be re-scoped accordingly.",
+      "phase": 6,
+      "required_outcome": "reject_or_divergent_intermediate"
+    },
+    {
+      "control_id": "E000-KB-24",
+      "expected_diagnostic": "E000-REJ-REGISTRY-TEMPORAL",
+      "mutation": "Registry entry whose revision retrieval receipt postdates T_accept",
+      "phase": 6,
+      "required_outcome": "reject_or_divergent_intermediate"
+    },
+    {
+      "control_id": "E000-KB-25",
+      "expected_diagnostic": "E000-REJ-PROVENANCE",
+      "mutation": "Miner-captured or runtime-captured tensor bytes substituted for public checkpoint reconstruction",
+      "notes": "Provenance manifest must show every slab byte derives from a frozen registry file digest through the frozen recipe.",
+      "phase": 6,
+      "required_outcome": "reject_or_divergent_intermediate"
+    },
+    {
+      "control_id": "E000-KB-26",
+      "expected_diagnostic": "E000-PROPAGATE-FALSE-MATCH",
+      "mutation": "Poisoned registry entry (correct root, wrong claimed model identity)",
+      "notes": "Must produce a MATCH on the fixture and the report must state the pipeline propagates poison and cannot detect it; this fixture tests propagation, not detection.",
+      "phase": 6,
+      "required_outcome": "reject_or_divergent_intermediate"
+    },
+    {
+      "control_id": "E000-KB-27",
+      "expected_diagnostic": "E000-REJ-FIELD-SELECTION",
+      "mutation": "hash_a (public_data[52:84]) compared where hash_b is claimed",
+      "phase": 6,
+      "required_outcome": "reject_or_divergent_intermediate"
+    },
+    {
+      "control_id": "E000-KB-28",
+      "expected_diagnostic": "E000-BLK-UNRESOLVED-TRANSFORM",
+      "mutation": "Recipe with one parameter left unknown and a convenient default substituted",
+      "notes": "The pipeline must refuse to compute a candidate root; producing any root is a FAIL of this control.",
+      "phase": 6,
+      "required_outcome": "reject_or_divergent_intermediate"
+    },
+    {
+      "control_id": "E000-KB-29",
+      "expected_diagnostic": "E000-INV-TRANSCRIPT-DIVERGENCE",
+      "mutation": "Both implementations produce identical roots while an intermediate stage digest differs",
+      "notes": "Shared-bug/cancelling-error route on the Aeye side.",
+      "phase": 6,
+      "required_outcome": "reject_or_divergent_intermediate"
+    },
+    {
+      "control_id": "E000-KB-30",
+      "expected_diagnostic": "E000-ORACLE-PARITY",
+      "mutation": "Official BLAKE3 keyed-mode test vector and pinned seed.rs commitment vectors",
+      "notes": "Positive parity fixtures; failure blocks Phase 7.",
+      "phase": 6,
+      "required_outcome": "reject_or_divergent_intermediate"
+    }
+  ],
+  "ordered_phase_gates": [
+    {
+      "content_addressed": true,
+      "gate": "pinned Pearl checkout digest verified; vLLM 0.20.2 source retained with digest; pinned file digests recorded",
+      "name": "raw-source retention",
+      "phase": 1
+    },
+    {
+      "content_addressed": true,
+      "gate": "operator acceptance record cites this file's SHA-256 and the amended manifest SHA-256; T_accept recorded",
+      "name": "operator acceptance",
+      "phase": 2
+    },
+    {
+      "content_addressed": true,
+      "gate": "registry identities (repos, revisions, file digests, tensor lists, TP set) frozen and digested; no weight bytes in repo",
+      "name": "checkpoint/registry freeze",
+      "phase": 3
+    },
+    {
+      "content_addressed": true,
+      "gate": "every recipe parameter fixed with pinned source file:line; any unknown -> BLOCKED",
+      "name": "transformation-recipe freeze",
+      "phase": 4
+    },
+    {
+      "content_addressed": true,
+      "gate": "both implementation digests, interpreter/toolchain versions, and the replay command frozen",
+      "name": "implementation/version freeze",
+      "phase": 5
+    },
+    {
+      "content_addressed": true,
+      "gate": "every control in known_bad_controls rejects with its diagnostic on both implementations and the Pearl oracle where applicable",
+      "name": "known-bad tests",
+      "phase": 6
+    },
+    {
+      "content_addressed": true,
+      "gate": "selection per candidate_selection_rule; eligibility facts recorded; hash_b sealed (bytes [84:116] written to a sealed file whose digest is recorded but whose content is not read); mining_config, m, n read; every registry slab of shape (n,k) enumerated; roots computed by both implementations with full transcripts",
+      "name": "candidate selection, eligibility record, coverage decision, candidate-root computation",
+      "phase": 7
+    },
+    {
+      "content_addressed": true,
+      "gate": "sealed hash_b opened and recorded; reveal timestamp recorded; from this point no registry, recipe, parser, or code change is permitted for this experiment ID",
+      "name": "reveal",
+      "phase": 8
+    },
+    {
+      "content_addressed": true,
+      "gate": "compare hash_b against the set of candidate roots once; emit terminal state; write result",
+      "name": "exactly one comparison",
+      "phase": 9
+    }
+  ],
+  "post_reveal_rules": {
+    "corrections": "A correction requires a new experiment revision id (E-000-R2, ...) with its own freeze; the original terminal state and artifacts are preserved and cited.",
+    "no_edits": "Any change to registry, recipe, parser, or code after Phase 8 invalidates this experiment ID.",
+    "reveal_definition": "hash_b is public but intentionally uninspected until Phase 8. Reveal means the first moment any process or person reads, logs, displays, or compares those 32 bytes. The sealed file's digest recorded in Phase 7 is the audit trail; a digest mismatch at reveal is INVALID."
+  },
+  "prohibited_observations_before_freeze": {
+    "implementation_owner_until_phase_7_selection": [
+      "any candidate block header, certificate, or public_data bytes",
+      "any hash_b",
+      "any per-block mining_config, m, n, k"
+    ],
+    "implementation_owner_until_phase_8": [
+      "the 32 bytes at public_data[84:116] (hash_b) of the selected candidate in any decoded, displayed, logged, compared, or hashed-for-comparison form"
+    ],
+    "permitted_coverage_facts_phase_7_after_eligibility": [
+      "mining_config (52 bytes)",
+      "m",
+      "n",
+      "t_rows",
+      "t_cols",
+      "hash_a and hash_jackpot may be read but must not be compared to anything"
+    ],
+    "permitted_eligibility_facts_phase_7": [
+      "height",
+      "block hash",
+      "header timestamp",
+      "certificate version field",
+      "PublicDataLen",
+      "confirmation depth at two sources",
+      "coinbase output scripts/addresses for the self-mined attestation record"
+    ],
+    "reviewer": [
+      "mainnet queries",
+      "block explorers",
+      "candidate heights or hashes",
+      "certificate payloads",
+      "public hash_b values",
+      "checkpoint revisions or files",
+      "miner-captured operand bytes"
+    ]
+  },
+  "protocol_pins": {
+    "certificate_version": 3,
+    "coinbase_maturity_mainnet": {
+      "source": "https://github.com/pearl-research-labs/pearl/blob/4a0c24bc18dcb67cebca93c1ad38fb04837cb1a0/node/chaincfg/params.go#L356",
+      "value": 100
+    },
+    "excluded_lineages": [
+      "proposed FP8 certificate-v4",
+      "CertificateV1 / zk-pow/src/v1 legacy path",
+      "CertificateV2 Legacy seed derivation",
+      "any MoE (GROUPED_GEMM) certificate"
+    ],
+    "mainnet_fork_heights_at_pin": {
+      "dense_only_fork_height": 91630,
+      "moe_fork_height": 71935,
+      "rank_penalty_fork_height": 96251,
+      "salted_seed_fork_height_v3_required": 99000,
+      "source": "https://github.com/pearl-research-labs/pearl/blob/4a0c24bc18dcb67cebca93c1ad38fb04837cb1a0/node/chaincfg/params.go#L364-L371"
+    },
+    "network": {
+      "magic_le32": "0x50524C4D",
+      "name": "mainnet",
+      "source": "https://github.com/pearl-research-labs/pearl/blob/4a0c24bc18dcb67cebca93c1ad38fb04837cb1a0/node/wire/protocol.go#L135"
+    },
+    "pearl_commit": "4a0c24bc18dcb67cebca93c1ad38fb04837cb1a0",
+    "pearl_local_checkout": "evidence/external/pearl",
+    "pearl_origin": "https://github.com/pearl-research-labs/pearl.git",
+    "protocol_lineage": "Pearl INT certificate-v3 (dense) at the pinned commit",
+    "vllm_version": "0.20.2"
+  },
+  "required_manifest_amendments": [
+    {
+      "amendment": "Add {input_id: 'certificate_code_route', value: 'zk-pow/src/api + zk-pow/src/circuit + zk-pow/src/ffi (V2/V3 path); SeedDerivation::Salted; zk-pow/src/v1 excluded', status: 'fixed'}.",
+      "field": "frozen_inputs",
+      "id": "A1"
+    },
+    {
+      "amendment": "Add {input_id: 'mainnet_fork_heights_at_pin', value: {moe: 71935, dense_only: 91630, rank_penalty: 96251, salted_seed_v3: 99000}, status: 'fixed'} and {input_id: 'candidate_min_height', value: 99000, status: 'fixed'}.",
+      "field": "frozen_inputs",
+      "id": "A2"
+    },
+    {
+      "amendment": "Add {input_id: 'public_data_length', value: 164, status: 'fixed'} and {input_id: 'moe_scope', value: 'excluded by consensus at pin; any MoE artifact in the V3 lane is INVALID', status: 'fixed'}. Set expert_parallel_degree status to 'fixed' with value 'not applicable (dense-only)'.",
+      "field": "frozen_inputs",
+      "id": "A3"
+    },
+    {
+      "amendment": "Add {input_id: 'candidate_selection_rule', value: 'experiments/e-000/reviewer-freeze.json#candidate_selection_rule', status: 'fixed'} and {input_id: 'reviewer_freeze_sha256', value: '<sha256 of reviewer-freeze.json>', status: 'fixed'}.",
+      "field": "frozen_inputs",
+      "id": "A4"
+    },
+    {
+      "amendment": "Add {input_id: 'finality_rule', value: '>= 100 confirmations at two independent public sources agreeing on block hash', status: 'fixed'}.",
+      "field": "frozen_inputs",
+      "id": "A5"
+    },
+    {
+      "amendment": "Replace the five steps with the nine ordered phases in reviewer-freeze.json#ordered_phase_gates, including the sealed-hash_b rule and the single-comparison rule.",
+      "field": "procedure",
+      "id": "A6"
+    },
+    {
+      "amendment": "Replace known_bad_controls[2] ('wrong certificate seed-derivation version; the vector must fail') with the re-scoped E000-KB-23 wording: the control falsifies the commitment_hash/noise-seed vector only; it does not falsify hash_b. Add E000-KB-01 through E000-KB-30 by id.",
+      "field": "known_bad_controls",
+      "id": "A7"
+    },
+    {
+      "amendment": "Add: 'The V3 code route is zk-pow/src/api; no V1 parser semantics are used'; 'hash_b was sealed before candidate-root computation and revealed once'; 'both implementations agree at every intermediate transcript stage, not only the root'; 'the Pearl parity oracle agrees'; 'operator non-self-mining attestation is retained'.",
+      "field": "acceptance",
+      "id": "A8"
+    },
+    {
+      "amendment": "Add: 'Any version-route mismatch, unresolved runtime transform parameter, or inability to establish registry retrieval before T_accept blocks the experiment (BLOCKED), and is never optimized away'; 'Any read of hash_b before Phase 8 invalidates the run (INVALID)'.",
+      "field": "failure",
+      "id": "A9"
+    },
+    {
+      "amendment": "Add: 'The PAB note's certificate-v3 citations to zk-pow/src/v1 have not been corrected to the zk-pow/src/api route' and 'Terminal states BLOCKED and INVALID are not yet part of the manifest's classification set'.",
+      "field": "blocking_conditions",
+      "id": "A10"
+    },
+    {
+      "amendment": "State the terminal-state set as the six states with the precedence in reviewer-freeze.json#terminal_states and state that IN_COVERAGE_NO_MATCH requires the exhaustive Phase 7 enumeration.",
+      "field": "procedure/acceptance",
+      "id": "A11"
+    },
+    {
+      "amendment": "Add the security-disclosure stop condition: a plausible Pearl vulnerability stops the run as BLOCKED with code E000-BLK-SECURITY-STOP; only a minimal local reproduction is retained privately; nothing enters public artifacts; disclosure follows Pearl's SECURITY.md.",
+      "field": "acceptance",
+      "id": "A12"
+    }
+  ],
+  "required_output_artifacts": [
+    "experiments/e-000/artifacts/run-manifest.json (machine-readable run manifest)",
+    "retrieval receipts for header, certificate, and registry metadata (two sources)",
+    "source digests for Pearl checkout, vLLM source, both implementations, registry, recipe",
+    "candidate eligibility decision record with every permitted fact and the sealed hash_b digest",
+    "frozen registry (identities, digests, shapes, TP set, tier)",
+    "exact transformation recipe with pinned source file:line per parameter",
+    "intermediate byte/digest transcript from both implementations",
+    "implementation identities (paths, digests, language, library versions)",
+    "Pearl parity-oracle result",
+    "negative-control matrix (30 controls x expected/observed diagnostic)",
+    "comparison result with reveal timestamp",
+    "terminal classification with precedence trace",
+    "four-coordinate claim vector",
+    "assumptions and non-claims",
+    "one replay command",
+    "E-001 denominator and rate rules, marked out of scope for this single run"
+  ],
+  "reviewed_file_sha256": {
+    "aeye": {
+      "AGENTS.md": "e9c0da058a35cd91cabd2646a840867b2c5fa5c68934dec55fb065e3c323e814",
+      "docs/ADVERSARIAL_REVIEW_RESPONSE_2026-09-21.md": "e86abaffc0ba8f582952cc9f00b23b8bd272d5809360327eada71d6b3b05a6ef",
+      "docs/CLAIMS_AND_NON_CLAIMS.md": "e917059eae39ae22800e2deaa695c5f3f63da9f62cc132332535134d2dd3784c",
+      "docs/EXPERIMENT_PROGRAM.md": "c2581021f5f2dc0e3b1a30f7137bf82221db2b9d5d4d85f231270906dfd9d48c",
+      "docs/PEARL_ACTIVATION_ORIGIN_BINDING_2026-09-21.md": "16c0c1b44d6776997b0321d10eccb7ae9a17ec08c2a9181415ed33a4651d0601",
+      "docs/PEARL_FORENSICS_2026-08-30.md": "e0ce433ca099c097870f80f807f4f1e53d205f243cd25ff11bcb02d8fe7b4d36",
+      "docs/PRE_IMPLEMENTATION_GATE.md": "ae1864cc195c325970f03fa7d38252817576621950d08cfe329e003853b48e00",
+      "docs/RESEARCH_LINEAGE.md": "3d08db73077f892d7e89f5d1635a32c617544c1926967870637170bb7acb0ae7",
+      "docs/REVIEW_PROTOCOL.md": "b632df00ad975ddf3001e5e72bc206301a2ecf012136e4a00ce72ce550b5871c",
+      "docs/SESSION_HANDOFF.md": "22e53d54e766962ee47df8f460e45c817b68b8d819bf0a781dd6c4fa03bc727a",
+      "docs/THREAT_MODEL.md": "c26320355828eaf784fe17f8bd168db79c7bbbce71eec12bc4ea78e96e146ce7",
+      "experiments/e-000/manifest.json": "ee9fc06126220603ce0960b8dd25422273d7c558be0dff16fed92599678ec8c8",
+      "schemas/experiment-manifest-v0.schema.json": "21ca285e0f5f765a8c7bc8f7f9bc8b86522cfca7528da423f588c15f95769f25"
+    },
+    "pearl_at_pin": {
+      "miner/miner-base/src/miner_base/matrix_merkle_tree.py": "f6a3a52dbab89798549f66376ae4fdc0a87e96b87b33d5a04fdb61ee2ca6260a",
+      "miner/vllm-miner/src/vllm_miner/gemm_operators.py": "d9f8f290964144929b33c49e52e1e0166a691af3e7891e69cc0f6b1ca7270e35",
+      "miner/vllm-miner/src/vllm_miner/vllm_kernels.py": "c48432d469a8b1ee820a8b71e324068f06cfbb84c25f8a515f2e88cd6130252e",
+      "node/blockchain/validate.go": "4fbd15ac66eca72e2da7fd2e5d4e2f046fb9d41489b3983ab2f1372a44bc36b8",
+      "node/chaincfg/params.go": "5ad2df65962a0e83daf33dabd3b182b1aea61748e7d1bc055f4e51b8edafe443",
+      "node/wire/certificate.go": "2a4294d6ca9405c1c90bd03a2c95cbabe647273d925a3512ecf53b3b57f9cbe7",
+      "node/wire/certificate_v1.go": "f82647486cfc1e99dcb9d997e6ff3aceb4b35110eaec34d2f6c0c67cb3ba1650",
+      "node/wire/certificate_v2.go": "2ee8b02d2447543a743d69a46ed13d247af6c51362c30be7411d300924ef03f2",
+      "node/wire/certificate_v3.go": "1b6f6355021316368fdd3089286bb19bac4d077134d300c432b922e5af986f70",
+      "node/zkpow/verify.go": "8cf852a4b2b637eeb4c009e565d3501f516e0ad6665df426a44285ef517180c5",
+      "pearl-blake3/src/merkle.rs": "5372a95d7e7e3563eb537a0b98522080cbaa5656ba08452e9d467eaa56e12961",
+      "zk-pow/src/api/proof.rs": "168e553da3beb1b2185778839a98dfb06b958290e703eebc724745b292afe7ba",
+      "zk-pow/src/api/proof_utils.rs": "2b28b65d89eb91c1de1763b3384ce9aab6bac547da5c381ad27308a43cdeb2b0",
+      "zk-pow/src/api/seed.rs": "5855fcd68e4b9ccabf91cf8feb3e7b0f8bf7a59db39fb61357000bb8e1a30dbe",
+      "zk-pow/src/ffi/plain_proof.rs": "2c8266340c60cb9e4eacb44d1c74f1412e46c1d39278bd79c9144a35be82d171",
+      "zk-pow/src/lib.rs": "8a5dc5b3cd6c168eecc197515a5a1e22cbb6ca08c7c5f89d32fc14d748b9426a",
+      "zk-pow/src/v1/api/proof.rs": "fa600bf6eec20c264f2fb141040e6b284434df691fd6150de5f161abd46bd728",
+      "zk-pow/src/v1/api/proof_utils.rs": "17e70704bff11d196512dc55eb741843309ca40433a48a846ba9f4bf75286d01",
+      "zk-pow/src/v1/compat_test.rs": "bc70bc0124eeda82651593ff3bd6db8bb598e2183b5922111c49a33bb89ba92e"
+    }
+  },
+  "reviewer_role": "adversarial preregistration reviewer; same-workstation machine review; not implementation owner, operator, security authority, or independent human peer reviewer",
+  "reviewer_verdict": "ACCEPT_WITH_AMENDMENTS",
+  "schema_version": "aeye.e000-reviewer-freeze.v0",
+  "security_disclosure_stop": {
+    "action": [
+      "stop the run; terminal state BLOCKED with code E000-BLK-SECURITY-STOP",
+      "retain only a minimal local reproduction outside public artifacts",
+      "no exploit or vulnerability detail in any repository document, JSON, log, or commit",
+      "route through Pearl's documented SECURITY.md channel with operator decision"
+    ],
+    "trigger": "Any plausible consensus, parser, hashing, or binding weakness in Pearl observed during reconstruction"
+  },
+  "terminal_states": {
+    "definitions": {
+      "BLOCKED": "Before Phase 8 a prerequisite could not be met: unresolved transform parameter, registry not freezable at T1, no eligible candidate within the exhaustion rule, consensus drift, oracle parity failure, or security stop. Not a scientific negative.",
+      "INVALID": "A protocol violation occurred: phase order broken, prohibited observation, edit after reveal, digest mismatch, transcript divergence, version-route mismatch discovered after Phase 4, consensus contradiction in the candidate, or discovery after reveal that a recipe parameter was unresolved. No scientific classification is emitted; the violation code is retained.",
+      "IN_COVERAGE_NO_MATCH": "Shape is in the index, every registry slab of that shape across all frozen models, revisions, TP degrees, and transforms was computed by both implementations with agreement, and none equals hash_b. Permitted phrasing: 'did not open to any registered slab'. Never 'random', 'non-model', or 'FALSE'.",
+      "MATCH": "At least one frozen registry slab's root equals hash_b byte-for-byte, with both implementations and the Pearl oracle agreeing at every transcript stage. Report the set of matching slab ids; identical slabs across revisions are one byte-string.",
+      "OUT_OF_COVERAGE": "The candidate's (n, k) from public_data has no slab in the frozen registry shape index. Evidence of nothing about the miner.",
+      "UNRETRIEVED": "An eligible candidate exists but its header or certificate bytes could not be retrieved consistently from two independent public sources under the retrieval policy. Reported; never dropped."
+    },
+    "fb4a_relationship": "MATCH discharges FB-4a (recomputability) for this candidate and registry only. IN_COVERAGE_NO_MATCH or OUT_OF_COVERAGE does not falsify FB-4a for the network; it falsifies public reconstruction only for this candidate against this registry and recipe.",
+    "never": [
+      "render missing, unsupported, unmeasured, or unavailable as zero or success",
+      "call absence of a match FALSE",
+      "compute a rate from a single opening"
+    ],
+    "precedence": [
+      "INVALID",
+      "BLOCKED",
+      "UNRETRIEVED",
+      "OUT_OF_COVERAGE",
+      "MATCH",
+      "IN_COVERAGE_NO_MATCH"
+    ],
+    "single_opening_legality": "IN_COVERAGE_NO_MATCH is legal for the single-opening experiment only because Phase 7 requires exhaustive enumeration of every registry slab of the candidate's shape before reveal. If enumeration is discovered incomplete after reveal, the state is INVALID, never IN_COVERAGE_NO_MATCH.",
+    "states": [
+      "INVALID",
+      "BLOCKED",
+      "UNRETRIEVED",
+      "OUT_OF_COVERAGE",
+      "MATCH",
+      "IN_COVERAGE_NO_MATCH"
+    ]
+  },
+  "unresolved_questions": [
+    "Whether Pearl mainnet has reached height 99000 at T_accept; if not, no V3 candidate exists and the run is BLOCKED until it does within the exhaustion window.",
+    "Whether any consensus rule affecting certificate parsing, job_key, mining_config, or hash_b has activated on mainnet after the pinned commit; the consensus-drift check must be executed from the public repository at selection time.",
+    "The exact pinned vLLM 0.20.2 fusion, partition-size, and TP slicing rules for each pearl-ai checkpoint; the recipe must be frozen with file:line before Phase 4 and is not resolved by this review.",
+    "Whether pearl-ai checkpoints on Hugging Face expose immutable git revision history with LFS sha256 for every file; if not, tier T1 is unreachable and the run is BLOCKED.",
+    "Whether the CUDA tensor_hash kernel is byte-identical to the CPU keyed BLAKE3 path; E-000 uses the CPU path as reference and records CUDA parity as unknown unless separately established.",
+    "Whether the pearl-ai W8A8 checkpoints are reproducible from base models plus a published recipe (tier T2); prior is 'probably not'.",
+    "Which layers ever mine (should_use_noisy_gemm and shape bounds), which determines which slabs can appear on chain at all."
+  ],
+  "verdict_condition": "Every entry in required_manifest_amendments must be applied to experiments/e-000/manifest.json and operator-accepted, with the acceptance record citing the SHA-256 of this file, before candidate selection begins. Absent that, the standing verdict for the unamended manifest is REJECT.",
+  "verified_version_route": {
+    "facts": [
+      {
+        "fact": "MsgCertificate is version-first; version 3 decodes to CertificateV3",
+        "source": "https://github.com/pearl-research-labs/pearl/blob/4a0c24bc18dcb67cebca93c1ad38fb04837cb1a0/node/wire/certificate.go#L128-L155"
+      },
+      {
+        "fact": "CertificateV3 embeds CertificateV2 and overrides only Version and ProofCommitment (hashes version 3)",
+        "source": "https://github.com/pearl-research-labs/pearl/blob/4a0c24bc18dcb67cebca93c1ad38fb04837cb1a0/node/wire/certificate_v3.go#L12-L24"
+      },
+      {
+        "fact": "CertificateV2 layout: BlockHash(32) | PublicDataLen(4 LE) | PublicData | ProofLen(4 LE) | ProofData; PublicDataMaxSizeV2=4807; dense size 164; IsMoE() := PublicDataLen > 164",
+        "source": "https://github.com/pearl-research-labs/pearl/blob/4a0c24bc18dcb67cebca93c1ad38fb04837cb1a0/node/wire/certificate_v2.go#L14-L46"
+      },
+      {
+        "fact": "ProofCommitment = SHA256d(LE32(version) || PublicData[:PublicDataLen])",
+        "source": "https://github.com/pearl-research-labs/pearl/blob/4a0c24bc18dcb67cebca93c1ad38fb04837cb1a0/node/wire/certificate_v2.go#L64-L75"
+      },
+      {
+        "fact": "Node dispatch: CertificateV3 -> verifyCertificateV3 -> FFI verify_zk_proof_v3; CertificateV1 -> verify_zk_proof_v1",
+        "source": "https://github.com/pearl-research-labs/pearl/blob/4a0c24bc18dcb67cebca93c1ad38fb04837cb1a0/node/zkpow/verify.go#L38-L52"
+      },
+      {
+        "fact": "FFI CertificateVersion::ZkV3 -> SeedDerivation::Salted; ZkDense/ZkMoe -> Legacy",
+        "source": "https://github.com/pearl-research-labs/pearl/blob/4a0c24bc18dcb67cebca93c1ad38fb04837cb1a0/zk-pow/src/ffi/plain_proof.rs#L158-L178"
+      },
+      {
+        "fact": "SeedDerivation is selected by certificate version, never serialized, no Default; Salted salts roots before the unchanged seed chain; wire carries raw roots",
+        "source": "https://github.com/pearl-research-labs/pearl/blob/4a0c24bc18dcb67cebca93c1ad38fb04837cb1a0/zk-pow/src/api/seed.rs#L1-L25"
+      },
+      {
+        "fact": "zk-pow/src/v1 is the V1 (master) verifier compatibility path",
+        "source": "https://github.com/pearl-research-labs/pearl/blob/4a0c24bc18dcb67cebca93c1ad38fb04837cb1a0/zk-pow/src/v1/compat_test.rs#L1-L3"
+      },
+      {
+        "fact": "V2/V3 PublicProofParams::WIRE_SIZE=164 (dense); MIN_MOE_WIRE_SIZE=199; MAX_WIRE_SIZE=199+128*4+1024*4; is_valid_wire_size",
+        "source": "https://github.com/pearl-research-labs/pearl/blob/4a0c24bc18dcb67cebca93c1ad38fb04837cb1a0/zk-pow/src/api/proof_utils.rs#L1143-L1165"
+      },
+      {
+        "fact": "V2/V3 from_wire_bytes rejects a 164-byte body whose mining_config selects GROUPED_GEMM and rejects a MoE tail whose mining_config is dense",
+        "source": "https://github.com/pearl-research-labs/pearl/blob/4a0c24bc18dcb67cebca93c1ad38fb04837cb1a0/zk-pow/src/api/proof_utils.rs#L1216-L1247"
+      },
+      {
+        "fact": "Mainnet consensus at pin: RequiredCertVersion(height) is V3 for height >= 99000; MoE certificates rejected for height >= 91630",
+        "source": "https://github.com/pearl-research-labs/pearl/blob/4a0c24bc18dcb67cebca93c1ad38fb04837cb1a0/node/blockchain/validate.go#L536-L551"
+      },
+      {
+        "fact": "V1 MiningConfiguration trailer is 32 reserved bytes; V2/V3 trailer is e(2)|top_k(2)|28 zero bytes with e==0 meaning dense. Dense bytes coincide; semantics differ",
+        "source": "https://github.com/pearl-research-labs/pearl/blob/4a0c24bc18dcb67cebca93c1ad38fb04837cb1a0/zk-pow/src/api/proof_utils.rs#L462-L486"
+      }
+    ],
+    "pab_note_correction_required": {
+      "affected_e000_criteria": [
+        "D.1 envelope parsing",
+        "D.3 public_data lengths",
+        "D.7 job_key",
+        "G controls E000-KB-01/02/03/04",
+        "manifest known_bad_controls[2] seed-derivation control"
+      ],
+      "defect": "Claims certificate-v3 scope but cites zk-pow/src/v1/api and zk-pow/src/v1/circuit paths and a fixed 164-byte public data; V3 verification executes zk-pow/src/api and zk-pow/src/circuit and admits variable-length MoE public data in the parser.",
+      "required_correction": "Re-cite every fact from zk-pow/src/api, zk-pow/src/circuit, and zk-pow/src/ffi at the pinned commit; state that Salted derivation applies; state that 164 bytes is the dense-only length; add the MoE variable-length case or state the dense-only consensus exclusion with its height gate. Reviewer does not edit the note.",
+      "target": "docs/PEARL_ACTIVATION_ORIGIN_BINDING_2026-09-21.md"
+    },
+    "status": "observed",
+    "summary": "CertificateV3 shares the CertificateV2 variable-length envelope and routes through zk-pow/src/api with SeedDerivation::Salted. zk-pow/src/v1 is the legacy CertificateV1 verifier and is never executed for a V3 certificate. Salting alters the noise-seed chain, not hash_b."
+  }
+}

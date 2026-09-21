@@ -1,0 +1,13 @@
+{
+  "schema_version": "aeye.negative-fixture.v0",
+  "base_kind": "receipt",
+  "base_path": "fixtures/valid/minimal-receipt.json",
+  "purpose": "A valid work certificate cannot establish arithmetic semantics.",
+  "mutations": [
+    {"op": "set", "pointer": "/claimed_results/SEMANTICS/status", "value": "satisfied"},
+    {"op": "set", "pointer": "/claimed_results/SEMANTICS/assurance", "value": "cryptographic"},
+    {"op": "set", "pointer": "/claimed_results/SEMANTICS/coverage", "value": {"known": true, "scope": "wrongly relabelled work instance", "unit": "operation", "numerator": 1, "denominator": 1}},
+    {"op": "set", "pointer": "/claimed_results/SEMANTICS/assumptions", "value": ["pearl.batch-low-rank-hardness", "sha256.collision-resistance"]},
+    {"op": "set", "pointer": "/claimed_results/SEMANTICS/evidence_refs", "value": ["fixture:work"]}
+  ]
+}

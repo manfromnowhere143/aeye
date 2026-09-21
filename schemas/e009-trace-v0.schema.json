@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aeye.invalid/schemas/e009-trace-v0.schema.json",
+  "title": "Aeye E-009 causal trace v0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "experiment_id", "run_id", "job_id", "event_count", "events"],
+  "properties": {
+    "schema_version": {"const": "aeye.e009-trace.v0"},
+    "experiment_id": {"const": "E-009"},
+    "run_id": {"const": "E-009-R1"},
+    "job_id": {"$ref": "#/$defs/digest"},
+    "event_count": {"const": 13},
+    "events": {
+      "type": "array",
+      "minItems": 13,
+      "maxItems": 13,
+      "items": {"$ref": "#/$defs/event"}
+    }
+  },
+  "$defs": {
+    "digest": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "event": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sequence", "event_id", "job_id", "verification", "inputs", "outputs"],
+      "properties": {
+        "sequence": {"type": "integer", "minimum": 0, "maximum": 12},
+        "event_id": {
+          "enum": [
+            "request_input",
+            "q_linear",
+            "k_linear",
+            "v_linear",
+            "cache_append",
+            "attention_scores",
+            "hard_attention_select",
+            "residual",
+            "mlp_linear",
+            "relu",
+            "logits_linear",
+            "argmax",
+            "output_emit"
+          ]
+        },
+        "job_id": {"$ref": "#/$defs/digest"},
+        "verification": {"enum": ["coded_linear", "exact"]},
+        "inputs": {"type": "object"},
+        "outputs": {"type": "object"}
+      }
+    }
+  }
+}

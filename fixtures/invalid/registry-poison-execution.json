@@ -1,0 +1,12 @@
+{
+  "schema_version": "aeye.negative-fixture.v0",
+  "base_kind": "receipt",
+  "base_path": "fixtures/valid/minimal-receipt.json",
+  "purpose": "Even a well-formed registry statement can propagate a malicious label; it cannot be upgraded into execution truth.",
+  "mutations": [
+    {"op": "set", "pointer": "/evidence/1/evidence_type", "value": "registry_observation"},
+    {"op": "set", "pointer": "/claimed_results/EXECUTION/status", "value": "satisfied"},
+    {"op": "set", "pointer": "/claimed_results/EXECUTION/assurance", "value": "cryptographic"},
+    {"op": "set", "pointer": "/claimed_results/EXECUTION/coverage", "value": {"known": true, "scope": "publisher-labelled model slab", "unit": "event", "numerator": 1, "denominator": 1}}
+  ]
+}

@@ -1,0 +1,156 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aeye.invalid/schemas/verification-report-v0.schema.json",
+  "title": "Aeye Verification Report research schema v0",
+  "description": "Independent appraisal output. The four-coordinate vector cannot be collapsed into a global verdict field.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "report_id",
+    "receipt_path",
+    "receipt_digest",
+    "generated_at",
+    "verifier",
+    "appraisal_policy",
+    "results",
+    "conflicts"
+  ],
+  "properties": {
+    "schema_version": {"const": "aeye.verification-report.v0"},
+    "report_id": {"type": "string", "minLength": 1},
+    "receipt_path": {"type": "string", "minLength": 1},
+    "receipt_digest": {"$ref": "#/$defs/digest"},
+    "generated_at": {"type": "string", "format": "date-time"},
+    "verifier": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["principal_id", "independence_statement"],
+      "properties": {
+        "principal_id": {"type": "string", "minLength": 1},
+        "independence_statement": {"type": "string", "minLength": 1}
+      }
+    },
+    "appraisal_policy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["policy_id", "version", "artifact_digest"],
+      "properties": {
+        "policy_id": {"type": "string", "minLength": 1},
+        "version": {"type": "string", "minLength": 1},
+        "artifact_digest": {"$ref": "#/$defs/digest"}
+      }
+    },
+    "results": {"$ref": "#/$defs/resultVector"},
+    "conflicts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["conflict_id", "evidence_refs", "description"],
+        "properties": {
+          "conflict_id": {"type": "string", "minLength": 1},
+          "evidence_refs": {
+            "type": "array",
+            "minItems": 2,
+            "uniqueItems": true,
+            "items": {"type": "string", "minLength": 1}
+          },
+          "description": {"type": "string", "minLength": 1}
+        }
+      }
+    }
+  },
+  "$defs": {
+    "digest": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "coverage": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["known", "scope", "unit", "numerator", "denominator"],
+      "properties": {
+        "known": {"type": "boolean"},
+        "scope": {"type": "string", "minLength": 1},
+        "unit": {
+          "enum": [
+            "job",
+            "winning_pouw_instance",
+            "event",
+            "operation",
+            "arithmetic_work",
+            "request",
+            "authorization_event",
+            "aggregate_member",
+            "unknown"
+          ]
+        },
+        "numerator": {},
+        "denominator": {}
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"known": {"const": true}}},
+          "then": {
+            "properties": {
+              "numerator": {"type": "integer", "minimum": 0},
+              "denominator": {"type": "integer", "minimum": 1}
+            }
+          },
+          "else": {
+            "properties": {
+              "numerator": {"type": "null"},
+              "denominator": {"type": "null"},
+              "unit": {"const": "unknown"}
+            }
+          }
+        }
+      ]
+    },
+    "claimResult": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "assurance", "coverage", "assumptions", "evidence_refs", "diagnostics"],
+      "properties": {
+        "status": {"enum": ["satisfied", "failed", "unknown", "unsupported", "invalid"]},
+        "assurance": {
+          "enum": ["commitment_only", "sampled", "optimistic", "attested", "cryptographic", "hybrid", "none"]
+        },
+        "coverage": {"$ref": "#/$defs/coverage"},
+        "assumptions": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "evidence_refs": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {"type": "string", "minLength": 1}
+        },
+        "diagnostics": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string", "minLength": 1}
+        }
+      },
+      "allOf": [
+        {
+          "if": {"properties": {"status": {"const": "satisfied"}}},
+          "then": {"properties": {"evidence_refs": {"minItems": 1}}}
+        }
+      ]
+    },
+    "resultVector": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["WORK", "EXECUTION", "SEMANTICS", "DEMAND"],
+      "properties": {
+        "WORK": {"$ref": "#/$defs/claimResult"},
+        "EXECUTION": {"$ref": "#/$defs/claimResult"},
+        "SEMANTICS": {"$ref": "#/$defs/claimResult"},
+        "DEMAND": {"$ref": "#/$defs/claimResult"}
+      }
+    }
+  }
+}

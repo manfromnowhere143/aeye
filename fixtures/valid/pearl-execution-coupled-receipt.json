@@ -1,0 +1,146 @@
+{
+  "schema_version": "aeye.receipt.v0",
+  "receipt_profile": "aeye.research-json.v0",
+  "issued_at": "2026-09-20T15:05:00Z",
+  "issuer": {"principal_id": "fixture:provider"},
+  "subject": {
+    "intent_id": "sha256:33298644a248787878ea8211a10871fc1ae5c9f7f817291ecd776c2ceaa3cf84",
+    "job_id": "sha256:d99952c699cfac9f5839418aef212b91b7ceede3a97aa48be9a3134e41ba50d4",
+    "request_root": "sha256:aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+    "model_root": "sha256:bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb",
+    "execution_root": "sha256:cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc",
+    "demand_root": "sha256:dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd",
+    "trace_root": "sha256:eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+    "output_root": "sha256:ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff",
+    "subject_root": "sha256:2ea9574b593e6b7e19f7ee5c052bfacb4c377060e4405077324d720bc9bb1f0c",
+    "freshness_domain": "aeye-fixture:2026-09-20",
+    "client_nonce": "0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef"
+  },
+  "timeline": {
+    "intent_fixed_sequence": 0,
+    "authorization_fixed_sequence": 1,
+    "job_fixed_sequence": 2,
+    "subject_fixed_sequence": 3,
+    "challenge_sampled_sequence": null,
+    "receipt_sealed_sequence": 5
+  },
+  "evidence": [
+    {
+      "evidence_id": "fixture:coupled-work",
+      "evidence_type": "pearl_pouw",
+      "statement_id": "pearl:certificate-v3:winning-instance",
+      "producer_id": "fixture:pearl-miner",
+      "receipt_job_id": "sha256:d99952c699cfac9f5839418aef212b91b7ceede3a97aa48be9a3134e41ba50d4",
+      "native_public_inputs": {
+        "aeye_intent_id": null,
+        "aeye_job_id": null,
+        "aeye_subject_root": null,
+        "work_context_root": "sha256:7777777777777777777777777777777777777777777777777777777777777777",
+        "operand_root_a": "sha256:5555555555555555555555555555555555555555555555555555555555555555",
+        "operand_root_b": "sha256:6666666666666666666666666666666666666666666666666666666666666666"
+      },
+      "coordinates": ["WORK"],
+      "assurance": "cryptographic",
+      "scope": {"kind": "job", "scope_id": "fixture:winning-instance", "membership_proof_ref": null},
+      "coverage": {"known": true, "scope": "one synthetic accepted winning PoUW instance", "unit": "winning_pouw_instance", "numerator": 1, "denominator": 1},
+      "artifact_digest": "sha256:1111111111111111111111111111111111111111111111111111111111111111",
+      "assumptions": [
+        {"assumption_id": "pearl.batch-low-rank-hardness", "version": "arxiv:2504.09971v4", "kind": "conjectural", "status": "declared"},
+        {"assumption_id": "sha256.collision-resistance", "version": "FIPS-180-4", "kind": "standard", "status": "reviewed"}
+      ]
+    },
+    {
+      "evidence_id": "fixture:coupled-execution",
+      "evidence_type": "execution_proof",
+      "statement_id": "aeye:synthetic-execution-relation:v0",
+      "producer_id": "fixture:proof-producer",
+      "receipt_job_id": "sha256:d99952c699cfac9f5839418aef212b91b7ceede3a97aa48be9a3134e41ba50d4",
+      "native_public_inputs": {
+        "aeye_intent_id": null,
+        "aeye_job_id": "sha256:d99952c699cfac9f5839418aef212b91b7ceede3a97aa48be9a3134e41ba50d4",
+        "aeye_subject_root": "sha256:2ea9574b593e6b7e19f7ee5c052bfacb4c377060e4405077324d720bc9bb1f0c",
+        "work_context_root": null,
+        "operand_root_a": "sha256:5555555555555555555555555555555555555555555555555555555555555555",
+        "operand_root_b": "sha256:6666666666666666666666666666666666666666666666666666666666666666"
+      },
+      "coordinates": ["EXECUTION"],
+      "assurance": "cryptographic",
+      "scope": {"kind": "job", "scope_id": "fixture:job", "membership_proof_ref": null},
+      "coverage": {"known": true, "scope": "eight events in a synthetic execution relation", "unit": "event", "numerator": 8, "denominator": 8},
+      "artifact_digest": "sha256:2222222222222222222222222222222222222222222222222222222222222222",
+      "assumptions": [
+        {"assumption_id": "fixture.execution-relation-soundness", "version": "synthetic-v0", "kind": "computational", "status": "declared"},
+        {"assumption_id": "sha256.collision-resistance", "version": "FIPS-180-4", "kind": "standard", "status": "reviewed"}
+      ]
+    },
+    {
+      "evidence_id": "fixture:coupled-authorization",
+      "evidence_type": "authorization",
+      "statement_id": "aeye:demand:auth-only:v0",
+      "producer_id": "fixture:requester",
+      "receipt_job_id": "sha256:d99952c699cfac9f5839418aef212b91b7ceede3a97aa48be9a3134e41ba50d4",
+      "native_public_inputs": {
+        "aeye_intent_id": "sha256:33298644a248787878ea8211a10871fc1ae5c9f7f817291ecd776c2ceaa3cf84",
+        "aeye_job_id": null,
+        "aeye_subject_root": null,
+        "work_context_root": null,
+        "operand_root_a": null,
+        "operand_root_b": null
+      },
+      "coordinates": ["DEMAND"],
+      "assurance": "cryptographic",
+      "scope": {"kind": "job", "scope_id": "fixture:job", "membership_proof_ref": null},
+      "coverage": {"known": true, "scope": "one synthetic AUTH_ONLY event", "unit": "authorization_event", "numerator": 1, "denominator": 1},
+      "artifact_digest": "sha256:4444444444444444444444444444444444444444444444444444444444444444",
+      "assumptions": [
+        {"assumption_id": "ed25519.signature-unforgeability", "version": "RFC-8032", "kind": "standard", "status": "reviewed"},
+        {"assumption_id": "requester-key-independence", "version": "fixture-policy-v0", "kind": "trust", "status": "declared"}
+      ]
+    }
+  ],
+  "cross_evidence_bindings": [
+    {
+      "binding_id": "fixture:pearl-execution-operands",
+      "binding_type": "pearl_work_to_execution",
+      "work_evidence_ref": "fixture:coupled-work",
+      "execution_evidence_ref": "fixture:coupled-execution",
+      "equal_fields": ["operand_root_a", "operand_root_b"],
+      "diagnostics": ["Structural synthetic fixture only; this validator does not verify either cryptographic relation."]
+    }
+  ],
+  "claimed_results": {
+    "WORK": {
+      "status": "satisfied",
+      "assurance": "cryptographic",
+      "coverage": {"known": true, "scope": "one synthetic accepted winning PoUW instance", "unit": "winning_pouw_instance", "numerator": 1, "denominator": 1},
+      "assumptions": ["pearl.batch-low-rank-hardness", "sha256.collision-resistance"],
+      "evidence_refs": ["fixture:coupled-work"],
+      "diagnostics": ["Synthetic relation fixture; no live Pearl certificate was verified."]
+    },
+    "EXECUTION": {
+      "status": "satisfied",
+      "assurance": "cryptographic",
+      "coverage": {"known": true, "scope": "eight events in a synthetic execution relation", "unit": "event", "numerator": 8, "denominator": 8},
+      "assumptions": ["fixture.execution-relation-soundness", "sha256.collision-resistance"],
+      "evidence_refs": ["fixture:coupled-execution"],
+      "diagnostics": ["Synthetic relation fixture; no execution proof system is implemented by Aeye."]
+    },
+    "SEMANTICS": {
+      "status": "unsupported",
+      "assurance": "none",
+      "coverage": {"known": false, "scope": "no arithmetic profile is represented in this coupling fixture", "unit": "unknown", "numerator": null, "denominator": null},
+      "assumptions": [],
+      "evidence_refs": [],
+      "diagnostics": ["The coupling does not infer arithmetic semantics from either relation."]
+    },
+    "DEMAND": {
+      "status": "satisfied",
+      "assurance": "cryptographic",
+      "coverage": {"known": true, "scope": "one synthetic AUTH_ONLY event", "unit": "authorization_event", "numerator": 1, "denominator": 1},
+      "assumptions": ["ed25519.signature-unforgeability", "requester-key-independence"],
+      "evidence_refs": ["fixture:coupled-authorization"],
+      "diagnostics": ["AUTH_ONLY does not establish utility or non-circular payment."]
+    }
+  },
+  "conflicts": []
+}

@@ -1,0 +1,9 @@
+{
+  "schema_version": "aeye.negative-fixture.v0",
+  "base_kind": "receipt",
+  "base_path": "fixtures/valid/minimal-receipt.json",
+  "purpose": "Reject any field that launders the result vector into one marketable Boolean.",
+  "mutations": [
+    {"op": "set", "pointer": "/overall_verified", "value": true}
+  ]
+}

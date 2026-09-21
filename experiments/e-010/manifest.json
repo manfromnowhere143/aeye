@@ -1,0 +1,74 @@
+{
+  "schema_version": "aeye.experiment-manifest.v0",
+  "experiment_id": "E-010",
+  "title": "APC-1 authenticated preprocessing and amortized online execution",
+  "status": "proposed",
+  "question": "Can a one-time independently appraisable capsule prove that Q=G^T M belongs to the exact committed model/layout, then reduce repeated online verifier cost without weakening the E-009 execution relation or hiding setup, privacy, update, and recovery costs?",
+  "authorization": {
+    "mode": "isolated_read_only",
+    "network_writes": false,
+    "credentials": false,
+    "private_data": false,
+    "spending": false
+  },
+  "frozen_inputs": [
+    {"input_id": "construction_note", "value": "docs/AUTHENTICATED_PREPROCESSING_CAPSULE.md", "status": "fixed"},
+    {"input_id": "construction_note_sha256", "value": "b5bae9b04e76ac5bb0d2d3e84e9ba4618c68918e9a87b61b9b059c665230eef7", "status": "fixed"},
+    {"input_id": "construction_note_prior_digest", "value": "sha256:a0bd41c056b4b1521e54eb9688e86e4b2452f2fab7097ed606eb1d54dafd2117; superseded before preregistration because it misstated direct Q recomputation arithmetic as an entry-count bound", "status": "fixed"},
+    {"input_id": "claim_scope_decision", "value": "docs/decisions/0011-appraisers-derive-claims-and-preserve-relation-scope.md", "status": "fixed"},
+    {"input_id": "claim_scope_decision_sha256", "value": "c512091226ee0db09d7eed638a6292619fb8b1a2a318e1b84600e826ffe4a149", "status": "fixed"},
+    {"input_id": "setup_evidence_lane", "value": null, "status": "blocked"},
+    {"input_id": "commitment_and_proof_backend", "value": null, "status": "blocked"},
+    {"input_id": "public_matrix_family_and_layout", "value": null, "status": "blocked"},
+    {"input_id": "weight_privacy_policy", "value": null, "status": "blocked"},
+    {"input_id": "field_and_generator_profile", "value": null, "status": "blocked"},
+    {"input_id": "setup_challenge_source", "value": null, "status": "blocked"},
+    {"input_id": "online_challenge_source", "value": null, "status": "blocked"},
+    {"input_id": "grinding_query_bound", "value": null, "status": "unknown"},
+    {"input_id": "amortization_counts", "value": null, "status": "blocked"},
+    {"input_id": "model_update_and_revocation_policy", "value": null, "status": "blocked"},
+    {"input_id": "complete_comparator", "value": null, "status": "blocked"},
+    {"input_id": "independent_setup_verifier", "value": null, "status": "blocked"},
+    {"input_id": "independent_online_verifier", "value": null, "status": "blocked"},
+    {"input_id": "native_pearl_lineage", "value": null, "status": "unknown"}
+  ],
+  "procedure": [
+    "Freeze a public matrix/layout family, exact byte-to-field transform, code generator, Q format, and immutable model/setup roots.",
+    "Generate one setup capsule proving or conditionally attesting Q=G^T M under the selected lane; retain setup prover, verifier, proof, byte, memory, and update costs.",
+    "Verify repeated E-009-style online matrix events against the capsule for preregistered request counts K, preserving event, request, cache, output, and challenge ordering.",
+    "Compare deterministic full-Q recomputation, the selected capsule lane, and one complete proof baseline over identical matrices and request rows.",
+    "Apply every model/layout/Q/generator/revision/challenge/membership/output/coordinate mutation independently and retain rejection codes.",
+    "Report setup and online provider, client/challenger, verifier, network, storage, privacy, update, revocation, and recovery costs without hypothetical amortization replacing observed K."
+  ],
+  "acceptance": [
+    "A separate setup verifier binds Q to the exact model/layout root and rejects each one-field model, layout, generator, Q, and revision substitution.",
+    "A separate online verifier accepts the unmodified repeated execution set without reading every M or Q entry per request and preserves complete event and request-membership coverage.",
+    "The challenge analysis includes the exact public beacon, interaction, or Fiat-Shamir query/grinding model rather than reporting only the base code-distance bound.",
+    "Observed total cost is reported at every frozen K and compared with deterministic recomputation and one complete proof baseline on identical work.",
+    "Any Pearl adapter, if included, consumes actual native version-pinned roots and remains separate from the capsule core and four-coordinate appraisal."
+  ],
+  "failure": [
+    "Any accepted Q not derived from the exact committed model/layout falsifies APC-1.",
+    "Any online verifier that must touch the full matrices for every request fails the intended asymptotic/amortization question, even if correct.",
+    "Any apparent advantage that omits setup, proof generation, updates, verifier preprocessing, bytes, privacy, or recovery is incomplete.",
+    "Any reused capsule across an incompatible model, adapter, quantization, layout, shard, generator, or revocation epoch invalidates the run.",
+    "Any native-Pearl, hardware, privacy, demand, or production claim without its exact relation and retained evidence invalidates the result."
+  ],
+  "known_bad_controls": [
+    "Change one model field element while retaining C_Q and the setup proof.",
+    "Change one Q field element while retaining the model root and setup proof.",
+    "Change dtype, quantization, tensor layout, shard, padding, or generator version without issuing a new capsule.",
+    "Replay a valid capsule under a different model or revocation epoch.",
+    "Choose the setup or online challenge before the corresponding commitments are fixed.",
+    "Graft one batched row or cache parent across jobs while preserving aggregate dimensions.",
+    "Replace one final output after the online subject is fixed.",
+    "Relabel an auditor/TEE/setup commitment as cryptographic execution or native Pearl WORK."
+  ],
+  "blocking_conditions": [
+    "No setup proof, PCS/sumcheck, independent-auditor, or attestation lane has been selected and justified.",
+    "No matrix family, layout, field, generator, privacy policy, challenge source, query bound, amortization schedule, or comparator has been frozen.",
+    "No separate setup and online verifier implementations have been designated.",
+    "No operator acceptance of an E-010 preregistration exists."
+  ],
+  "result": null
+}

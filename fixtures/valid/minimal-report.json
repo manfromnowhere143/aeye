@@ -1,0 +1,51 @@
+{
+  "schema_version": "aeye.verification-report.v0",
+  "report_id": "fixture:independent-appraisal",
+  "receipt_path": "fixtures/valid/minimal-receipt.json",
+  "receipt_digest": "sha256:e4b5bf868247af3839fbbd163cf9f1a5bccc9eedebbc0a526c4057cb2fcacbc4",
+  "generated_at": "2026-09-20T15:01:00Z",
+  "verifier": {
+    "principal_id": "fixture:independent-verifier",
+    "independence_statement": "Synthetic fixture verifier is distinct from the synthetic receipt issuer."
+  },
+  "appraisal_policy": {
+    "policy_id": "aeye:fixture-appraisal-policy",
+    "version": "v0",
+    "artifact_digest": "sha256:5555555555555555555555555555555555555555555555555555555555555555"
+  },
+  "results": {
+    "WORK": {
+      "status": "satisfied",
+      "assurance": "cryptographic",
+      "coverage": {"known": true, "scope": "one accepted winning PoUW instance", "unit": "winning_pouw_instance", "numerator": 1, "denominator": 1},
+      "assumptions": ["pearl.batch-low-rank-hardness", "sha256.collision-resistance"],
+      "evidence_refs": ["fixture:work"],
+      "diagnostics": ["Synthetic fixture relation only; Pearl verification is not implemented by this validator."]
+    },
+    "EXECUTION": {
+      "status": "unknown",
+      "assurance": "commitment_only",
+      "coverage": {"known": false, "scope": "transition coverage was not independently measured", "unit": "unknown", "numerator": null, "denominator": null},
+      "assumptions": ["sha256.collision-resistance"],
+      "evidence_refs": ["fixture:trace-commitment"],
+      "diagnostics": ["Commitment binding does not verify the transition relation."]
+    },
+    "SEMANTICS": {
+      "status": "unsupported",
+      "assurance": "none",
+      "coverage": {"known": false, "scope": "no target-device conformance vectors were run", "unit": "unknown", "numerator": null, "denominator": null},
+      "assumptions": ["target-device-conformance"],
+      "evidence_refs": ["fixture:arithmetic-profile"],
+      "diagnostics": ["Unsupported arithmetic coverage is preserved rather than inferred from WORK."]
+    },
+    "DEMAND": {
+      "status": "satisfied",
+      "assurance": "cryptographic",
+      "coverage": {"known": true, "scope": "AUTH_ONLY authorization event", "unit": "authorization_event", "numerator": 1, "denominator": 1},
+      "assumptions": ["ed25519.signature-unforgeability", "requester-key-independence"],
+      "evidence_refs": ["fixture:authorization"],
+      "diagnostics": ["The policy establishes only the synthetic authorization event, not utility."]
+    }
+  },
+  "conflicts": []
+}

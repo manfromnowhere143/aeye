@@ -1,0 +1,255 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aeye.invalid/schemas/e009-input-v0.schema.json",
+  "title": "Aeye E-009 frozen input v0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "experiment_id",
+    "run_id",
+    "frozen_at",
+    "model",
+    "request",
+    "demand",
+    "arithmetic_profile",
+    "event_universe",
+    "audit_profile",
+    "commitment_profile",
+    "measurement_profile",
+    "artifact_times",
+    "non_claims"
+  ],
+  "properties": {
+    "schema_version": {"const": "aeye.e009-input.v0"},
+    "experiment_id": {"const": "E-009"},
+    "run_id": {"type": "string", "minLength": 1},
+    "frozen_at": {"type": "string", "format": "date-time"},
+    "model": {"$ref": "#/$defs/model"},
+    "request": {"$ref": "#/$defs/request"},
+    "demand": {"$ref": "#/$defs/demand"},
+    "arithmetic_profile": {"$ref": "#/$defs/arithmeticProfile"},
+    "event_universe": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {"$ref": "#/$defs/eventDefinition"}
+    },
+    "audit_profile": {"$ref": "#/$defs/auditProfile"},
+    "commitment_profile": {"$ref": "#/$defs/commitmentProfile"},
+    "measurement_profile": {"$ref": "#/$defs/measurementProfile"},
+    "artifact_times": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["receipt_issued_at", "report_generated_at"],
+      "properties": {
+        "receipt_issued_at": {"type": "string", "format": "date-time"},
+        "report_generated_at": {"type": "string", "format": "date-time"}
+      }
+    },
+    "non_claims": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "string", "minLength": 1}
+    }
+  },
+  "$defs": {
+    "integerVector": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"type": "integer"}
+    },
+    "integerMatrix": {
+      "type": "array",
+      "minItems": 1,
+      "items": {"$ref": "#/$defs/integerVector"}
+    },
+    "model": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "model_id",
+        "revision",
+        "architecture",
+        "dimensions",
+        "matrices",
+        "initial_cache",
+        "vocabulary"
+      ],
+      "properties": {
+        "model_id": {"type": "string", "minLength": 1},
+        "revision": {"type": "string", "minLength": 1},
+        "architecture": {"const": "finite-field-transformer-shaped-causal-block-with-hard-attention"},
+        "dimensions": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["model", "key", "value", "hidden", "vocabulary"],
+          "properties": {
+            "model": {"type": "integer", "minimum": 1},
+            "key": {"type": "integer", "minimum": 1},
+            "value": {"type": "integer", "minimum": 1},
+            "hidden": {"type": "integer", "minimum": 1},
+            "vocabulary": {"type": "integer", "minimum": 1}
+          }
+        },
+        "matrices": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["Wq", "Wk", "Wv", "W1", "W2"],
+          "properties": {
+            "Wq": {"$ref": "#/$defs/integerMatrix"},
+            "Wk": {"$ref": "#/$defs/integerMatrix"},
+            "Wv": {"$ref": "#/$defs/integerMatrix"},
+            "W1": {"$ref": "#/$defs/integerMatrix"},
+            "W2": {"$ref": "#/$defs/integerMatrix"}
+          }
+        },
+        "initial_cache": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["keys", "values"],
+          "properties": {
+            "keys": {"$ref": "#/$defs/integerMatrix"},
+            "values": {"$ref": "#/$defs/integerMatrix"}
+          }
+        },
+        "vocabulary": {
+          "type": "array",
+          "minItems": 1,
+          "items": {"type": "string", "minLength": 1}
+        }
+      }
+    },
+    "request": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["request_id", "input_vector", "client_nonce", "freshness_domain"],
+      "properties": {
+        "request_id": {"type": "string", "minLength": 1},
+        "input_vector": {"$ref": "#/$defs/integerVector"},
+        "client_nonce": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "freshness_domain": {"type": "string", "minLength": 1}
+      }
+    },
+    "demand": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["status", "policy", "operator_record", "interpretation"],
+      "properties": {
+        "status": {"const": "unsupported"},
+        "policy": {"const": "none"},
+        "operator_record": {"type": "string", "minLength": 1},
+        "interpretation": {"type": "string", "minLength": 1}
+      }
+    },
+    "arithmeticProfile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "profile_id",
+        "field_prime",
+        "field_encoding",
+        "signed_decode",
+        "linear_rule",
+        "relu_rule",
+        "selection_rule",
+        "overflow_rule",
+        "hardware_mapping"
+      ],
+      "properties": {
+        "profile_id": {"type": "string", "minLength": 1},
+        "field_prime": {"type": "integer", "minimum": 3},
+        "field_encoding": {"type": "string", "minLength": 1},
+        "signed_decode": {"type": "string", "minLength": 1},
+        "linear_rule": {"type": "string", "minLength": 1},
+        "relu_rule": {"type": "string", "minLength": 1},
+        "selection_rule": {"type": "string", "minLength": 1},
+        "overflow_rule": {"type": "string", "minLength": 1},
+        "hardware_mapping": {"const": "none"}
+      }
+    },
+    "eventDefinition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["sequence", "event_id", "relation", "matrix", "verification"],
+      "properties": {
+        "sequence": {"type": "integer", "minimum": 0},
+        "event_id": {"type": "string", "pattern": "^[a-z][a-z0-9_]*$"},
+        "relation": {"type": "string", "minLength": 1},
+        "matrix": {"oneOf": [{"enum": ["Wq", "Wk", "Wv", "W1", "W2"]}, {"type": "null"}]},
+        "verification": {"enum": ["coded_linear", "exact"]}
+      }
+    },
+    "auditProfile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["profile_id", "generator", "challenge", "soundness"],
+      "properties": {
+        "profile_id": {"type": "string", "minLength": 1},
+        "generator": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "evaluation_points", "block_length_rule", "preprocessing"],
+          "properties": {
+            "kind": {"const": "reed-solomon-vandermonde-mds"},
+            "evaluation_points": {"const": "1..N in the field"},
+            "block_length_rule": {"const": "N=2m"},
+            "preprocessing": {"const": "Q=G^T M"}
+          }
+        },
+        "challenge": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["source", "hash", "domain", "sparsity", "repetitions", "position_sampling", "coefficient_sampling", "temporal_rule"],
+          "properties": {
+            "source": {"const": "fiat-shamir-from-final-subject"},
+            "hash": {"const": "SHA-256"},
+            "domain": {"type": "string", "minLength": 1},
+            "sparsity": {"type": "integer", "minimum": 1},
+            "repetitions": {"type": "integer", "minimum": 1},
+            "position_sampling": {"const": "uniform-without-replacement"},
+            "coefficient_sampling": {"const": "uniform-nonzero-field-element"},
+            "temporal_rule": {"const": "subject_root before challenge"}
+          }
+        },
+        "soundness": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["per_relation_bound", "composition", "code_sampling_failure"],
+          "properties": {
+            "per_relation_bound": {"const": "((1-delta)^t + 1/(p-1))^ell"},
+            "composition": {"const": "union-bound-over-five-linear-relations"},
+            "code_sampling_failure": {"const": 0}
+          }
+        }
+      }
+    },
+    "commitmentProfile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["canonical_json", "digest", "framing", "intent_domain", "job_domain", "subject_domain", "operand_domain"],
+      "properties": {
+        "canonical_json": {"const": "UTF-8 JSON, sorted keys, separators comma/colon, no NaN"},
+        "digest": {"const": "SHA-256"},
+        "framing": {"const": "ASCII domain, zero byte, then each byte-string prefixed by unsigned 64-bit big-endian length"},
+        "intent_domain": {"const": "aeye/intent/v0"},
+        "job_domain": {"const": "aeye/job/v0"},
+        "subject_domain": {"const": "aeye/execution-subject/v0"},
+        "operand_domain": {"const": "aeye/e009/clean-operand/v0"}
+      }
+    },
+    "measurementProfile": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["clock", "warmup", "provider_repetitions", "verifier_repetitions", "statistics", "baseline"],
+      "properties": {
+        "clock": {"const": "time.perf_counter_ns"},
+        "warmup": {"type": "integer", "minimum": 1},
+        "provider_repetitions": {"type": "integer", "minimum": 1},
+        "verifier_repetitions": {"type": "integer", "minimum": 1},
+        "statistics": {"const": ["minimum_ns", "median_ns", "p95_ns", "mean_ns"]},
+        "baseline": {"type": "string", "minLength": 1}
+      }
+    }
+  }
+}

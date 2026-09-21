@@ -1,0 +1,10 @@
+{
+  "schema_version": "aeye.negative-fixture.v0",
+  "base_kind": "receipt",
+  "base_path": "fixtures/valid/minimal-receipt.json",
+  "purpose": "Computation cannot prove that an independent principal authorized it.",
+  "mutations": [
+    {"op": "set", "pointer": "/claimed_results/DEMAND/assumptions", "value": ["pearl.batch-low-rank-hardness", "sha256.collision-resistance"]},
+    {"op": "set", "pointer": "/claimed_results/DEMAND/evidence_refs", "value": ["fixture:work"]}
+  ]
+}

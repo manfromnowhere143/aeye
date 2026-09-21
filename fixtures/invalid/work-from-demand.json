@@ -1,0 +1,9 @@
+{
+  "schema_version": "aeye.negative-fixture.v0",
+  "base_kind": "receipt",
+  "base_path": "fixtures/valid/minimal-receipt.json",
+  "purpose": "A signed request cannot be relabelled as evidence that substantial computation occurred.",
+  "mutations": [
+    {"op": "set", "pointer": "/claimed_results/WORK/evidence_refs", "value": ["fixture:authorization"]}
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "schema_version": "aeye.fixture-manifest.v0",
+  "valid": [
+    {"path": "fixtures/valid/minimal-receipt.json", "kind": "receipt"},
+    {"path": "fixtures/valid/pearl-execution-coupled-receipt.json", "kind": "receipt"},
+    {"path": "fixtures/valid/minimal-report.json", "kind": "report"}
+  ],
+  "invalid": [
+    {"path": "fixtures/invalid/global-verdict.json", "expected_codes": ["FORBIDDEN_GLOBAL_VERDICT"]},
+    {"path": "fixtures/invalid/work-from-demand.json", "expected_codes": ["EVIDENCE_COORDINATE_LAUNDERING", "WORK_EVIDENCE_TYPE"]},
+    {"path": "fixtures/invalid/execution-from-commitment.json", "expected_codes": ["EXECUTION_COMMITMENT_ONLY"]},
+    {"path": "fixtures/invalid/semantics-from-work.json", "expected_codes": ["EVIDENCE_COORDINATE_LAUNDERING", "SEMANTICS_EVIDENCE_TYPE"]},
+    {"path": "fixtures/invalid/demand-from-work.json", "expected_codes": ["EVIDENCE_COORDINATE_LAUNDERING", "DEMAND_EVIDENCE_TYPE"]},
+    {"path": "fixtures/invalid/cross-job-evidence.json", "expected_codes": ["CROSS_JOB_EVIDENCE"]},
+    {"path": "fixtures/invalid/pearl-execution-binding-mismatch.json", "expected_codes": ["CROSS_EVIDENCE_BINDING_MISMATCH"]},
+    {"path": "fixtures/invalid/intent-underbinding.json", "expected_codes": ["INTENT_BINDING_MISMATCH"]},
+    {"path": "fixtures/invalid/authorization-before-intent.json", "expected_codes": ["INTENT_AUTHORIZATION_ORDER"]},
+    {"path": "fixtures/invalid/experiment-input-digest-mismatch.json", "expected_codes": ["EXPERIMENT_INPUT_DIGEST_MISMATCH"]},
+    {"path": "fixtures/invalid/challenge-before-subject.json", "expected_codes": ["CHALLENGE_ORDER"]},
+    {"path": "fixtures/invalid/unknown-as-zero.json", "expected_codes": ["UNKNOWN_COERCED_TO_ZERO"]},
+    {"path": "fixtures/invalid/output-underbinding.json", "expected_codes": ["SUBJECT_BINDING_MISMATCH"]},
+    {"path": "fixtures/invalid/registry-poison-execution.json", "expected_codes": ["EXECUTION_COMMITMENT_ONLY"]},
+    {"path": "fixtures/invalid/self-verification.json", "expected_codes": ["SELF_VERIFICATION"]}
+  ]
+}

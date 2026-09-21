@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aeye.invalid/schemas/e009-result-v0.schema.json",
+  "title": "Aeye E-009 result v0",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "experiment_id", "run_id", "status", "unmodified_bundle_accepted", "coordinate_results", "event_coverage", "conditional_union_bound", "mutation_controls", "independence", "non_claims"],
+  "properties": {
+    "schema_version": {"const": "aeye.e009-result.v0"},
+    "experiment_id": {"const": "E-009"},
+    "run_id": {"const": "E-009-R1"},
+    "status": {"const": "supported"},
+    "unmodified_bundle_accepted": {"const": true},
+    "coordinate_results": {
+      "const": {"WORK": "unknown", "EXECUTION": "satisfied", "SEMANTICS": "satisfied", "DEMAND": "unsupported"}
+    },
+    "event_coverage": {
+      "const": {"numerator": 13, "denominator": 13, "coded_linear": 5, "exact": 8}
+    },
+    "conditional_union_bound": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["numerator", "denominator"],
+      "properties": {
+        "numerator": {"type": "integer", "minimum": 0},
+        "denominator": {"type": "integer", "minimum": 1}
+      }
+    },
+    "mutation_controls": {
+      "const": {"rejected": 8, "total": 8, "all_expected_failures_observed": true}
+    },
+    "independence": {"type": "string", "minLength": 1},
+    "non_claims": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}}
+  }
+}

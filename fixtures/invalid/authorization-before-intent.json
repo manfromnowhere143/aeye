@@ -1,0 +1,9 @@
+{
+  "schema_version": "aeye.negative-fixture.v0",
+  "base_kind": "receipt",
+  "base_path": "fixtures/valid/minimal-receipt.json",
+  "purpose": "An authorization cannot authenticate an intent that was not already fixed.",
+  "mutations": [
+    {"op": "set", "pointer": "/timeline/authorization_fixed_sequence", "value": 0}
+  ]
+}

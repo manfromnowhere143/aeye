@@ -1,0 +1,178 @@
+{
+  "corrected_appraisal": {
+    "policy_digest": "sha256:5abd189aed68041e7e741823112f16aa3a77c127b246d03e9195c198145095d9",
+    "policy_id": "aeye:e009-r1-claim-appraisal",
+    "policy_version": "v1-post-hoc",
+    "result_source": "Verifier-owned v1 policy plus the frozen verifier's 13-event universe; no claimed_result field is copied from the receipt.",
+    "results": {
+      "DEMAND": {
+        "assumptions": [],
+        "assurance": "none",
+        "coverage": {
+          "denominator": null,
+          "known": false,
+          "numerator": null,
+          "scope": "No qualifying signed independent authorization or economic event is represented.",
+          "unit": "unknown"
+        },
+        "diagnostics": [
+          "The operator's experiment instruction is provenance, not DEMAND evidence.",
+          "No demand relation was presented to either the frozen verifier or the v1 post-hoc appraiser."
+        ],
+        "evidence_refs": [],
+        "status": "unsupported"
+      },
+      "EXECUTION": {
+        "assumptions": [
+          "e009.coded-mvm-mds-soundness",
+          "e009.fiat-shamir-random-oracle-and-bounded-grinding",
+          "e009.verifier-code-correctness",
+          "sha256.collision-resistance"
+        ],
+        "assurance": "sampled",
+        "coverage": {
+          "denominator": 13,
+          "known": true,
+          "numerator": 13,
+          "scope": "Frozen E-009 event universe: five sampled coded-linear and eight exact relations.",
+          "unit": "event"
+        },
+        "diagnostics": [
+          "Limited to E-009-R1 and conditional on the reported coded-audit bound and Fiat-Shamir assumptions.",
+          "The v1 post-hoc appraiser derives the 13/13 denominator from the frozen event universe and does not copy receipt coverage."
+        ],
+        "evidence_refs": [
+          "e009:r1:coded-execution-audit"
+        ],
+        "status": "satisfied"
+      },
+      "SEMANTICS": {
+        "assumptions": [
+          "e009.finite-field-profile-fidelity",
+          "e009.verifier-code-correctness",
+          "sha256.collision-resistance"
+        ],
+        "assurance": "hybrid",
+        "coverage": {
+          "denominator": 13,
+          "known": true,
+          "numerator": 13,
+          "scope": "Exact declared finite-field/hard-attention profile; no hardware mapping.",
+          "unit": "event"
+        },
+        "diagnostics": [
+          "Only the declared prime-field, centered-decode, hard-attention semantics are in scope; this is not GPU or ordinary transformer semantics.",
+          "The v1 post-hoc appraiser allowlists the declared finite-field statement and assumptions."
+        ],
+        "evidence_refs": [
+          "e009:r1:declared-semantics-conformance"
+        ],
+        "status": "satisfied"
+      },
+      "WORK": {
+        "assumptions": [
+          "synthetic.pearl.no-certificate",
+          "sha256.collision-resistance"
+        ],
+        "assurance": "commitment_only",
+        "coverage": {
+          "denominator": null,
+          "known": false,
+          "numerator": null,
+          "scope": "No native Pearl statement or certificate exists in E-009.",
+          "unit": "unknown"
+        },
+        "diagnostics": [
+          "Synthetic clean-operand roots do not establish Pearl WORK.",
+          "The v1 post-hoc appraiser derives this result from its policy; no native Pearl verifier was executed."
+        ],
+        "evidence_refs": [
+          "e009:r1:synthetic-pearl-operands"
+        ],
+        "status": "unknown"
+      }
+    },
+    "underlying_relation_replay": "accepted"
+  },
+  "defect": {
+    "finding_id": "E009-POSTHOC-CLAIM-METADATA-TRUST",
+    "frozen_verifier_digest": "sha256:9c4f6f4eed0c490b8261214a694db133ba33575f0fbe34c318cb6a853de7cf31",
+    "frozen_verifier_path": "experiments/e-009/independent_verify.py",
+    "observed_behavior": "The frozen verifier accepted valid-schema changes that inflated EXECUTION/SEMANTICS coverage, removed their assumptions, or replaced their statement identifiers, then copied claimed_results into its report.",
+    "preservation_rule": "Do not edit the preregistered verifier; compose it with this versioned, fail-closed claim policy."
+  },
+  "experiment_id": "E-009",
+  "interpretation": {
+    "limitation": "The correction is post-hoc and policy-specific; it does not retroactively join the R1 preregistration or create independent review.",
+    "non_claim": "This is not Pearl verification, production security, hardware fidelity, complete malicious-provider security, or evidence of DEMAND.",
+    "supported": "The v1 overlay rejects each reproduced claim-metadata mutation while accepting the unchanged bundle and preserving the frozen relation replay."
+  },
+  "probes": [
+    {
+      "case_id": "unchanged",
+      "corrected_accepted": true,
+      "corrected_finding_codes": [],
+      "frozen_accepted": true,
+      "frozen_finding_codes": []
+    },
+    {
+      "case_id": "inflated_coverage",
+      "corrected_accepted": false,
+      "corrected_finding_codes": [
+        "CLAIM_COVERAGE_MISMATCH"
+      ],
+      "frozen_accepted": true,
+      "frozen_finding_codes": []
+    },
+    {
+      "case_id": "removed_assumptions",
+      "corrected_accepted": false,
+      "corrected_finding_codes": [
+        "CLAIM_ASSUMPTION_MISMATCH",
+        "EVIDENCE_ASSUMPTION_MISMATCH"
+      ],
+      "frozen_accepted": true,
+      "frozen_finding_codes": []
+    },
+    {
+      "case_id": "unknown_statement_id",
+      "corrected_accepted": false,
+      "corrected_finding_codes": [
+        "EVIDENCE_STATEMENT_MISMATCH"
+      ],
+      "frozen_accepted": true,
+      "frozen_finding_codes": []
+    },
+    {
+      "case_id": "wrong_output_control",
+      "corrected_accepted": false,
+      "corrected_finding_codes": [
+        "AUDIT_SUBJECT_MISMATCH",
+        "CHALLENGE_DERIVATION_MISMATCH",
+        "CODED_CHECK_TRANSCRIPT_MISMATCH",
+        "EXECUTION_SUBJECT_BINDING_MISSING",
+        "OUTPUT_TRACE_MISMATCH",
+        "SEMANTICS_SUBJECT_BINDING_MISSING",
+        "SUBJECT_BINDING_MISMATCH"
+      ],
+      "frozen_accepted": false,
+      "frozen_finding_codes": [
+        "AUDIT_SUBJECT_MISMATCH",
+        "CHALLENGE_DERIVATION_MISMATCH",
+        "CODED_CHECK_TRANSCRIPT_MISMATCH",
+        "EXECUTION_SUBJECT_BINDING_MISSING",
+        "OUTPUT_TRACE_MISMATCH",
+        "SEMANTICS_SUBJECT_BINDING_MISSING",
+        "SUBJECT_BINDING_MISMATCH"
+      ]
+    }
+  ],
+  "provenance": {
+    "relationship_to_r1": "Post-hoc appraisal correction only; frozen R1 source and result bytes remain unchanged.",
+    "reproduction": "Independently reproduced against the content-pinned frozen verifier with deterministic in-memory mutations.",
+    "review_input": "Operator-supplied separate machine review; treated as untrusted input."
+  },
+  "run_id": "E-009-R1",
+  "schema_version": "aeye.e009-posthoc-claim-appraisal.v0",
+  "status": "observed-post-hoc"
+}

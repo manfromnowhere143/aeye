@@ -1,0 +1,87 @@
+{
+  "schema_version": "aeye.experiment-manifest.v0",
+  "experiment_id": "E-009",
+  "title": "CX-1 finite-field Pearl-to-execution coupling with complete toy causal replay",
+  "status": "supported",
+  "question": "Can one frozen transformer-shaped finite-field execution bind synthetic Pearl clean-operand roots to the same q_linear operands, verify all 13 causal events through five coded-linear and eight exact relations, and reject every preregistered single-mutation control?",
+  "authorization": {"mode": "isolated_read_only", "network_writes": false, "credentials": false, "private_data": false, "spending": false},
+  "frozen_inputs": [
+    {"input_id": "construction_profile", "value": "CX-1 as proposed in docs/TECHNICAL_FRONTIER_2026.md", "status": "fixed"},
+    {"input_id": "receipt_profile", "value": "aeye.research-json.v0", "status": "fixed"},
+    {"input_id": "coupling_profile", "value": "aeye:pearl-work-to-execution-coupling:v0", "status": "fixed"},
+    {"input_id": "coded_mvm_demonstrator", "value": "scripts/coded_mvm_demo.py", "status": "fixed"},
+    {"input_id": "coded_mvm_demonstrator_sha256", "value": "8d2ae2ec53c04b39e354e5a76774c8aa4ed7138e1e233d67569a48edef4bafe3", "status": "fixed"},
+    {"input_id": "e009_input", "value": "experiments/e-009/input.json", "status": "fixed"},
+    {"input_id": "e009_input_sha256", "value": "5cd092ab1cbe8c823a8d12b9cd8e65c08fefeb4e56d5e6b81235fcd57891a8f2", "status": "fixed"},
+    {"input_id": "generator_implementation", "value": "experiments/e-009/generate.py", "status": "fixed"},
+    {"input_id": "generator_implementation_sha256", "value": "12776d6d76638a5bc170f3c023ccc6c30bdd8b9bff98f3684735baeb7a878d90", "status": "fixed"},
+    {"input_id": "independent_verifier_implementation", "value": "experiments/e-009/independent_verify.py", "status": "fixed"},
+    {"input_id": "independent_verifier_implementation_sha256", "value": "9c4f6f4eed0c490b8261214a694db133ba33575f0fbe34c318cb6a853de7cf31", "status": "fixed"},
+    {"input_id": "input_schema", "value": "schemas/e009-input-v0.schema.json", "status": "fixed"},
+    {"input_id": "input_schema_sha256", "value": "3087c2bd1c7516d0931e23f92716f04064011b40abbe4aa4155f9cc093beface", "status": "fixed"},
+    {"input_id": "trace_schema", "value": "schemas/e009-trace-v0.schema.json", "status": "fixed"},
+    {"input_id": "trace_schema_sha256", "value": "d5787dddf46e685d5a1f8a65d106636e657b74e853a845886d61493e0b8d41e1", "status": "fixed"},
+    {"input_id": "audit_schema", "value": "schemas/e009-audit-v0.schema.json", "status": "fixed"},
+    {"input_id": "audit_schema_sha256", "value": "73be1c20f06ead9b239644c562c4e2cc04ebbd729fd2dd63cf1ab74ce35f4457", "status": "fixed"},
+    {"input_id": "operator_authorization", "value": "experiments/e-009/OPERATOR_AUTHORIZATION.md", "status": "fixed"},
+    {"input_id": "operator_authorization_sha256", "value": "13fc2ec8f511c16321bb31fee3f6bb5b9c3e3ec551683d6686123fd5f580d22a", "status": "fixed"},
+    {"input_id": "public_toy_model_revision", "value": "aeye/e009/toy-causal-block@r1; dimensions 4/3/4/5/6; hard attention explicitly non-softmax", "status": "fixed"},
+    {"input_id": "exact_event_universe", "value": ["request_input", "q_linear", "k_linear", "v_linear", "cache_append", "attention_scores", "hard_attention_select", "residual", "mlp_linear", "relu", "logits_linear", "argmax", "output_emit"], "status": "fixed"},
+    {"input_id": "finite_field", "value": "F_p with p=2305843009213693951=2^61-1", "status": "fixed"},
+    {"input_id": "code_generator_and_digest", "value": "Per relation, G[i,j]=(j+1)^i mod p, N=2m; exact generator and Q digests retained in audit.json", "status": "fixed"},
+    {"input_id": "relative_distance_delta", "value": {"q_linear": "4/6", "k_linear": "4/6", "v_linear": "5/8", "mlp_linear": "6/10", "logits_linear": "7/12"}, "status": "fixed"},
+    {"input_id": "challenge_sparsity_t", "value": 4, "status": "fixed"},
+    {"input_id": "repetitions_ell", "value": 16, "status": "fixed"},
+    {"input_id": "public_challenge_source", "value": "SHA-256 Fiat-Shamir over final subject_root, event_id, and repetition under aeye/e009/coded-mvm-challenge/v0; random-oracle and bounded-grinding assumptions declared", "status": "fixed"},
+    {"input_id": "independent_verifier_scope", "value": "Separate implementation with no provider imports; code-path separation only, not human or organizational independence", "status": "fixed"},
+    {"input_id": "measurement_protocol", "value": "100 warmups; 1000 provider repetitions; 250 verifier repetitions; identical frozen causal-block baseline; min/median/p95/mean", "status": "fixed"}
+  ],
+  "procedure": [
+    "Retain preregistration.json before executing R1.",
+    "Generate and commit the 13-event trace and output before deriving all 80 coded challenges.",
+    "Issue the four-coordinate receipt, replay it with the separate verifier, execute eight mutations, and retain the complete toy cost surface."
+  ],
+  "acceptance": [
+    "The independent code path accepts the unmodified bundle and recomputes all roots, five Q objects, 80 coded equations, and eight exact relations.",
+    "All 13 frozen events have explicit coverage, every conditional bound recomputes, and all eight mutations reject with the preregistered code.",
+    "The report preserves WORK=unknown, EXECUTION=satisfied/sampled, SEMANTICS=satisfied/hybrid only for the declared toy profile, and DEMAND=unsupported.",
+    "The measurement record includes the identical baseline, preprocessing, provider, challenge, verifier, bytes, storage, environment, warmup, repetitions, and statistics."
+  ],
+  "failure": [
+    "Any unmodified relation rejection or accepted preregistered mutation fails R1.",
+    "Any frozen source, schema, input, parameter, event universe, or protocol change after this snapshot invalidates R1 and requires a new run identifier.",
+    "Presenting R1 as ordinary transformer, GPU, FP8/B200, physical-work, live-Pearl, real-demand, production, or independent-review evidence is invalid."
+  ],
+  "known_bad_controls": [
+    "Execution operand mismatch -> CROSS_EVIDENCE_BINDING_MISMATCH.",
+    "Altered q_linear output -> CODED_LINEAR_REJECT.",
+    "Deleted ReLU -> EVENT_UNIVERSE_MISMATCH.",
+    "Output graft -> OUTPUT_TRACE_MISMATCH.",
+    "Early challenge -> CHALLENGE_ORDER.",
+    "Cross-request row graft -> REQUEST_ROW_GRAFT.",
+    "Wrong Q -> PREPROCESSING_AUTHENTICATION_FAILED.",
+    "Synthetic WORK upgrade -> SYNTHETIC_WORK_UPGRADE."
+  ],
+  "blocking_conditions": [],
+  "result": {
+    "status": "supported",
+    "artifact_refs": [
+      "experiments/e-009/preregistration.json#sha256:f47422817c023655d8daeae53f3ad69288b08e2a0be8328e6146bf2ffffef248",
+      "experiments/e-009/artifacts/run.json#sha256:8839e433c07d487636aedcb9d0a3da8666f0d2e49492aab11263cca0331b7cfc",
+      "experiments/e-009/artifacts/trace.json#sha256:115c16165384861e02ffbd1fe2a2916b138f8d97d5a4658fa1564d80320506b4",
+      "experiments/e-009/artifacts/output.json#sha256:5e60c3f882a559aaa796a59a8f2be292cae39b06378712cae7e59c5b6da0bfcc",
+      "experiments/e-009/artifacts/synthetic-pearl-work.json#sha256:067afa2151a5e48322c1c8d3481230f23e8c6b703ecec7031447d0770fcb5862",
+      "experiments/e-009/artifacts/audit.json#sha256:0485d195746f8a0e1f6b3da0ef6a4766b02201d648a7f38c76a0709204bc55c5",
+      "experiments/e-009/artifacts/provider-measurements.json#sha256:d10af0fb089839867c788416952ce24ee6f3eb16ff9b8bd71e8eb85409ac989b",
+      "experiments/e-009/artifacts/receipt.json#sha256:b17a2b9c0b0b882604989986f67a8d86d60ef71ea10aec1cb9875c77282139f0",
+      "experiments/e-009/artifacts/verification-report.json#sha256:4607e9aec1f5cc623f558dda9e96d58763d5e7fd78d0b4d2fa018db73cdd69c3",
+      "experiments/e-009/artifacts/mutation-results.json#sha256:40cfd9b59fe729afa3e018f665174fe5d5443e1a25bad27e81d7a3c115da5d13",
+      "experiments/e-009/artifacts/verifier-measurements.json#sha256:723a1180b7226b07ed67bddbf40c06d2651f39b8041b9d644a13c9033923fc72",
+      "experiments/e-009/artifacts/result.json#sha256:fb64d1d25f94c59d820445d6a3a4a1058629e0991dd869255ad65b7f6b99c53d",
+      "experiments/e-009/posthoc_cost_decomposition.py#sha256:fa4c3f2648f1302b301472c86f016d51fd4ac924ea7d8239563756df6f9472e6",
+      "schemas/e009-cost-decomposition-v0.schema.json#sha256:519ac9f46926b30fcbed665889a7a5035b7f9d12693ef6383a0d9583c1cd02b1",
+      "experiments/e-009/artifacts/posthoc-cost-decomposition.json#sha256:d27f060a12af06378c4d984d4c648f2101c0a1d30413addc0256239b6e54bfb0"
+    ],
+    "summary": "E-009-R1 accepted under a separate code path: 13/13 frozen events, five coded-linear relations with 80/80 equations, eight exact relations, and 8/8 preregistered mutations rejected. The conditional five-relation bound is about 4.99e-25 (2^-80.73). WORK remains unknown, EXECUTION is satisfied/sampled for the toy relation, SEMANTICS is satisfied/hybrid only for the declared finite-field hard-attention profile, and DEMAND remains unsupported."
+  }
+}

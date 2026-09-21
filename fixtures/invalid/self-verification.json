@@ -1,0 +1,9 @@
+{
+  "schema_version": "aeye.negative-fixture.v0",
+  "base_kind": "report",
+  "base_path": "fixtures/valid/minimal-report.json",
+  "purpose": "The receipt issuer cannot supply the independent appraisal for its own consequential claims.",
+  "mutations": [
+    {"op": "set", "pointer": "/verifier/principal_id", "value": "fixture:provider"}
+  ]
+}
