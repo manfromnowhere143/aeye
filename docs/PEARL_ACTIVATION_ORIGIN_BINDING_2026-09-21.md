@@ -378,14 +378,30 @@ roots, gives a versioned bridge tuple and error budget, and states precisely how
 For an expert audience, the credible sequence is:
 
 1. freeze this relation and its negative fixtures under independent review;
-2. build a disclosed-input PAB-0 fixture against Pearl's pinned parser and BLAKE3 tree;
-3. run E-000's preregistered public-checkpoint reconstruction/census to learn whether
+2. obtain emitted-code and positive GPU vectors for the row-consistent quantizer relation;
+   build PAB-0 only as quantizer consistency, not request or activation origin;
+3. run E-000's preregistered public-checkpoint opening to learn whether
    `hash_b` corresponds to published model material in practice;
 4. freeze one real layer, shape, profile, and privacy lane, then produce a measured
    companion proof or a falsifying cost result; and
-5. request human cryptographic and Pearl-engineering review before any security,
+5. obtain independent cryptographic and protocol-engineering review before any security,
    performance, novelty, or adoption claim.
 
 The strongest current verdict is therefore: **PAB-1 is a source-grounded candidate for the
 missing Pearl-to-execution bridge, not yet a result. E-000 remains the highest-value
 empirical result available to Aeye.**
+
+### 8.1 PAB-0 review correction
+
+The latest same-workstation reviewer packet accepts with amendments only a
+row-consistent membership relation for Pearl's quantizer. For each disclosed row, one
+verifier-enumerated reciprocal witness must explain every output byte, and bit-equal
+denominators share one deterministic witness inside the declared context. A
+prover-supplied reciprocal is only a hint.
+
+The earlier per-byte lane is withdrawn because independent per-element witness choices
+do not model one row-level quantizer context. Exact GPU stability is rejected without
+emitted-code and positive device vectors. PAB-0 is therefore blocked. Even if completed,
+its maximum claim is selected-row quantizer consistency under the declared profile. It
+does not establish request binding, activation origin, `EXECUTION`, output correctness,
+or demand.

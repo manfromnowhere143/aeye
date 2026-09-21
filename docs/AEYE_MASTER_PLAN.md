@@ -415,8 +415,8 @@ channel (`SECURITY.md`) and is not published.
 5. A **claim ladder with per-rung non-claims**, replacing composite "verified inference"
    language.
 
-Points 1 and 2 are the ones that would be new to the Pearl team. Points 3–5 are careful
-engineering that the literature supports but has not assembled in this combination.
+Points 1 and 2 are the proposed differentiators. Points 3–5 are engineering composition
+that the retained literature supports but has not established in this exact boundary.
 
 ---
 

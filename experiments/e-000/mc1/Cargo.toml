@@ -1,0 +1,16 @@
+[package]
+name = "aeye-e000-mc1-rust-lane"
+version = "0.0.0"
+edition = "2021"
+publish = false
+
+[dependencies]
+blake3 = "=1.8.4"
+serde = { version = "=1.0.229", features = ["derive"] }
+serde_json = "=1.0.149"
+sha2 = "=0.10.9"
+
+[profile.release]
+lto = true
+codegen-units = 1
+panic = "abort"

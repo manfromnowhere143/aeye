@@ -1,0 +1,47 @@
+{
+  "candidate_inspected": false,
+  "checkpoint": {
+    "repo_id": "pearl-ai/Llama-3.1-8B-Instruct-pearl",
+    "revision": "5dcb348a9f6d26fc42c0db0d8fbab2a0708796c0",
+    "source_class": "T0_OWNER_OBSERVED"
+  },
+  "claim_ceiling": "Owner-observed public projection of the exact checkpoint revision, shard streams, extraction receipts, and reviewed registry used by MC1. The bound payloads and extraction bundles are not retained in the public repository, so this projection does not make the full real-byte run publicly replayable or independently validated.",
+  "contains_model_weight_bytes": false,
+  "public_replay": {
+    "checkpoint_payloads_retained": false,
+    "exact_extraction_receipts_retained": false,
+    "full_replay_from_repository_alone": false,
+    "tensor_extraction_bundles_retained": false
+  },
+  "reviewed_registry": {
+    "by_family": {
+      "gate_up_proj": 2016,
+      "o_proj": 224,
+      "qkv_proj": 1008
+    },
+    "collision_groups": 0,
+    "semantic_slabs": 3248,
+    "sha256": "ebc222cf4b4134a3414494532e35852f704d79367b2d564d71a0a1b13fc655cd",
+    "unique_byte_strings": 3248
+  },
+  "schema_version": "aeye.e000-mc1-input-provenance.v0",
+  "shards": [
+    {
+      "extraction_receipt_sha256": "13d27a1959afc1de6a7ffcd8ad4f4761e89f657650bd08dbf2ce9a352794a2c1",
+      "file": "model-00001-of-00002.safetensors",
+      "selected_i8_tensors": 62,
+      "source_url": "https://huggingface.co/pearl-ai/Llama-3.1-8B-Instruct-pearl/resolve/5dcb348a9f6d26fc42c0db0d8fbab2a0708796c0/model-00001-of-00002.safetensors",
+      "stream_bytes": 4999384920,
+      "stream_sha256": "3640e2cedf0808e00f775e9f69de50072a9118f5bf96aaee279f4385c8b9ca14"
+    },
+    {
+      "extraction_receipt_sha256": "d579153eb20fff529052e9089ad6c671f745ec1ef3d0b0e37cff77c858e14f74",
+      "file": "model-00002-of-00002.safetensors",
+      "selected_i8_tensors": 82,
+      "source_url": "https://huggingface.co/pearl-ai/Llama-3.1-8B-Instruct-pearl/resolve/5dcb348a9f6d26fc42c0db0d8fbab2a0708796c0/model-00002-of-00002.safetensors",
+      "stream_bytes": 4084714664,
+      "stream_sha256": "e22b8f006c61ecae168de1436a1df8aa21bab542c313a9ccd96603e71b6f5bd0"
+    }
+  ],
+  "status": "owner_observed_public_projection"
+}

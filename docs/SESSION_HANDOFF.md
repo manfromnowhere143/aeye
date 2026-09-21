@@ -1,6 +1,6 @@
 # Aeye Session Handoff
 
-Status: public research packet with one `supported` toy result, a corrected post-hoc appraisal boundary, and an unaccepted E-000 pilot whose phase order is corrected but awaiting fresh review and pre-candidate artifacts; architecture acceptance not granted  
+Status: public research packet with one `supported` toy result, a real-byte pre-candidate E-000 owner calibration, a retained terminal transport failure, and an unaccepted source-assurance correction; architecture acceptance not granted  
 Date: 2026-09-21  
 Canonical root: `/Users/danielwahnich/workspace/aeye`
 
@@ -116,6 +116,31 @@ E-000 pre-candidate state:
   selected or inspected. E-000 remains `blocked` before execution by the fresh-review,
   registry, recipe, implementation, and control gates.
 
+E-000 progress after the immutable manifest freeze:
+
+- the source-derived 8B scope contains 5,040 static layouts over TP
+  `{1,2,4,8,16,32}`. The candidate-independent `(n,k)` filter retains 3,248; runtime `m`
+  eligibility remains a separate post-reveal predicate and cannot establish runtime
+  provenance;
+- Python and separately authored Rust paths agreed on all 3,248 static slab byte
+  identities from the same retained T0 tensor extractions. This is code-path agreement,
+  not independent source interpretation;
+- MC1 preregistered one slab per distinct family/shape class. Across 15 classes and
+  311,427,072 bytes per lane, Python and Rust byte identities agreed and Python, Rust, and
+  pinned Pearl keyed roots agreed under one synthetic non-candidate key. The exact source,
+  results, nine post-hoc comparator mutations, and replay receipt are public under
+  `experiments/e-000/mc1/`. The checkpoint payloads, tensor-extraction bundles, and exact
+  extraction receipts are not public, so a fresh clone alone cannot reproduce the
+  real-byte run;
+- the first capture in a separately frozen exporter calibration ended before its declared
+  `Content-Length`. No success receipt was created; the stop rule prohibited the second
+  capture and comparator. The public terminal projection preserves unknown prefix metrics
+  and assigns no tier;
+- proposed ADR-0015 challenges route diversity as a source-assurance gate. It separates
+  `S0_PUBLISHER_ASSOCIATED` from `S1_INDEPENDENTLY_DERIVED`; transport observations cannot
+  upgrade either class. ADR-0014 and the existing manifest remain active until an
+  adversarially reviewed `E-000-R2` successor is accepted.
+
 Implemented experimental result:
 
 - E-009-R1 was frozen by preregistration digest before execution;
@@ -160,6 +185,10 @@ Post-result adversarial disposition:
   specifies PAB-1 as an external companion relation, prices its BLAKE3 surface, and retains
   the quantization/model/profile costs as unresolved rather than inventing a constraint
   count.
+- the latest PAB-0 reviewer packet accepts only a row-consistent quantizer-consistency
+  lane with amendments. The per-byte lane was withdrawn and exact GPU stability was
+  rejected. PAB-0 remains blocked on emitted-code and positive GPU fidelity vectors; it
+  must not be described as request binding, activation origin, or `EXECUTION`.
 
 Public-source release published on 2026-09-21:
 
@@ -223,7 +252,9 @@ Current validator result at handoff:
 
 ```text
 Aeye validation: 0 repository error(s); 18 fixture(s) exercised; 15 rejected as designed
-82 unit tests: PASS on Python 3.12 and 3.14
+108 unit tests: PASS in fresh hash-locked Python 3.12 and 3.14 environments
+MC1 Rust lane: cargo fmt --check and cargo check --locked PASS on Rust 1.93.1
+MC1 retained outputs: three result files reproduced byte-for-byte in a clean owner replay
 E-000 owner amendment audit: historical self-check only; never an acceptance gate
 E-000 synthetic Pearl parity: structured header/config, job_key, matrix root, and Salted seed vector agree
 ```
@@ -234,11 +265,10 @@ verifier checks only the frozen toy relation and carries its assumptions and non
 
 ## Next safe actions
 
-1. Before any operator acceptance or candidate selection, apply the ADR-0014 prequalifier
-   to a sanitized, content-addressed registry, obtain separate digest-bound T1 adjudication,
-   and freeze the exact source-cited runtime recipe only after semantic-entailment review.
-   Then freeze two code-path-independent implementations and the complete 30-control result
-   matrix.
+1. Before another large retrieval, resolve ADR-0015 by adversarial readback. If it fails,
+   continue under ADR-0014 and obtain exact T1 adjudication. If it survives, preserve E-000
+   unchanged and issue an `E-000-R2` manifest with `S0` as the disclosed minimum and `S1`
+   as an optional stronger class. No active acceptance state transfers.
 2. Give the separate reviewer ADR-0012, ADR-0013, manifest digest
    `011d3c232ce9638fc265730f01b13dd3e11d87c225d19ad17842a44d7a78ddc5`, and every
    Phase 1 through 5 artifact. Require a source-bound readback and new reviewer-owned
@@ -251,10 +281,10 @@ verifier checks only the frozen toy relation and carries its assumptions and non
    do not make the census a prerequisite for PAB-0.
 4. Retain immutable certificate-v4 vectors, an authorized B200 path, and a second independent
    verifier before running E-008.
-5. Obtain independent review of the PAB-1 relation and freeze its byte-level bridge and
-   required negative fixtures before implementation. Then build only the disclosed-input
-   PAB-0 fixture against Pearl's pinned parser/tree; do not call it zero knowledge or full
-   execution.
+5. Resolve the PAB-0 GPU-fidelity contract before implementation. Build only the
+   row-consistent quantizer-consistency lane accepted with amendments, and preserve
+   request-to-prefix origin as a separate blocked relation. Do not call PAB-0 zero
+   knowledge, activation origin, or full execution.
 6. Design the successor around authenticated and amortized `Q=G^T M` preprocessing, an
    explicit anti-grinding challenge model, batched request membership, realistic quantized
    attention/cache/decode semantics, and an adapter consuming actual Pearl roots. Do not

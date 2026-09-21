@@ -1,0 +1,14 @@
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Public MC1 synthetic key and keyed-root result fields"
+paths = [
+  '''experiments/e-000/mc1/artifacts/mc1-agreement-v1\.json''',
+  '''experiments/e-000/mc1/artifacts/python-oracle-result-v1\.json''',
+  '''experiments/e-000/mc1/artifacts/rust-result-v1\.json''',
+]
+regexTarget = "match"
+regexes = [
+  '''(?:synthetic_key_hex|keyed_root)"\s*:\s*"[0-9a-f]{64}"''',
+]

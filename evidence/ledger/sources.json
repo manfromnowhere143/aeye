@@ -1,7 +1,7 @@
 {
   "schema_version": "aeye.source-ledger.v0",
   "cutoff_date": "2026-09-21",
-  "verified_at": "2026-09-21T09:45:45Z",
+  "verified_at": "2026-09-21T18:45:46Z",
   "entries": [
     {
       "source_id": "arxiv:2409.12055v2",
@@ -668,6 +668,42 @@
       "scope": "Pinned implementation used for certificate, commitment, mining, and vLLM byte-path forensics.",
       "limitations": ["The pinned snapshot is historical and does not represent later upstream changes.", "Source inspection does not establish network prevalence or execution of any specific block."],
       "artifact": {"type": "git_tree", "path": "evidence/external/pearl", "commit": "4a0c24bc18dcb67cebca93c1ad38fb04837cb1a0", "remote": "https://github.com/pearl-research-labs/pearl.git", "clean": true}
+    },
+    {
+      "source_id": "hf:pearl-llama31-8b:5dcb348a:shard-1",
+      "kind": "source_repository",
+      "title": "Pearl Llama 3.1 8B checkpoint, shard 1 of 2",
+      "authors": ["Pearl Research Labs contributors"],
+      "version": "revision 5dcb348a9f6d26fc42c0db0d8fbab2a0708796c0; model-00001-of-00002.safetensors",
+      "publication_date": "2026-04-27",
+      "publication_date_status": "known",
+      "publication_date_precision": "day",
+      "retrieval_date": "2026-09-21",
+      "url": "https://huggingface.co/pearl-ai/Llama-3.1-8B-Instruct-pearl/resolve/5dcb348a9f6d26fc42c0db0d8fbab2a0708796c0/model-00001-of-00002.safetensors",
+      "locator_status": "known",
+      "evidence_status": "metadata_only",
+      "claim_status": "observed",
+      "scope": "Exact publisher revision and 4,999,384,920-byte checkpoint shard used as an owner-observed T0 input to the E-000 MC1 calibration.",
+      "limitations": ["The payload is not redistributed by Aeye; the public repository retains only its expected full-stream SHA-256 and the MC1 input-provenance projection.", "Publisher association is not independent derivation, checkpoint correctness, runtime participation, or an E-000 result."],
+      "artifact": {"type": "digest_only", "path": "evidence/checkpoints/pearl-llama31-8b/model-00001-of-00002.safetensors", "sha256": "sha256:3640e2cedf0808e00f775e9f69de50072a9118f5bf96aaee279f4385c8b9ca14", "media_type": "application/octet-stream", "reason": "The approximately 5 GB upstream checkpoint shard is omitted from Git because of size and upstream licensing; it remains publicly addressable at the immutable revision."}
+    },
+    {
+      "source_id": "hf:pearl-llama31-8b:5dcb348a:shard-2",
+      "kind": "source_repository",
+      "title": "Pearl Llama 3.1 8B checkpoint, shard 2 of 2",
+      "authors": ["Pearl Research Labs contributors"],
+      "version": "revision 5dcb348a9f6d26fc42c0db0d8fbab2a0708796c0; model-00002-of-00002.safetensors",
+      "publication_date": "2026-04-27",
+      "publication_date_status": "known",
+      "publication_date_precision": "day",
+      "retrieval_date": "2026-09-21",
+      "url": "https://huggingface.co/pearl-ai/Llama-3.1-8B-Instruct-pearl/resolve/5dcb348a9f6d26fc42c0db0d8fbab2a0708796c0/model-00002-of-00002.safetensors",
+      "locator_status": "known",
+      "evidence_status": "metadata_only",
+      "claim_status": "observed",
+      "scope": "Exact publisher revision and 4,084,714,664-byte checkpoint shard used as an owner-observed T0 input to the E-000 MC1 calibration.",
+      "limitations": ["The payload is not redistributed by Aeye; the public repository retains only its expected full-stream SHA-256 and the MC1 input-provenance projection.", "Publisher association is not independent derivation, checkpoint correctness, runtime participation, or an E-000 result."],
+      "artifact": {"type": "digest_only", "path": "evidence/checkpoints/pearl-llama31-8b/model-00002-of-00002.safetensors", "sha256": "sha256:e22b8f006c61ecae168de1436a1df8aa21bab542c313a9ccd96603e71b6f5bd0", "media_type": "application/octet-stream", "reason": "The approximately 4.1 GB upstream checkpoint shard is omitted from Git because of size and upstream licensing; it remains publicly addressable at the immutable revision."}
     },
     {
       "source_id": "git:vllm:bc150f50",

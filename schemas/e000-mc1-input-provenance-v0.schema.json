@@ -1,0 +1,106 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aeye.local/schemas/e000-mc1-input-provenance-v0.schema.json",
+  "title": "Aeye E-000 MC1 public input-provenance projection",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "status",
+    "candidate_inspected",
+    "contains_model_weight_bytes",
+    "checkpoint",
+    "shards",
+    "reviewed_registry",
+    "public_replay",
+    "claim_ceiling"
+  ],
+  "properties": {
+    "schema_version": {"const": "aeye.e000-mc1-input-provenance.v0"},
+    "status": {"const": "owner_observed_public_projection"},
+    "candidate_inspected": {"const": false},
+    "contains_model_weight_bytes": {"const": false},
+    "checkpoint": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["repo_id", "revision", "source_class"],
+      "properties": {
+        "repo_id": {"const": "pearl-ai/Llama-3.1-8B-Instruct-pearl"},
+        "revision": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+        "source_class": {"const": "T0_OWNER_OBSERVED"}
+      }
+    },
+    "shards": {
+      "type": "array",
+      "minItems": 2,
+      "maxItems": 2,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "file",
+          "source_url",
+          "stream_bytes",
+          "stream_sha256",
+          "extraction_receipt_sha256",
+          "selected_i8_tensors"
+        ],
+        "properties": {
+          "file": {"type": "string", "pattern": "^model-[0-9]{5}-of-[0-9]{5}\\.safetensors$"},
+          "source_url": {"type": "string", "format": "uri", "pattern": "^https://huggingface\\.co/[^?#]+$"},
+          "stream_bytes": {"type": "integer", "minimum": 1},
+          "stream_sha256": {"$ref": "#/$defs/sha256"},
+          "extraction_receipt_sha256": {"$ref": "#/$defs/sha256"},
+          "selected_i8_tensors": {"type": "integer", "minimum": 1}
+        }
+      }
+    },
+    "reviewed_registry": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sha256",
+        "semantic_slabs",
+        "unique_byte_strings",
+        "collision_groups",
+        "by_family"
+      ],
+      "properties": {
+        "sha256": {"$ref": "#/$defs/sha256"},
+        "semantic_slabs": {"const": 3248},
+        "unique_byte_strings": {"const": 3248},
+        "collision_groups": {"const": 0},
+        "by_family": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["gate_up_proj", "o_proj", "qkv_proj"],
+          "properties": {
+            "gate_up_proj": {"const": 2016},
+            "o_proj": {"const": 224},
+            "qkv_proj": {"const": 1008}
+          }
+        }
+      }
+    },
+    "public_replay": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "checkpoint_payloads_retained",
+        "tensor_extraction_bundles_retained",
+        "exact_extraction_receipts_retained",
+        "full_replay_from_repository_alone"
+      ],
+      "properties": {
+        "checkpoint_payloads_retained": {"const": false},
+        "tensor_extraction_bundles_retained": {"const": false},
+        "exact_extraction_receipts_retained": {"const": false},
+        "full_replay_from_repository_alone": {"const": false}
+      }
+    },
+    "claim_ceiling": {"type": "string", "minLength": 1}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

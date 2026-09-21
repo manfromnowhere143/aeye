@@ -1,0 +1,95 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://aeye.local/schemas/e000-calibration-terminal-observation-v0.schema.json",
+  "title": "Aeye E-000 calibration terminal observation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "status",
+    "observed_at_utc",
+    "repository_basis",
+    "frozen_plan_sha256",
+    "calibration_succeeded",
+    "candidate_inspected",
+    "contains_model_weight_bytes",
+    "owner_observation_only",
+    "retry_absence_cryptographically_proven",
+    "first_attempt",
+    "remaining_actions",
+    "expected_outputs",
+    "instrumentation_gap",
+    "tier_assignment",
+    "claim_ceiling"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "aeye.e000-calibration-terminal-observation.v0"
+    },
+    "status": {"const": "terminal_failure_under_frozen_plan"},
+    "observed_at_utc": {"$ref": "#/$defs/utc"},
+    "repository_basis": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+    "frozen_plan_sha256": {"$ref": "#/$defs/sha256"},
+    "calibration_succeeded": {"const": false},
+    "candidate_inspected": {"const": false},
+    "contains_model_weight_bytes": {"const": false},
+    "owner_observation_only": {"const": true},
+    "retry_absence_cryptographically_proven": {"const": false},
+    "first_attempt": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "ordinal",
+        "shard_ordinal",
+        "shards_in_plan",
+        "status",
+        "exit_code",
+        "error_code",
+        "public_message",
+        "success_receipt_created",
+        "payload_prefix_bytes",
+        "payload_prefix_sha256",
+        "retry_count"
+      ],
+      "properties": {
+        "ordinal": {"const": 1},
+        "shard_ordinal": {"const": 1},
+        "shards_in_plan": {"const": 2},
+        "status": {"const": "failed"},
+        "exit_code": {"type": "integer", "minimum": 1},
+        "error_code": {"const": "EARLY_EOF_BEFORE_CONTENT_LENGTH"},
+        "public_message": {"const": "response ended before Content-Length"},
+        "success_receipt_created": {"const": false},
+        "payload_prefix_bytes": {"type": "null"},
+        "payload_prefix_sha256": {"type": "null"},
+        "retry_count": {"const": 0}
+      }
+    },
+    "remaining_actions": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["second_capture", "comparator"],
+      "properties": {
+        "second_capture": {"const": "not_started_due_to_stop_rule"},
+        "comparator": {"const": "not_started_due_to_stop_rule"}
+      }
+    },
+    "expected_outputs": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["first_success_receipt", "second_success_receipt", "comparison"],
+      "properties": {
+        "first_success_receipt": {"const": "absent"},
+        "second_success_receipt": {"const": "absent"},
+        "comparison": {"const": "absent"}
+      }
+    },
+    "instrumentation_gap": {"type": "string", "minLength": 1},
+    "tier_assignment": {"type": "null"},
+    "claim_ceiling": {"type": "string", "minLength": 1}
+  },
+  "$defs": {
+    "sha256": {"type": "string", "pattern": "^sha256:[0-9a-f]{64}$"},
+    "utc": {"type": "string", "format": "date-time", "pattern": "Z$"}
+  }
+}

@@ -1070,7 +1070,14 @@ def validate_e009_artifacts() -> list[Finding]:
 
 def validate_markdown_links() -> list[Finding]:
     output: list[Finding] = []
-    markdown_files = [ROOT / "README.md", *sorted((ROOT / "docs").rglob("*.md"))]
+    candidates = {
+        *ROOT.glob("*.md"),
+        *(ROOT / "docs").rglob("*.md"),
+        *(ROOT / "experiments").rglob("*.md"),
+    }
+    markdown_files = sorted(
+        path for path in candidates if "target" not in path.relative_to(ROOT).parts
+    )
     for markdown in markdown_files:
         text = markdown.read_text(encoding="utf-8")
         for match in LOCAL_LINK_RE.finditer(text):

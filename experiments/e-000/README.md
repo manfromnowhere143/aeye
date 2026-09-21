@@ -1,18 +1,19 @@
 # E-000 — native Pearl weight-commitment opening
 
-Status: `blocked` (corrected sequence awaiting fresh review and pre-candidate artifacts; no run attempted)  
+Status: `blocked` (real-byte pre-candidate calibration retained; source-assurance correction under review; no run attempted)  
 Candidate observed: **no**  
 Operator acceptance recorded: **no**  
-Protocol sequencing: **ADR-0012 and ADR-0013 incorporated; pre-candidate artifacts and fresh review pending**
+Protocol sequencing: **ADR-0012 and ADR-0013 incorporated; active ADR-0014 unchanged; no successor accepted**
 
 E-000 asks one deliberately narrow question: can a future-selected Pearl mainnet
 certificate-v3 `hash_b` be reproduced from a finite, frozen registry of public checkpoint
 bytes after the exact pinned Pearl/vLLM runtime transformation, without using operand bytes
 supplied by a miner?
 
-A `MATCH` would establish only registered-runtime-slab participation for one block. It
-would not establish valid activations, a complete inference, model identity beyond the
-matched byte-string, hardware origin, useful work, any Aeye claim coordinate, or demand.
+A `MATCH` would establish only that one candidate `hash_b` opens to a registered weight
+byte string under the frozen recipe and `job_key`. It would not establish live-runtime
+participation, valid activations, a complete inference, model identity beyond the matched
+bytes, hardware origin, useful work, any Aeye claim coordinate, or demand.
 
 ## Predecessor review boundary
 
@@ -48,11 +49,41 @@ factually distinct transport retrievals for every shard, but only an external,
 digest-bound adjudication may assign T1. T1 does not mean independent publication,
 checkpoint reproduction, source authentication, or T2.
 
+That active decision is now challenged by the candidate-blind
+[ADR-0015 proposal](../../docs/decisions/0015-source-assurance-requires-independent-derivation.md).
+The proposal observes that a second route to the same publisher-frozen length and digest
+adds no stronger byte-identity statement. It would replace route-based tiers with explicit
+publisher-associated and independently-derived source classes. It has no protocol effect
+unless adversarial readback accepts a new immutable `E-000-R2` manifest.
+
 Until those external records exist after Phases 1 through 5, no candidate height, block
 hash, certificate, or `hash_b` may be selected or read. The corrected blocked manifest
 hashes to
 `011d3c232ce9638fc265730f01b13dd3e11d87c225d19ad17842a44d7a78ddc5`; this owner
 correction awaits fresh reviewer readback and is not operator acceptance.
+
+## Pre-candidate evidence retained after the manifest freeze
+
+The owner has now crossed the synthetic-to-real-byte boundary without inspecting a chain
+candidate:
+
+- a source-derived 8B audit enumerated 5,040 static layouts, of which 3,248 satisfy the
+  candidate-independent `(n,k)` dimension filter across the declared TP set;
+- Python and separately authored Rust paths agreed on the byte identities of all 3,248
+  layouts from the same retained T0 tensor extractions;
+- MC1 preregistered 15 distinct family/shape classes and processed 311,427,072 raw bytes
+  per lane. Python, Rust, and Pearl's pinned keyed-tree implementation agreed on all 15
+  roots under a frozen synthetic non-candidate key;
+- the MC1 comparator rejected nine post-hoc transcript mutations, and a locked replay
+  reproduced all three result files byte-for-byte; and
+- the first and only capture in a separate exporter calibration ended before the declared
+  `Content-Length`. Its stop rule prevented the second capture and comparison, so no route
+  tier was produced.
+
+The [dated evidence record](../../docs/E000_PRE_CANDIDATE_EVIDENCE_2026-09-21.md) gives the
+counts, correction to the `(n,k)` coverage predicate, terminal failure, and exact
+non-claims. The [MC1 packet](mc1/README.md) retains the source and result metadata. Neither
+artifact is an E-000 outcome or independent validation.
 
 ```mermaid
 flowchart LR
@@ -103,6 +134,13 @@ flowchart LR
   semantically against all twelve reviewer amendments, the four ADR-0013 binding repairs,
   and current historical-file digests. It is an owner self-check, never reviewer approval
   or operator acceptance.
+- [`mc1/`](mc1/README.md) retains the preregistered, source-only real-byte calibration:
+  two reconstruction lanes, the pinned-Pearl comparison results, a replay receipt, and the
+  mutation harness. Public checkpoint payload bytes are not in the repository.
+- [`source_assurance.py`](source_assurance.py) is an executable proposal accompanying
+  ADR-0015. It demonstrates that route diversity remains an observation while only exact
+  independent derivation can upgrade the proposed source class. It cannot assign an
+  active E-000 tier.
 
 These are conformance instruments, not the two frozen E-000 implementations. The Python
 modules share orchestration and fixtures, checkpoint extraction is not yet implemented in
@@ -122,6 +160,9 @@ python3 experiments/e-000/audit_reviewer_freeze.py
 python3 experiments/e-000/verify_pearl_oracle.py
 python3 -m unittest tests.test_e000_conformance -v
 python3 -m unittest tests.test_e000_registry -v
+python3 -m unittest tests.test_e000_mc1 -v
+python3 -m unittest tests.test_e000_source_assurance -v
+python3 -m unittest tests.test_e000_calibration_terminal -v
 ```
 
 The expected result is synthetic parser/hash parity with `candidate_inspected=false`.
@@ -130,10 +171,10 @@ comparison.
 
 ## Remaining gates before any candidate
 
-1. Apply the implemented registry prequalifier to a finite checkpoint registry, obtain
-   external reviewer adjudication of T1 for every shard, and freeze it with a source-cited
-   transformation recipe and finite tensor-parallel degree set. The current repository
-   contains the contract and synthetic adversarial tests, not an adjudicated real registry.
+1. Resolve the source-assurance protocol before performing another large retrieval. Under
+   the active E-000 manifest this still means T1 adjudication under ADR-0014. If ADR-0015
+   survives review, preserve E-000 and issue `E-000-R2` with explicit `S0`/`S1` classes;
+   do not edit or reinterpret the active manifest.
 2. Retain two truly code-path-independent checkpoint-to-root implementations and compare
    every intermediate transcript field.
 3. Make all 30 frozen controls produce their exact diagnostics in both implementations,

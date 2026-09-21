@@ -26,6 +26,13 @@ No scientific result is upgraded by that change of custody.
   post-hoc probes, and adversarial disposition;
 - the blocked E-000 conformance instruments, manifest, reviewer-freeze record, checklist,
   and explicit pre-candidate gates;
+- the source-only E-000 MC1 preregistration, Python and Rust reconstruction paths,
+  three-lane result metadata, input-provenance projection, replay receipt, and mutation
+  harness; the exact checkpoint shard digests are ledgered, but model-weight and extracted
+  tensor bytes are not included;
+- the public projection of the failed exporter calibration, its closed schema and negative
+  tests, and proposed ADR-0015 source-assurance correction, all labelled with their owner
+  and review limits;
 - the source ledger with exact versions, public retrieval locators, SHA-256 digests, Git
   remotes, commits, scopes, limitations, and evidence labels;
 - Apache-2.0 license, third-party boundary, citation metadata, contribution policy,
@@ -66,10 +73,11 @@ The release is blocked unless all of the following hold on the public candidate:
 
 ## Scientific ceiling at release
 
-The release contains one supported toy execution-interface result. It contains no native
-Pearl opening, mainnet census, request-to-activation proof, ordinary-transformer proof,
-GPU-fidelity result, authenticated preprocessing result, production benchmark, demand
-proof, security certification, independent human review, or external endorsement.
+The release contains one supported toy execution-interface result and one owner-observed
+real-byte pre-candidate calibration. It contains no native Pearl opening, mainnet census,
+request-to-activation proof, ordinary-transformer proof, GPU-fidelity result,
+authenticated preprocessing result, production benchmark, demand proof, security
+certification, independent human review, or external endorsement.
 
 The release is intended to make those limits inspectable, not to conceal them.
 

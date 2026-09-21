@@ -13,6 +13,15 @@ actually supports, and preserve everything it does not.**
 > certificate, ordinary transformer or GPU execution, private inference, production
 > efficiency, independent demand, or external review has been established.
 
+The native byte path has nevertheless advanced beyond synthetic fixtures. A
+preregistered owner calibration reconstructed 15 real public-checkpoint slab classes in
+separate Python and Rust paths; both byte identities agreed, and both keyed roots agreed
+with Pearl's pinned tree implementation under a synthetic non-candidate key. This is a
+real-byte engineering result, not a certificate opening or an upgrade to the four-coordinate
+vector. The public packet retains exact source, result, and input-provenance digests, but
+not checkpoint or extracted-tensor payloads; a fresh clone alone cannot rerun MC1. See the
+[pre-candidate evidence record](docs/E000_PRE_CANDIDATE_EVIDENCE_2026-09-21.md).
+
 [Result](docs/E009_RESULT_2026-09-20.md) ·
 [Mathematics](docs/FORMAL_COMPOSITION.md) ·
 [2026 evidence map](docs/STATE_OF_THE_ART_2026.md) ·
@@ -223,13 +232,14 @@ The detailed, source-pinned comparison is in the
 The highest-value next move is not a larger toy. Two bounded outputs should precede
 another protocol claim:
 
-1. **One E-000 public-weight opening.** Under the retained reviewer freeze, reconstruct a
+1. **One E-000 public-weight opening.** Under a reviewed successor freeze, reconstruct a
    future-selected dense certificate-v3 `hash_b` from a finite registry of published
    checkpoint revisions through Pearl's pinned fusion, slicing, tensor parallelism,
    layout, padding, and keyed-BLAKE3 path. Preserve `INVALID`, `BLOCKED`, `UNRETRIEVED`,
    `OUT_OF_COVERAGE`, `MATCH`, and `IN_COVERAGE_NO_MATCH` as distinct terminal states. A
    census becomes a separately frozen E-001 only if the pilot's availability, coverage,
-   and decision value justify it. No real opening or census result is retained today.
+   and decision value justify it. A 15-class real-byte tree calibration is retained, but
+   no candidate opening or census result exists today.
 2. **A row-consistent quantizer-consistency precursor, then a native origin bridge.** The
    [source-pinned note](docs/PEARL_ACTIVATION_ORIGIN_BINDING_2026-09-21.md) identifies the
    exact selected-strip witness already authenticated under `hash_a`, corrects the nuance
@@ -256,7 +266,7 @@ flowchart LR
     PAB --> APC["APC-1 / E-010<br/>authenticated preprocessing"]
     APC --> P["Version-pinned native<br/>Pearl root adapter"]
     P --> S["Realistic semantics +<br/>full-cost comparator"]
-    S --> V["Independent human and<br/>Pearl-engineering review"]
+    S --> V["Independent domain-expert<br/>review"]
 
     classDef supported fill:#e6f4ea,stroke:#1a7f37,color:#0f3d1c;
     classDef proposed fill:#fff4e5,stroke:#b54708,color:#4a2500;
@@ -276,6 +286,17 @@ bind it externally. The old digest triple remains historical and has no current 
 No candidate block, certificate, or `hash_b` may be selected or inspected before those
 gates. The current conformance instruments are described in the
 [E-000 experiment note](experiments/e-000/README.md).
+
+After that manifest freeze, owner-side pre-candidate work derived 3,248
+dimension-prequalified 8B layouts, obtained cross-language equality for their byte
+identities, and completed the 15-class MC1 keyed-root calibration described above. A
+separate exporter calibration terminated on an early EOF before its declared
+`Content-Length`; its stop rule correctly prevented the second capture and comparison.
+The active source tier remains unchanged, while
+[ADR-0015](docs/decisions/0015-source-assurance-requires-independent-derivation.md)
+proposes replacing route diversity with explicit publisher-associated and independently
+derived source classes. That proposal requires adversarial readback and a new immutable
+manifest before it can affect E-000.
 
 ### The next protocol construction
 
@@ -325,6 +346,11 @@ Established in this repository:
 - a pre-candidate E-000 V3 parser, exact byte-transform engine, separately written BLAKE3
   reference lane, and pinned Pearl root oracle; these are conformance instruments, not a
   mainnet opening or the two frozen independent implementations.
+- a preregistered E-000 MC1 owner calibration over 15 real public-checkpoint slab classes,
+  with equal Python/Rust byte identities and equal Python/Rust/Pearl keyed roots under a
+  synthetic key; this is not a candidate `job_key` or native opening.
+- a typed terminal record for the failed exporter calibration and a candidate-blind source
+  assurance proposal; neither changes the active E-000 gate.
 
 Not established:
 
@@ -334,9 +360,7 @@ Not established:
 - authenticated preprocessing that avoids full-matrix verifier work;
 - private or zero-knowledge inference, production serving, or competitive overhead;
 - mainnet operand participation, utility, economic demand, or non-circular payment;
-- independent cryptographic, systems, Pearl-engineering, or peer-review acceptance;
-- any prediction about an individual's reaction, collaboration, hiring, merger, or
-  adoption decision.
+- independent cryptographic, systems, protocol-engineering, or peer-review acceptance.
 
 The dated verdict is **`CONDITIONAL-GO / FIRST CLAIM-BEARING TOY RESULT / FRONTIER
 SYSTEM VALUE UNPROVEN`**.
@@ -383,7 +407,7 @@ remains the evidence-hydrated replay.
 | Formal statement | [Composition calculus](docs/FORMAL_COMPOSITION.md), [protocol specification](docs/PROTOCOL_SPEC.md) |
 | Current result | [E-009-R1 report](docs/E009_RESULT_2026-09-20.md), [adversarial disposition](docs/ADVERSARIAL_REVIEW_RESPONSE_2026-09-21.md), [dated verdict](docs/VERDICT_2026-09-20.md) |
 | Current frontier | [Technical frontier](docs/TECHNICAL_FRONTIER_2026.md), [PAB-1 proposal](docs/PEARL_ACTIVATION_ORIGIN_BINDING_2026-09-21.md), [APC-1 proposal](docs/AUTHENTICATED_PREPROCESSING_CAPSULE.md) |
-| Native Pearl pilot | [E-000 instrument](experiments/e-000/README.md), [reviewer checklist](docs/E000_ACCEPTANCE_CHECKLIST_2026-09-21.md), [experiment manifest](experiments/e-000/manifest.json) |
+| Native Pearl pilot | [E-000 instrument](experiments/e-000/README.md), [pre-candidate evidence](docs/E000_PRE_CANDIDATE_EVIDENCE_2026-09-21.md), [MC1 packet](experiments/e-000/mc1/README.md), [experiment manifest](experiments/e-000/manifest.json) |
 | Evidence and prior art | [2026 review](docs/STATE_OF_THE_ART_2026.md), [source ledger](evidence/ledger/sources.json), [research lineage](docs/RESEARCH_LINEAGE.md) |
 | Adversarial method | [Threat model](docs/THREAT_MODEL.md), [review protocol](docs/REVIEW_PROTOCOL.md), [experiment program](docs/EXPERIMENT_PROGRAM.md) |
 | Review continuity | [Session handoff](docs/SESSION_HANDOFF.md), [expert-review brief (unsent)](docs/EXPERT_REVIEW_BRIEF_DRAFT.md) |

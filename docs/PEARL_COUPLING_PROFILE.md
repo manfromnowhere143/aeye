@@ -215,7 +215,6 @@ intended large-matrix verifier advantage. A scalable profile needs a one-time pr
 authenticated commitment from the exact model/layout root to `Q`, plus a defensible
 anti-grinding challenge transform and a version-specific bridge to actual Pearl roots.
 
-That boundary is the reason to show the profile as a research result rather than announce a
-breakthrough. An expert can now attack exact relations, retained transcripts, assumptions,
-costs, and fixtures instead of debating an undefined phrase such as “verified useful
-inference.”
+That boundary is why the profile is presented as a falsifiable research object. Review can
+now address exact relations, retained transcripts, assumptions, costs, and fixtures
+instead of an undefined phrase such as “verified useful inference.”

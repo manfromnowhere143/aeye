@@ -1,7 +1,7 @@
 # Aeye Research Lineage
 
 Status: `observed` repository provenance map  
-Cutoff: 2026-09-20
+Cutoff: 2026-09-21
 
 This document records how Aeye's present claims emerged, what superseded what, and which
 artifacts carry scientific authority. It is not an authorship or ownership statement and
@@ -36,6 +36,10 @@ override retained primary evidence or a failing experiment.
 | Structural falsification | Receipt/report schemas, 18 fixtures, validator | observed structural result | Demonstrated deterministic rejection of 15 designed architectural failures without claiming cryptographic or empirical execution truth. |
 | Algebraic interface | Standalone coded-MVM demonstrator | observed limited result | Tested the Reed–Solomon/Vandermonde equation and exact bound on a deterministic relation; explicitly not an execution receipt. |
 | E-009-R1 | Preregistered 13-event causal execution and separate verifier | supported toy result | First claim-bearing `R_X(subject,h_A,h_B)` witness: 80/80 coded checks, eight exact boundaries, and 8/8 mutations rejected. WORK remained synthetic/unknown. |
+| E-000 static scope | Source-derived 8B layouts and Python/Rust byte identities | owner observed; same-workstation review with amendments | Replaced a generic runtime-slab claim with a finite 3,248-layout `(n,k)` byte registry and kept candidate-dependent `m` separate. |
+| E-000 MC1 | Preregistered 15-class real-byte tree calibration | owner result awaiting adversarial readback | Python and Rust reconstructed equal bytes; both keyed roots agreed with pinned Pearl under a synthetic non-candidate key. No certificate was inspected. |
+| E-000 exporter calibration | Frozen two-capture plan | terminal failure | The first transfer ended before `Content-Length`; the stop rule prevented capture two and comparison. No tier was assigned. |
+| ADR-0015 | Source assurance by publisher association or independent derivation | proposed; no active effect | Challenges route diversity as a scientific source tier and requires an immutable successor if accepted. |
 | APC-1 / E-010 | Authenticated preprocessing capsule | proposed, blocked | Formalized why unauthenticated `Q` permits model substitution and split one-time model/setup evidence from repeated online execution evidence. |
 
 ## Pearl-specific lineage
@@ -45,7 +49,7 @@ Aeye retains two distinct Pearl evidence branches:
 ```text
 Pearl INT certificate-v3
   └─ pinned implementation + PoUW paper v4
-     ├─ E-000 runtime-slab reconstruction: proposed / blocked
+     ├─ E-000 registered weight-byte opening: proposed / blocked
      └─ E-001 mainnet census: gated on E-000
 
 Pearl FP8 certificate-v4 proposal
@@ -100,11 +104,16 @@ surface. It also shows why the construction is not yet scalable: authenticating
 `Q=G^T M` by recomputation touches the full matrix, the public audit is large, and the
 challenge transform carries a grinding condition.
 
-The next scientific decision is not whether to enlarge the toy matrix. It is whether a
-one-time authenticated preprocessing capsule can preserve the exact model/layout relation,
-amortize setup across real requests, and remain cheaper than a complete proof after every
-party and cost is counted. E-010 records that question without pretending the proof backend
-has already been chosen.
+The immediate decision is whether E-000's source gate should require route diversity or
+independent byte derivation. ADR-0015 states a falsifiable replacement, but the active
+manifest cannot be rewritten. If the proposal survives review, E-000-R2 must restart the
+freeze and preserve the failed calibration.
+
+Beyond the native opening, the scalable execution question remains authenticated
+preprocessing. A one-time capsule must preserve the exact model/layout relation, amortize
+setup across real requests, and remain cheaper than a complete proof after every party and
+cost is counted. E-010 records that question without pretending the proof backend has
+already been chosen.
 
 ## External interpretation
 

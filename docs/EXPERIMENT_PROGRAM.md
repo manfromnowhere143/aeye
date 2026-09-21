@@ -6,7 +6,7 @@ Status: `proposed`; execution requires the gate for each experiment
 
 ### E-000 — Pearl byte-path and FB-4 reconstruction gate
 
-Question: can public source artifacts reconstruct the exact runtime weight slab and then
+Question: can public source artifacts reconstruct a registered weight byte string and then
 the on-chain `hash_b` without capturing bytes from a miner?
 
 Required work:
@@ -23,7 +23,16 @@ Required work:
 Current evidence **contradicts the naive FB-4 statement** that `w_q` is generally one
 checkpoint tensor byte-for-byte. Pinned vLLM fuses Q/K/V and gate/up projections, slices
 for tensor parallelism, and packs MoE experts before Pearl hashes the contiguous runtime
-slab. The narrower deterministic-reconstruction hypothesis remains `unknown`.
+slab. The pre-candidate byte path is now calibrated on real public-checkpoint bytes. MC1
+obtained equal Python/Rust byte identities and equal Python/Rust/pinned-Pearl keyed roots
+for 15 preregistered classes under a synthetic key. The native candidate-opening
+hypothesis remains `unknown` because no certificate, candidate `job_key`, or `hash_b` was
+inspected.
+
+The active ADR-0014 source gate is also under candidate-blind reassessment. Proposed
+ADR-0015 distinguishes publisher-associated bytes from independently derived bytes and
+requires a new immutable experiment revision if accepted. It does not relax the active
+manifest.
 
 Acceptance: independent replay produces the exact `hash_b`.  
 Failure: unresolved transform/config ambiguity, revision drift, or mismatch. Do not patch

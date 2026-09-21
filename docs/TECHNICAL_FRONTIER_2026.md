@@ -244,10 +244,9 @@ Aeye should claim an advance only if retained experiments establish all of the f
 E-009 now satisfies the strict-statement and complete-declared-coverage conditions for one
 toy execution, and supplies public retained bytes that a separate code path can replay. It
 does not satisfy the native-Pearl, realistic-semantics, competitive-cost, privacy, or
-independent-review conditions. “Substantially better than Pearl” therefore remains
-unsupported. The precise defensible claim is that Aeye specifies—and now instantiates once
-on a toy execution—a strictly broader, machine-testable question that Pearl does not claim
-to answer.
+independent-review conditions. No comparative system-value claim is supported. The precise
+claim is that Aeye specifies, and now instantiates once on a toy execution, a broader
+machine-testable question than Pearl's native work statement.
 
 ## 7. Result and immediate frontier
 

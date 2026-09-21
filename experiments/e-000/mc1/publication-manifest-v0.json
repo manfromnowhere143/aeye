@@ -1,0 +1,43 @@
+{
+  "artifacts": [
+    {"bytes": 6645, "path": "Cargo.lock", "sha256": "87830f3c1deebc242a23ba7c0679ff25f27588bf2dee2c2afe553b581e1eb35a"},
+    {"bytes": 289, "path": "Cargo.toml", "sha256": "d728cbba28137b4dd8ef5121a2204124c379cdcacde722da69fa2e5de4fa51c3"},
+    {"bytes": 7229, "path": "artifacts/mc1-agreement-v1.json", "sha256": "d5ca1f4670bf8c5018fdb59c7ec0ec46a06cba69655616f0852801159197e6f4"},
+    {"bytes": 1925, "path": "artifacts/posthoc-adversarial-probe-v1.json", "sha256": "3a18bec0e29ecd113d6c12b6c899d387e1e73e919bcbfb86ade2caa6e49a96a3"},
+    {"bytes": 11351, "path": "artifacts/python-oracle-result-v1.json", "sha256": "3495c9a5e228db61bccfb48026e067e758d417b9505a9131f387ce3e3d6c8991"},
+    {"bytes": 1075, "path": "artifacts/replay-receipt-v1.json", "sha256": "af8aac567d34777e2b0b8fcc46233bbc68e776b15c70be3f0cbc29a337f4f1b6"},
+    {"bytes": 9490, "path": "artifacts/rust-result-v1.json", "sha256": "c755407327d9f92329a259a793486f02a96595022794ff0151988812eae749b8"},
+    {"bytes": 8072, "path": "compare_mc1.py", "sha256": "bbe1da1c66344ef862c455bcbf539fd774557c51155c45fead08704bbe7295d9"},
+    {"bytes": 2212, "path": "input-provenance-v0.json", "sha256": "adc2e7e09320230491c892fa153871f74491760a2b2d7ff6e6244e0180dca5e3"},
+    {"bytes": 3299, "path": "mc1-preregistration.json", "sha256": "fd52b4da68de635873fb0ddb109027a1690440ab12ec1bb294efc544cd663274"},
+    {"bytes": 5461, "path": "posthoc_adversarial_probe.py", "sha256": "268e2018e87511c3d2e589102ddf832e56ac2d3d9fc69c9dbab0f1ec837e32fe"},
+    {"bytes": 19999, "path": "python_lane.py", "sha256": "d72f5285226796fecbed99f83cf87c935e1d993d6cdcc69fc389b82e48fa1a14"},
+    {"bytes": 6163, "path": "replay_mc1.py", "sha256": "f14b1e4604ecd14d42902e3c4c2b05ccf880c6ca4f466d222ffe6c911b4a6093"},
+    {"bytes": 51, "path": "rust-toolchain.toml", "sha256": "a9854d66e90bcd7a48c171a11c35d0990af44fd59c0a3239ebe2d2c3ab925356"},
+    {"bytes": 23213, "path": "src/main.rs", "sha256": "11d7f3d14514799e20aef112470c0486c76853e2f772da046091c3650a074615"}
+  ],
+  "candidate_inspected": false,
+  "claim_ceiling": "For one deterministically selected real slab in each of 15 reviewed 8B family/shape classes, two owner implementations reconstructed equal raw byte identities, and Python, Rust, and Pearl's pinned implementation computed equal keyed BLAKE3 roots under one frozen synthetic non-candidate key. This does not establish source independence, runtime equivalence, a candidate opening, hash_b equality, E-000, any Aeye coordinate, security, performance, or independent validation.",
+  "contains_model_weight_bytes": false,
+  "external_inputs": [
+    {"artifact_id": "reviewed-real-byte-packet", "sha256": "ef509fe79c23925aef83f9518d92d6f9b81feba3647c92c22addfa2549bd28b6"},
+    {"artifact_id": "reviewed-3248-slab-registry", "sha256": "ebc222cf4b4134a3414494532e35852f704d79367b2d564d71a0a1b13fc655cd"},
+    {"artifact_id": "python-developmental-registry", "sha256": "e864c35ac3e6ea2c40f3a34c69ca54675392c4365eca74cc9e0bdfba23bc7065"},
+    {"artifact_id": "shard-1-extraction-receipt", "sha256": "13d27a1959afc1de6a7ffcd8ad4f4761e89f657650bd08dbf2ce9a352794a2c1"},
+    {"artifact_id": "shard-2-extraction-receipt", "sha256": "d579153eb20fff529052e9089ad6c671f745ec1ef3d0b0e37cff77c858e14f74"},
+    {"artifact_id": "shard-1-complete-recapture", "sha256": "784a017c39184f23839b1a28c82317bb0b72d83321aafc06dbc6bdfcc29f013f"},
+    {"artifact_id": "shard-2-complete-recapture", "sha256": "71c4ab7b4af00455893f01abb3a4a5826f714e62ae42a1155012f5c4a10265fd"},
+    {"artifact_id": "pinned-pearl-oracle-source", "sha256": "7e124f558232036524e3bf4eb62cad2441e11c8bba81f92260e5435bbcfe09e3"},
+    {"artifact_id": "e000-manifest", "sha256": "011d3c232ce9638fc265730f01b13dd3e11d87c225d19ad17842a44d7a78ddc5"}
+  ],
+  "repository_basis": "8a1f8b2b78329e2805bd541a339d2fa4dbce9a69",
+  "result": {
+    "by_family": {"gate_up_proj": 6, "o_proj": 3, "qkv_proj": 6},
+    "byte_identities_equal": true,
+    "keyed_roots_equal_python_rust_pearl": true,
+    "selected_shape_classes": 15,
+    "total_raw_slab_bytes_processed_per_lane": 311427072
+  },
+  "schema_version": "aeye.e000-mc1-publication-manifest.v0",
+  "status": "owner_result_awaiting_adversarial_readback"
+}

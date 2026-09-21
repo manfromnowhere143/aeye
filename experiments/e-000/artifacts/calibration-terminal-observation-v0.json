@@ -1,0 +1,37 @@
+{
+  "calibration_succeeded": false,
+  "candidate_inspected": false,
+  "claim_ceiling": "Owner-observed terminal disposition of one frozen calibration plan. This record does not prove the absence of an unrecorded retry and does not establish adapter equivalence, route independence, source authenticity, checkpoint correctness, runtime equivalence, E-000, or any Aeye coordinate.",
+  "contains_model_weight_bytes": false,
+  "expected_outputs": {
+    "comparison": "absent",
+    "first_success_receipt": "absent",
+    "second_success_receipt": "absent"
+  },
+  "first_attempt": {
+    "error_code": "EARLY_EOF_BEFORE_CONTENT_LENGTH",
+    "exit_code": 1,
+    "ordinal": 1,
+    "payload_prefix_bytes": null,
+    "payload_prefix_sha256": null,
+    "public_message": "response ended before Content-Length",
+    "retry_count": 0,
+    "shard_ordinal": 1,
+    "shards_in_plan": 2,
+    "status": "failed",
+    "success_receipt_created": false
+  },
+  "frozen_plan_sha256": "sha256:badd3639a196d197c574d9f9b6718a83cb3adeeef0dbc47d6e52c030b9adb63e",
+  "instrumentation_gap": "The frozen capture emitted no terminal failure receipt, so an exact logical payload-prefix count and digest are unavailable. An operating-system network counter is not substituted for either value.",
+  "observed_at_utc": "2026-09-21T18:09:45Z",
+  "owner_observation_only": true,
+  "remaining_actions": {
+    "comparator": "not_started_due_to_stop_rule",
+    "second_capture": "not_started_due_to_stop_rule"
+  },
+  "repository_basis": "8a1f8b2b78329e2805bd541a339d2fa4dbce9a69",
+  "retry_absence_cryptographically_proven": false,
+  "schema_version": "aeye.e000-calibration-terminal-observation.v0",
+  "status": "terminal_failure_under_frozen_plan",
+  "tier_assignment": null
+}

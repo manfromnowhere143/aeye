@@ -1,0 +1,61 @@
+{
+  "baseline_accepted": true,
+  "candidate_inspected": false,
+  "cases": [
+    {
+      "case_id": "ROOT_MUTATION",
+      "diagnostic": "keyed root differs: layer-00:gate_up_proj:tp-32:rank-00",
+      "rejected": true
+    },
+    {
+      "case_id": "BYTE_IDENTITY_MUTATION",
+      "diagnostic": "slab_sha256 differs: layer-00:gate_up_proj:tp-16:rank-00",
+      "rejected": true
+    },
+    {
+      "case_id": "MISSING_SHAPE_CLASS",
+      "diagnostic": "selected slab identity sets differ",
+      "rejected": true
+    },
+    {
+      "case_id": "CANDIDATE_LABEL",
+      "diagnostic": "candidate-labelled Python result",
+      "rejected": true
+    },
+    {
+      "case_id": "SOURCE_BINDING_MUTATION",
+      "diagnostic": "source_tensors differs: layer-00:gate_up_proj:tp-08:rank-00",
+      "rejected": true
+    },
+    {
+      "case_id": "SYNTHETIC_KEY_MUTATION",
+      "diagnostic": "synthetic key differs across lanes",
+      "rejected": true
+    },
+    {
+      "case_id": "CANDIDATE_KEY_LAUNDERING",
+      "diagnostic": "synthetic key mislabelled as a candidate key",
+      "rejected": true
+    },
+    {
+      "case_id": "MUTATION_RESULT_LAUNDERING",
+      "diagnostic": "byte mutation was not rejected",
+      "rejected": true
+    },
+    {
+      "case_id": "I8_U8_CONTROL_MUTATION",
+      "diagnostic": "int8/uint8 control differs",
+      "rejected": true
+    }
+  ],
+  "inputs": {
+    "comparator_sha256": "bbe1da1c66344ef862c455bcbf539fd774557c51155c45fead08704bbe7295d9",
+    "preregistration_sha256": "fd52b4da68de635873fb0ddb109027a1690440ab12ec1bb294efc544cd663274",
+    "python_result_sha256": "3495c9a5e228db61bccfb48026e067e758d417b9505a9131f387ce3e3d6c8991",
+    "rust_result_sha256": "c755407327d9f92329a259a793486f02a96595022794ff0151988812eae749b8"
+  },
+  "mutations_rejected": 9,
+  "schema_version": "aeye.private.e000-mc1-posthoc-adversarial-probe.v0",
+  "status": "exploratory_posthoc",
+  "total_mutations": 9
+}

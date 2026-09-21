@@ -1,0 +1,30 @@
+{
+  "candidate_inspected": false,
+  "commands_succeeded": 3,
+  "outputs": {
+    "agreement_sha256": "d5ca1f4670bf8c5018fdb59c7ec0ec46a06cba69655616f0852801159197e6f4",
+    "python_result_sha256": "3495c9a5e228db61bccfb48026e067e758d417b9505a9131f387ce3e3d6c8991",
+    "rust_result_sha256": "c755407327d9f92329a259a793486f02a96595022794ff0151988812eae749b8"
+  },
+  "schema_version": "aeye.private.e000-mc1-replay-receipt.v0",
+  "status": "replayed",
+  "subprocess_completions": {
+    "comparison": {
+      "ok": true,
+      "output_sha256": "d5ca1f4670bf8c5018fdb59c7ec0ec46a06cba69655616f0852801159197e6f4"
+    },
+    "python": {
+      "candidate_inspected": false,
+      "ok": true,
+      "output_sha256": "3495c9a5e228db61bccfb48026e067e758d417b9505a9131f387ce3e3d6c8991",
+      "selected_shape_classes": 15
+    },
+    "rust": {
+      "candidate_inspected": false,
+      "ok": true,
+      "output_sha256": "c755407327d9f92329a259a793486f02a96595022794ff0151988812eae749b8",
+      "selected_shape_classes": 15
+    }
+  },
+  "weight_bearing_temporary_files_retained": false
+}

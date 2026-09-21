@@ -66,8 +66,8 @@ Aeye advances beyond architecture only if:
 
 - Pivot away from Pearl as the `WORK` adapter if its conjecture, deployment parameters, or
   certificate availability cannot support the stated lower-bound claim.
-- Kill public model-census claims if checkpoint-to-runtime slab reconstruction is not
-  reproducible independently or registry revision history is unavailable.
+- Kill public model-census claims if checkpoint-to-registered-weight-byte reconstruction
+  is not reproducible independently or registry revision history is unavailable.
 - Kill any `EXECUTION=satisfied` mode that has only self-authored commitments and no proof,
   challenge, honest replica, or attestation assumption.
 - Kill any `SEMANTICS=satisfied` mode that names only a GPU architecture rather than the

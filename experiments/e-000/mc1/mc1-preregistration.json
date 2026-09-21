@@ -1,0 +1,61 @@
+{
+  "candidate_inspected": false,
+  "claim_ceiling": "Pre-candidate calibration of Pearl's keyed matrix-commitment byte path on reconstructed public-checkpoint slabs. Agreement does not establish T1 source independence, runtime equivalence, a candidate hash_b match, E-000 execution, WORK, EXECUTION, SEMANTICS, DEMAND, security, or independent validation.",
+  "controls": [
+    {
+      "control_id": "MC1-REAL-SLAB-KEYED-ROOT-PARITY",
+      "failure_condition": "Any selected slab has unequal byte length, SHA-256, or keyed root across the Python reconstruction, separately written Rust reconstruction, and pinned Pearl oracle.",
+      "required_outcome": "PASS",
+      "selection": "Lexicographically first slab_id in every distinct (family, shape_n_k) class of the reviewed Rust registry."
+    },
+    {
+      "control_id": "MC1-I8-U8-BIT-PRESERVATION",
+      "failure_condition": "The signed int8 vector [-128,-1,0,1,127] does not map byte-for-byte to [128,255,0,1,127] in both owner lanes.",
+      "required_outcome": "PASS"
+    },
+    {
+      "control_id": "MC1-BYTE-MUTATION",
+      "failure_condition": "Flipping bit 0 of the first selected slab byte leaves either SHA-256 or the synthetic-key Pearl root unchanged.",
+      "required_outcome": "REJECT_MUTATION"
+    }
+  ],
+  "expected_shape_classes": [
+    {"family": "gate_up_proj", "shape_n_k": [896, 4096]},
+    {"family": "gate_up_proj", "shape_n_k": [1792, 4096]},
+    {"family": "gate_up_proj", "shape_n_k": [3584, 4096]},
+    {"family": "gate_up_proj", "shape_n_k": [7168, 4096]},
+    {"family": "gate_up_proj", "shape_n_k": [14336, 4096]},
+    {"family": "gate_up_proj", "shape_n_k": [28672, 4096]},
+    {"family": "o_proj", "shape_n_k": [4096, 1024]},
+    {"family": "o_proj", "shape_n_k": [4096, 2048]},
+    {"family": "o_proj", "shape_n_k": [4096, 4096]},
+    {"family": "qkv_proj", "shape_n_k": [384, 4096]},
+    {"family": "qkv_proj", "shape_n_k": [512, 4096]},
+    {"family": "qkv_proj", "shape_n_k": [768, 4096]},
+    {"family": "qkv_proj", "shape_n_k": [1536, 4096]},
+    {"family": "qkv_proj", "shape_n_k": [3072, 4096]},
+    {"family": "qkv_proj", "shape_n_k": [6144, 4096]}
+  ],
+  "inputs": {
+    "hardened_t0_retrieval_receipts": [
+      "sha256:784a017c39184f23839b1a28c82317bb0b72d83321aafc06dbc6bdfcc29f013f",
+      "sha256:71c4ab7b4af00455893f01abb3a4a5826f714e62ae42a1155012f5c4a10265fd"
+    ],
+    "reviewed_real_byte_packet_manifest": "sha256:ef509fe79c23925aef83f9518d92d6f9b81feba3647c92c22addfa2549bd28b6",
+    "reviewed_rust_registry": "sha256:ebc222cf4b4134a3414494532e35852f704d79367b2d564d71a0a1b13fc655cd",
+    "synthetic_key_derivation": {
+      "algorithm": "SHA-256",
+      "domain_hex": "414559452d453030302d4d43312d53594e5448455449432d4b45592d563000",
+      "input": "raw 32-byte reviewed_real_byte_packet_manifest digest",
+      "result_hex": "4dd34a1010992d93d26f7a80cd6013f523cd67f6f8f3759cc1c50f2aa8d0f779"
+    }
+  },
+  "oracle": {
+    "pearl_commit": "4a0c24bc18dcb67cebca93c1ad38fb04837cb1a0",
+    "operation": "pearl_blake3::pad_to_chunk_boundary followed by pearl_blake3::MerkleTree::new(...).root()"
+  },
+  "required_selected_slabs": 15,
+  "schema_version": "aeye.private.e000-mc1-preregistration.v0",
+  "status": "preregistered_pre_candidate",
+  "synthetic_key_is_candidate_job_key": false
+}

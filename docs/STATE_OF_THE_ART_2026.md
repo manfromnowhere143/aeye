@@ -12,6 +12,7 @@ different relations and their percentages are not directly comparable.
 | System | Strongest actual primitive | Scope evaluated | Important boundary for Aeye |
 |---|---|---|---|
 | Aeye E-009-R1 | Complete toy causal execution receipt combining five coded-linear relations with eight exact state/nonlinear/decode/output relations under one subject | One 13-event finite-field hard-attention block; separate code path accepted 80/80 coded equations and rejected 8/8 mutations | First retained `R_X(subject,h_A,h_B)` witness, but WORK roots are synthetic, preprocessing authentication touches every model matrix, Fiat–Shamir soundness is grinding-conditional, the trace is public, and local Python costs are not production evidence. |
+| Aeye E-000 MC1 | Real public-checkpoint byte reconstruction and keyed-tree parity across Python, Rust, and pinned Pearl | 15 preregistered 8B family/shape classes; 311,427,072 raw bytes per owner lane under a synthetic non-candidate key | Closes a pre-candidate byte-path calibration question. It does not inspect a certificate, compare `hash_b`, establish runtime participation or source independence, or support an Aeye coordinate. |
 | Aeye PAB-1 proposal | Cross-proof position binding between Pearl's native selected activation strips and a separate request/model/pre-state origin relation | Source-pinned INT certificate-v3 construction and cost formulas; no implementation | Uses established commitment composition rather than a new primitive. It could establish sampled activation origin without changing Pearl consensus, but full execution, output binding, native GPU semantics, demand, cost, and independent review remain open. |
 | Pearl PoUW INT certificate-v3, arXiv:2504.09971 and pinned commit `4a0c24b` | Near-naive matrix-work evidence from arbitrary committed operands | Matrix multiplication under the retained INT certificate-v3 lineage | Security relies on the paper's non-standard batch low-rank correlated-equations conjecture; the paper explicitly separates economic value and does not bind request/model/graph/output. One certificate is not a whole inference. |
 | Pearl FP8 certificate-v4 proposal, September 2026 specification and open PR #311 | FP8 matrix-work evidence using post-noise nonlinear quantization, bit-exact selected-tile recomputation, and a jackpot policy | Proposed Blackwell/B200 device and quantization profile; PR head `f7fe16c8` at retrieval | Security rests on an explicit informal quantized-subspace hardness assumption. The work model omits several ancillary costs, and the relation still does not bind a request, complete model execution, output, or demand. Open/unmerged is not deployed consensus. |
@@ -107,7 +108,8 @@ stronger lane must publish its own end-to-end cost.
 ## Unresolved evidence
 
 - Pearl FB-4a has not yet been discharged with a non-self-mined mainnet block and a
-  checkpoint revision predating that block.
+  checkpoint revision predating that block. MC1 reaches real checkpoint bytes under a
+  synthetic key but does not perform the native comparison.
 - The September FP8 certificate-v4 proposal has not been independently reproduced against
   B200 vectors, and the retained PR was open/unmerged at the cutoff. It must not be mixed
   with E-000's certificate-v3 hypothesis.

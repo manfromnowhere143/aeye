@@ -1,0 +1,300 @@
+{
+  "candidate_inspected": false,
+  "claim_ceiling": "Pre-candidate calibration of Pearl's keyed matrix-commitment byte path on reconstructed public-checkpoint slabs. Agreement does not establish T1 source independence, runtime equivalence, a candidate hash_b match, E-000 execution, WORK, EXECUTION, SEMANTICS, DEMAND, security, or independent validation.",
+  "controls": {
+    "MC1-BYTE-MUTATION": {
+      "mutated_oracle_root": "819929a015953fe93f64be0fa41a5c9fd5a79f0219cfa528f8e0c87ab1bdb6a8",
+      "mutated_python_root": "819929a015953fe93f64be0fa41a5c9fd5a79f0219cfa528f8e0c87ab1bdb6a8",
+      "mutated_sha256": "229f52097355668f8ce03e9a4c1722a8b4e3a540387efcf2546a706bb79fafb5",
+      "source_slab_id": "layer-00:gate_up_proj:tp-32:rank-00",
+      "status": "REJECT_MUTATION"
+    },
+    "MC1-I8-U8-BIT-PRESERVATION": {
+      "signed_values": [
+        -128,
+        -1,
+        0,
+        1,
+        127
+      ],
+      "status": "PASS",
+      "unsigned_bytes_hex": "80ff00017f"
+    },
+    "MC1-REAL-SLAB-KEYED-ROOT-PARITY": {
+      "selected_shape_classes": 15,
+      "status": "PASS"
+    }
+  },
+  "implementation": {
+    "blake3_python_version": "1.0.9",
+    "language": "Python",
+    "oracle_executable_sha256": "6f3651841c5571790ab1723c1659136363cd8cd459ed254d0b77f0e55901b3c9",
+    "platform": "macOS-14.4-arm64-arm-64bit",
+    "python": "3.12.13",
+    "python_executable_sha256": "7b05d803bbc1bbfc81644af4faf2b88f0a37b8de96b9f42c1e08033e2cd0848a",
+    "reconstruction_and_hashing_code_path": "owner-python-mc1-v0",
+    "source_sha256": "d72f5285226796fecbed99f83cf87c935e1d993d6cdcc69fc389b82e48fa1a14"
+  },
+  "inputs": {
+    "extraction_receipt_sha256": [
+      "13d27a1959afc1de6a7ffcd8ad4f4761e89f657650bd08dbf2ce9a352794a2c1",
+      "d579153eb20fff529052e9089ad6c671f745ec1ef3d0b0e37cff77c858e14f74"
+    ],
+    "hardened_t0_receipt_sha256": [
+      "sha256:71c4ab7b4af00455893f01abb3a4a5826f714e62ae42a1155012f5c4a10265fd",
+      "sha256:784a017c39184f23839b1a28c82317bb0b72d83321aafc06dbc6bdfcc29f013f"
+    ],
+    "preregistration_sha256": "sha256:fd52b4da68de635873fb0ddb109027a1690440ab12ec1bb294efc544cd663274",
+    "reviewed_registry_sha256": "sha256:ebc222cf4b4134a3414494532e35852f704d79367b2d564d71a0a1b13fc655cd"
+  },
+  "records": [
+    {
+      "bytes": 3670016,
+      "family": "gate_up_proj",
+      "oracle_root": "d2ddbc1fb998115d44b98c9102d68ec6098b335d3e6d1e7779d15e4f59b3e004",
+      "python_root": "d2ddbc1fb998115d44b98c9102d68ec6098b335d3e6d1e7779d15e4f59b3e004",
+      "shape_n_k": [
+        896,
+        4096
+      ],
+      "slab_id": "layer-00:gate_up_proj:tp-32:rank-00",
+      "slab_sha256": "d8206c40cc18fd19a24192ae51da178b051a496ad54b195736c971306c17e035",
+      "source_tensors": [
+        "model.layers.0.mlp.gate_proj.weight",
+        "model.layers.0.mlp.up_proj.weight"
+      ]
+    },
+    {
+      "bytes": 7340032,
+      "family": "gate_up_proj",
+      "oracle_root": "b39ec1e87e86c07159aa5b0915ed2e195403a188edb3835600523811f614998d",
+      "python_root": "b39ec1e87e86c07159aa5b0915ed2e195403a188edb3835600523811f614998d",
+      "shape_n_k": [
+        1792,
+        4096
+      ],
+      "slab_id": "layer-00:gate_up_proj:tp-16:rank-00",
+      "slab_sha256": "395b430b69b93b2d0f8e7b4bf1c676cdae1231aed25ebdb198eab3ca12e444d1",
+      "source_tensors": [
+        "model.layers.0.mlp.gate_proj.weight",
+        "model.layers.0.mlp.up_proj.weight"
+      ]
+    },
+    {
+      "bytes": 14680064,
+      "family": "gate_up_proj",
+      "oracle_root": "d614717cee3e1e8596d42db78252fb3dcdba1cec2ed3af0267e076797ed15461",
+      "python_root": "d614717cee3e1e8596d42db78252fb3dcdba1cec2ed3af0267e076797ed15461",
+      "shape_n_k": [
+        3584,
+        4096
+      ],
+      "slab_id": "layer-00:gate_up_proj:tp-08:rank-00",
+      "slab_sha256": "5333685692a097a529d91451a59741897ad047b776f229854d6585051706b1d6",
+      "source_tensors": [
+        "model.layers.0.mlp.gate_proj.weight",
+        "model.layers.0.mlp.up_proj.weight"
+      ]
+    },
+    {
+      "bytes": 29360128,
+      "family": "gate_up_proj",
+      "oracle_root": "22e298613dcd0f038e00274aa8e43e1415e5f5c0165e733b81621318b7987c51",
+      "python_root": "22e298613dcd0f038e00274aa8e43e1415e5f5c0165e733b81621318b7987c51",
+      "shape_n_k": [
+        7168,
+        4096
+      ],
+      "slab_id": "layer-00:gate_up_proj:tp-04:rank-00",
+      "slab_sha256": "0572175c87cf552906066dbaf4bbb7301488095872aa1158ac2d3abe248062f1",
+      "source_tensors": [
+        "model.layers.0.mlp.gate_proj.weight",
+        "model.layers.0.mlp.up_proj.weight"
+      ]
+    },
+    {
+      "bytes": 58720256,
+      "family": "gate_up_proj",
+      "oracle_root": "71de3bb42e287261e7acc3f18895742776e9484d92acc67fa527f95be4df23f4",
+      "python_root": "71de3bb42e287261e7acc3f18895742776e9484d92acc67fa527f95be4df23f4",
+      "shape_n_k": [
+        14336,
+        4096
+      ],
+      "slab_id": "layer-00:gate_up_proj:tp-02:rank-00",
+      "slab_sha256": "f2d15c02f7fdb970e1120ea3f81c23a4be3cf210a20bbaaf68d498f1ef3bcd42",
+      "source_tensors": [
+        "model.layers.0.mlp.gate_proj.weight",
+        "model.layers.0.mlp.up_proj.weight"
+      ]
+    },
+    {
+      "bytes": 117440512,
+      "family": "gate_up_proj",
+      "oracle_root": "a6bac3cf2d8d9d9c02b7c60b8b253106f1d20aa2f1f079e71e96d905d5198ccc",
+      "python_root": "a6bac3cf2d8d9d9c02b7c60b8b253106f1d20aa2f1f079e71e96d905d5198ccc",
+      "shape_n_k": [
+        28672,
+        4096
+      ],
+      "slab_id": "layer-00:gate_up_proj:tp-01:rank-00",
+      "slab_sha256": "d72f933daf7e27862d62651afc8d041581c634e3be1d384cfb7f0372aa9ba52c",
+      "source_tensors": [
+        "model.layers.0.mlp.gate_proj.weight",
+        "model.layers.0.mlp.up_proj.weight"
+      ]
+    },
+    {
+      "bytes": 4194304,
+      "family": "o_proj",
+      "oracle_root": "a0d77e306b63bbacb82ca583352c708797fc10cb98f787e4bfd0db781913b380",
+      "python_root": "a0d77e306b63bbacb82ca583352c708797fc10cb98f787e4bfd0db781913b380",
+      "shape_n_k": [
+        4096,
+        1024
+      ],
+      "slab_id": "layer-00:o_proj:tp-04:rank-00",
+      "slab_sha256": "44a17b292bdd265125d65363f2b16b28e352f62f974699f789ca85cdfd455530",
+      "source_tensors": [
+        "model.layers.0.self_attn.o_proj.weight"
+      ]
+    },
+    {
+      "bytes": 8388608,
+      "family": "o_proj",
+      "oracle_root": "a53837d9dd6aab608fedb4875cedd8d5c3c999daea50a2bf0aa22c8010cea66e",
+      "python_root": "a53837d9dd6aab608fedb4875cedd8d5c3c999daea50a2bf0aa22c8010cea66e",
+      "shape_n_k": [
+        4096,
+        2048
+      ],
+      "slab_id": "layer-00:o_proj:tp-02:rank-00",
+      "slab_sha256": "1654ed69cec8c748af0d1d23bcc1dd9df80344e21f9978a7e3015efaf33fa4d7",
+      "source_tensors": [
+        "model.layers.0.self_attn.o_proj.weight"
+      ]
+    },
+    {
+      "bytes": 16777216,
+      "family": "o_proj",
+      "oracle_root": "fad50f8eb68084faebe9854bbd8e88b97b4ed43a1cc85a393267f82551456da3",
+      "python_root": "fad50f8eb68084faebe9854bbd8e88b97b4ed43a1cc85a393267f82551456da3",
+      "shape_n_k": [
+        4096,
+        4096
+      ],
+      "slab_id": "layer-00:o_proj:tp-01:rank-00",
+      "slab_sha256": "3d944eeef93cd167cb34df7ed0a9c5182e9b5dd6e93e774b3d442f89574ac3ec",
+      "source_tensors": [
+        "model.layers.0.self_attn.o_proj.weight"
+      ]
+    },
+    {
+      "bytes": 1572864,
+      "family": "qkv_proj",
+      "oracle_root": "6aca0eb4df433a8281c0675c51a1f1df97b80f38d1a02c363695f85f35d1ba9d",
+      "python_root": "6aca0eb4df433a8281c0675c51a1f1df97b80f38d1a02c363695f85f35d1ba9d",
+      "shape_n_k": [
+        384,
+        4096
+      ],
+      "slab_id": "layer-16:qkv_proj:tp-32:rank-00",
+      "slab_sha256": "394e49bb2f8f260cf9ca49ee188a796491582c5e27e1db2f482082cbedc01c88",
+      "source_tensors": [
+        "model.layers.16.self_attn.q_proj.weight",
+        "model.layers.16.self_attn.k_proj.weight",
+        "model.layers.16.self_attn.v_proj.weight"
+      ]
+    },
+    {
+      "bytes": 2097152,
+      "family": "qkv_proj",
+      "oracle_root": "c04a4062bec6773bcaafc2393ece4dbde66b2d76fd4c2ab609b5d7dc3a390c2c",
+      "python_root": "c04a4062bec6773bcaafc2393ece4dbde66b2d76fd4c2ab609b5d7dc3a390c2c",
+      "shape_n_k": [
+        512,
+        4096
+      ],
+      "slab_id": "layer-16:qkv_proj:tp-16:rank-00",
+      "slab_sha256": "23a89f932d16435179e0979224cc53d3a43a63320e3b57dcea0ec6eb33585b9a",
+      "source_tensors": [
+        "model.layers.16.self_attn.q_proj.weight",
+        "model.layers.16.self_attn.k_proj.weight",
+        "model.layers.16.self_attn.v_proj.weight"
+      ]
+    },
+    {
+      "bytes": 3145728,
+      "family": "qkv_proj",
+      "oracle_root": "a589d0946c369887059e0abedc4969fe8ef11ded3064ba9cb09f07dfcc41f4cc",
+      "python_root": "a589d0946c369887059e0abedc4969fe8ef11ded3064ba9cb09f07dfcc41f4cc",
+      "shape_n_k": [
+        768,
+        4096
+      ],
+      "slab_id": "layer-16:qkv_proj:tp-08:rank-00",
+      "slab_sha256": "e79259a28c9687e8e19d15c25de9fefb2b04fa0a09851ef694c9c6ba6bf609f2",
+      "source_tensors": [
+        "model.layers.16.self_attn.q_proj.weight",
+        "model.layers.16.self_attn.k_proj.weight",
+        "model.layers.16.self_attn.v_proj.weight"
+      ]
+    },
+    {
+      "bytes": 6291456,
+      "family": "qkv_proj",
+      "oracle_root": "6a109d518b84bf4ff8a8e4b6a18b14b34dc48756b992d50e1521cc8eda776613",
+      "python_root": "6a109d518b84bf4ff8a8e4b6a18b14b34dc48756b992d50e1521cc8eda776613",
+      "shape_n_k": [
+        1536,
+        4096
+      ],
+      "slab_id": "layer-16:qkv_proj:tp-04:rank-00",
+      "slab_sha256": "b820f914dc0a5a6360b87f207de04665fd23fc1e36ac8ae7cb50124e091fc185",
+      "source_tensors": [
+        "model.layers.16.self_attn.q_proj.weight",
+        "model.layers.16.self_attn.k_proj.weight",
+        "model.layers.16.self_attn.v_proj.weight"
+      ]
+    },
+    {
+      "bytes": 12582912,
+      "family": "qkv_proj",
+      "oracle_root": "71c9162dc957f914cfe1cf4d940650ef4d271868eaa3fba345abed41fbbc3da2",
+      "python_root": "71c9162dc957f914cfe1cf4d940650ef4d271868eaa3fba345abed41fbbc3da2",
+      "shape_n_k": [
+        3072,
+        4096
+      ],
+      "slab_id": "layer-16:qkv_proj:tp-02:rank-00",
+      "slab_sha256": "72f5cf8610d7005ca7039c904a9e6ef0817d117bbf78e40bde5ae3421b8f2bbd",
+      "source_tensors": [
+        "model.layers.16.self_attn.q_proj.weight",
+        "model.layers.16.self_attn.k_proj.weight",
+        "model.layers.16.self_attn.v_proj.weight"
+      ]
+    },
+    {
+      "bytes": 25165824,
+      "family": "qkv_proj",
+      "oracle_root": "7a1aa18ffea6a15fa67eb6a0ee6135a62b6217585ec27bf870c683b58bf7df53",
+      "python_root": "7a1aa18ffea6a15fa67eb6a0ee6135a62b6217585ec27bf870c683b58bf7df53",
+      "shape_n_k": [
+        6144,
+        4096
+      ],
+      "slab_id": "layer-16:qkv_proj:tp-01:rank-00",
+      "slab_sha256": "c23a314c119827950f67e728816b9aba89d1cc89e2b8ae0a208958d583a609d4",
+      "source_tensors": [
+        "model.layers.16.self_attn.q_proj.weight",
+        "model.layers.16.self_attn.k_proj.weight",
+        "model.layers.16.self_attn.v_proj.weight"
+      ]
+    }
+  ],
+  "schema_version": "aeye.private.e000-mc1-python-and-oracle-result.v0",
+  "status": "supported_pre_candidate_calibration",
+  "synthetic_key_hex": "4dd34a1010992d93d26f7a80cd6013f523cd67f6f8f3759cc1c50f2aa8d0f779",
+  "synthetic_key_is_candidate_job_key": false,
+  "weight_bearing_temporary_files_retained": false
+}
