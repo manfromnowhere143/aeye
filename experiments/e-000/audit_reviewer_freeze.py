@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
-"""Owner-side semantic audit of the E-000 reviewer amendments.
+"""Owner-side semantic audit of the E-000 reviewer amendments and binding repair.
 
 This program checks that the retained manifest incorporates the twelve explicit reviewer
-amendments and that its file references are content-addressed.  It does not approve the
-experiment, replace reviewer readback, create operator acceptance, or inspect a candidate.
+amendments, resolves the four defects found in the ADR-0012 delta readback, and keeps its
+historical references content-addressed. It does not approve the experiment, replace
+reviewer readback, create operator acceptance, or inspect a candidate.
 """
 
 from __future__ import annotations
@@ -96,6 +97,14 @@ def audit(
         item = inputs.get(input_id, {})
         return item.get("status") == "fixed" and predicate(item.get("value"))
 
+    def historical(input_id: str, predicate: Callable[[Any], bool]) -> bool:
+        item = inputs.get(input_id, {})
+        return item.get("status") == "historical" and predicate(item.get("value"))
+
+    selection = inputs.get("candidate_selection_rule", {}).get("value")
+    import_scope = inputs.get("predecessor_import_scope", {}).get("value")
+    observation_policy = inputs.get("fresh_reviewer_observation_policy", {}).get("value")
+
     control_ok, control_detail = _control_contract(manifest, freeze)
     checks = [
         AmendmentCheck(
@@ -143,15 +152,18 @@ def audit(
             "A4",
             fixed(
                 "candidate_selection_rule",
-                lambda value: value
-                == "experiments/e-000/reviewer-freeze.json#candidate_selection_rule",
+                lambda value: isinstance(value, dict)
+                and value.get("steps") == freeze["candidate_selection_rule"]["steps"],
             )
-            and fixed(
+            and historical(
                 "predecessor_reviewer_freeze",
                 lambda value: value == "experiments/e-000/reviewer-freeze.json",
             )
-            and fixed("predecessor_reviewer_freeze_sha256", lambda value: value == freeze_digest),
-            "selection pointer and predecessor reviewer-freeze digest are retained",
+            and historical(
+                "predecessor_reviewer_freeze_sha256",
+                lambda value: value == freeze_digest,
+            ),
+            "selection steps are embedded and the predecessor freeze remains historical",
         ),
         AmendmentCheck(
             "A5",
@@ -229,14 +241,99 @@ def audit(
             ),
             "security-disclosure stop is explicit",
         ),
+        AmendmentCheck(
+            "D1",
+            all(
+                field not in inputs
+                for field in (
+                    "reviewer_freeze",
+                    "reviewer_freeze_sha256",
+                    "reviewer_checklist",
+                    "reviewer_checklist_sha256",
+                )
+            )
+            and fixed(
+                "acceptance_binding_model",
+                lambda value: isinstance(value, str)
+                and "immutable manifest" in value
+                and "contains no fresh-review or operator-record digest" in value
+                and "fresh reviewer freeze cites this manifest digest" in value
+                and "No accepted-manifest rewrite" in "\n".join(acceptance),
+            ),
+            "fresh review binds the immutable manifest externally; no self-referential fields exist",
+        ),
+        AmendmentCheck(
+            "D2",
+            isinstance(selection, dict)
+            and selection.get("steps") == freeze["candidate_selection_rule"]["steps"]
+            and len(selection.get("inputs", [])) == 2
+            and "fresh reviewer-freeze digest" in selection["inputs"][0]
+            and "exact immutable manifest digest" in selection["inputs"][0]
+            and "this file's SHA-256" not in "\n".join(selection["inputs"]),
+            "embedded S1-S8 use the fresh Phase 6 binding graph to define T_accept",
+        ),
+        AmendmentCheck(
+            "D3",
+            all(
+                historical(input_id, lambda _value: True)
+                for input_id in (
+                    "predecessor_reviewer_freeze",
+                    "predecessor_reviewer_freeze_sha256",
+                    "predecessor_reviewer_checklist",
+                    "predecessor_reviewer_checklist_sha256",
+                )
+            )
+            and isinstance(import_scope, dict)
+            and set(import_scope.get("imported", []))
+            == {
+                "reviewer-freeze.json#terminal_states",
+                "reviewer-freeze.json#known_bad_controls control_id and expected_diagnostic values",
+            }
+            and _contains_all(
+                import_scope.get("superseded", []),
+                (
+                    "ordered_phase_gates",
+                    "acceptance_predicate",
+                    "invalidation_predicate",
+                    "prohibited_observations_before_freeze.reviewer",
+                    "phase-numbered gates",
+                ),
+            ),
+            "historical artifacts have an explicit section-level import and supersession boundary",
+        ),
+        AmendmentCheck(
+            "D4",
+            isinstance(observation_policy, dict)
+            and _contains_all(
+                observation_policy.get("permitted_for_phase_2_readback", []),
+                (
+                    "checkpoint repository identities",
+                    "immutable revision identifiers",
+                    "cryptographic digests",
+                    "retrieval receipts",
+                    "tensor inventory",
+                ),
+            )
+            and _contains_all(
+                observation_policy.get("prohibited_until_candidate_selection", []),
+                (
+                    "mainnet queries",
+                    "candidate heights",
+                    "hash_b",
+                    "model-weight bytes",
+                    "miner-captured",
+                ),
+            ),
+            "fresh reviewer may inspect registry metadata and digests but not outcomes or weight bytes",
+        ),
     ]
 
     # The checklist digest was not a numbered reviewer amendment, but it is a manifest
     # integrity invariant once the owner elected to bind the companion document.
-    checklist_ok = fixed(
+    checklist_ok = historical(
         "predecessor_reviewer_checklist",
         lambda value: value == "docs/E000_ACCEPTANCE_CHECKLIST_2026-09-21.md",
-    ) and fixed(
+    ) and historical(
         "predecessor_reviewer_checklist_sha256", lambda value: value == checklist_digest
     )
     checks.append(
@@ -249,7 +346,7 @@ def audit(
     return checks
 
 
-def _sequence_correction_state(manifest: dict[str, Any]) -> tuple[bool, bool, str]:
+def _protocol_correction_state(manifest: dict[str, Any]) -> tuple[bool, bool, str]:
     inputs = _inputs(manifest)
     correction = inputs.get("sequence_correction", {})
     procedures = manifest.get("procedure", [])
@@ -281,22 +378,29 @@ def _sequence_correction_state(manifest: dict[str, Any]) -> tuple[bool, bool, st
         and correction.get("value")
         == "docs/decisions/0012-pre-candidate-freezes-precede-operator-acceptance.md"
     )
+    binding = inputs.get("binding_correction", {})
+    binding_fixed = (
+        binding.get("status") == "fixed"
+        and binding.get("value")
+        == "docs/decisions/0013-immutable-manifest-and-external-acceptance-bindings.md"
+    )
     reviewer_fields = (
         "reviewer_freeze",
         "reviewer_freeze_sha256",
         "reviewer_checklist",
         "reviewer_checklist_sha256",
     )
-    reviewer_pending = all(
-        inputs.get(field, {}).get("status") == "blocked"
-        and inputs.get(field, {}).get("value") is None
-        for field in reviewer_fields
-    )
+    reviewer_pending = all(field not in inputs for field in reviewer_fields)
     detail = (
-        "Phases 1-5 precede fresh reviewer readback and T_accept; reviewer-owned "
-        "artifacts remain blocked and absent"
+        "Phases 1-5 precede fresh reviewer readback and T_accept; fresh review and "
+        "acceptance bind the immutable manifest externally"
     )
-    return correction_fixed and ordered, reviewer_pending, detail
+    return correction_fixed and binding_fixed and ordered, reviewer_pending, detail
+
+
+# Retained for callers of the pre-ADR-0013 owner audit. The semantics are stricter now.
+def _sequence_correction_state(manifest: dict[str, Any]) -> tuple[bool, bool, str]:
+    return _protocol_correction_state(manifest)
 
 
 def build_report() -> dict[str, Any]:
@@ -312,20 +416,20 @@ def build_report() -> dict[str, Any]:
         pab_text=PAB_PATH.read_text(encoding="utf-8"),
     )
     failed = [item.amendment_id for item in checks if not item.passed]
-    sequence_corrected, reviewer_pending, sequence_detail = _sequence_correction_state(manifest)
+    protocol_corrected, reviewer_pending, sequence_detail = _protocol_correction_state(manifest)
     checks.append(
         AmendmentCheck(
             "OWNER-SEQUENCE-CORRECTION",
-            sequence_corrected and reviewer_pending,
+            protocol_corrected and reviewer_pending,
             sequence_detail,
         )
     )
     failed = [item.amendment_id for item in checks if not item.passed]
     return {
-        "schema_version": "aeye.e000-owner-freeze-audit.v1",
+        "schema_version": "aeye.e000-owner-freeze-audit.v2",
         "status": (
-            "historical_amendments_confirmed_sequence_corrected_review_pending"
-            if not failed and sequence_corrected and reviewer_pending
+            "historical_amendments_confirmed_binding_corrected_review_pending"
+            if not failed and protocol_corrected and reviewer_pending
             else "owner_amendments_incomplete"
         ),
         "reviewer_verdict": freeze["reviewer_verdict"],
@@ -338,19 +442,21 @@ def build_report() -> dict[str, Any]:
         "failed": failed,
         "candidate_input_read_by_this_program": False,
         "operator_acceptance_created": False,
-        "protocol_sequence_blocked": not sequence_corrected,
-        "sequence_correction_implemented": sequence_corrected,
+        "protocol_correction_blocked": not protocol_corrected,
+        "protocol_sequence_blocked": not protocol_corrected,
+        "sequence_correction_implemented": protocol_corrected,
+        "binding_correction_implemented": protocol_corrected,
         "fresh_reviewer_readback_blocked": reviewer_pending,
         "claim_ceiling": (
             "owner self-check of manifest incorporation only; not reviewer validation, "
             "operator acceptance, cryptographic review, or E-000 execution"
         ),
         "remaining_before_candidate": [
-            "fresh reviewer freeze for the ADR-0012 phase-order correction",
             "finite T1-or-better registry",
             "fully source-fixed runtime transformation recipe",
             "two frozen code-path-independent implementations",
             "all 30 controls in both implementations and oracle where applicable",
+            "fresh reviewer freeze and source-bound readback of every preceding artifact",
             "exact digest-citing operator acceptance after every preceding artifact is frozen",
         ],
     }
@@ -363,6 +469,7 @@ def main() -> int:
         0
         if not report["failed"]
         and report["sequence_correction_implemented"]
+        and report["binding_correction_implemented"]
         and report["fresh_reviewer_readback_blocked"]
         else 1
     )

@@ -269,10 +269,12 @@ flowchart LR
 E-000 is `blocked` before execution. The amendment readback is complete, and
 [ADR-0012](docs/decisions/0012-pre-candidate-freezes-precede-operator-acceptance.md) is
 incorporated: two independent implementations, the 30-control gate, a finite T1 registry,
-the transformation recipe, and a fresh reviewer readback all precede any exact operator
-acceptance. The old digest triple remains historical and must not be accepted. No candidate
-block, certificate, or `hash_b` may be selected or inspected before those gates. The
-current conformance instruments are described in the
+the transformation recipe, and a fresh reviewer readback all precede exact operator
+acceptance. [ADR-0013](docs/decisions/0013-immutable-manifest-and-external-acceptance-bindings.md)
+keeps the protocol manifest immutable and makes the fresh review and acceptance records
+bind it externally. The old digest triple remains historical and has no current authority.
+No candidate block, certificate, or `hash_b` may be selected or inspected before those
+gates. The current conformance instruments are described in the
 [E-000 experiment note](experiments/e-000/README.md).
 
 ### The next protocol construction

@@ -86,13 +86,16 @@ E-000 pre-candidate state:
   `T_accept` before the registry, recipe, implementations, and controls are frozen, while
   other retained rules require registry retrieval before `T_accept` and require the
   candidate not to exist when those artifacts are accepted;
-- ADR-0012 is now incorporated: sources, registry, recipe, two implementations, and all
-  controls precede fresh review and `T_accept`. The predecessor review artifacts remain
-  content-addressed historical inputs, while the new reviewer-owned fields are blocked
-  and null;
+- ADR-0012 now orders sources, registry, recipe, two implementations, and all controls
+  before fresh review and `T_accept`. ADR-0013 makes the manifest immutable, embeds the
+  corrected candidate-selection rule, and moves fresh-review and operator bindings into
+  separate content-addressed records;
+- the predecessor review artifacts are explicitly historical. Only their terminal-state
+  semantics and named control contracts remain imported; their phase numbering,
+  acceptance predicates, and reviewer-observation rule are superseded;
 - the corrected fail-closed manifest hashes to
-  `abd221d410adfa7f6c9e2ddffda00854acb6efd4ddc934a9bc19c4b5dc184514`.
-  It is an owner correction awaiting fresh reviewer readback, not an acceptance target;
+  `011d3c232ce9638fc265730f01b13dd3e11d87c225d19ad17842a44d7a78ddc5`.
+  It is an owner correction awaiting fresh reviewer readback, not operator acceptance;
 - target-agnostic V3 parsing, an explicit int8 slab-transform engine, an independently
   written BLAKE3 reference lane, and pinned Pearl root parity are implemented and tested.
   They are conformance instruments, not the two frozen independent E-000 implementations;
@@ -207,7 +210,7 @@ Current validator result at handoff:
 
 ```text
 Aeye validation: 0 repository error(s); 18 fixture(s) exercised; 15 rejected as designed
-44 unit tests: PASS
+47 unit tests: PASS
 E-000 owner amendment audit: historical self-check only; never an acceptance gate
 E-000 synthetic Pearl parity: structured header/config, job_key, matrix root, and Salted seed vector agree
 ```
@@ -218,15 +221,16 @@ verifier checks only the frozen toy relation and carries its assumptions and non
 
 ## Next safe actions
 
-1. Give the separate reviewer ADR-0012 and corrected manifest digest
-   `abd221d410adfa7f6c9e2ddffda00854acb6efd4ddc934a9bc19c4b5dc184514`. Require a
-   source-bound readback and new reviewer-owned freeze for those exact bytes. The reviewer
-   must not edit owner code, inspect a candidate, or convert its verdict into operator
-   acceptance.
-2. Before any operator acceptance or candidate selection, freeze a finite T1-or-better registry, exact source-cited
+1. Before any operator acceptance or candidate selection, freeze a finite T1-or-better registry, exact source-cited
    runtime recipe, two code-path-independent implementations, and the complete 30-control
    result matrix.
-3. Only after those gates and a new reviewer readback, obtain an exact digest-citing
+2. Give the separate reviewer ADR-0012, ADR-0013, manifest digest
+   `011d3c232ce9638fc265730f01b13dd3e11d87c225d19ad17842a44d7a78ddc5`, and every
+   Phase 1 through 5 artifact. Require a source-bound readback and new reviewer-owned
+   freeze for those exact bytes. The reviewer may inspect registry metadata and digests,
+   but must not read weight bytes, query mainnet, inspect a candidate, edit owner code, or
+   convert its verdict into operator acceptance.
+3. Only after those gates and the fresh readback, obtain an exact digest-citing
    operator acceptance record, apply the future-block rule, and attempt one E-000 opening. Let
    availability and coverage decide whether a separately frozen E-001 census is warranted;
    do not make the census a prerequisite for PAB-0.

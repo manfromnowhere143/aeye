@@ -25,16 +25,68 @@
     {"input_id": "public_data_length", "value": 164, "status": "fixed"},
     {"input_id": "moe_scope", "value": "excluded by mainnet consensus at the pin; a V3 candidate-lane artifact with non-dense public data is consensus-contradictory", "status": "fixed"},
     {"input_id": "expert_parallel_degree", "value": "not applicable (dense-only E-000 lane)", "status": "fixed"},
-    {"input_id": "candidate_selection_rule", "value": "experiments/e-000/reviewer-freeze.json#candidate_selection_rule", "status": "fixed"},
+    {"input_id": "candidate_selection_rule", "value": {
+      "kind": "future-block deterministic selection",
+      "inputs": [
+        "T_accept: UTC time of the Phase 6 operator acceptance record that cites the exact immutable manifest digest, the fresh reviewer-freeze digest, the fresh source-bound-readback digest, the registry and recipe digests, both implementation-tree and toolchain digests, and the complete control-matrix digest",
+        "public mainnet header metadata after T_accept"
+      ],
+      "forbidden": [
+        "choosing T_accept after any candidate data is observed",
+        "re-running selection with a different T_start or window",
+        "selecting by shape, model, or any public_data content beyond PublicDataLen",
+        "inserting a height, hash, certificate, hash_b, or checkpoint identity into a pre-candidate freeze"
+      ],
+      "steps": [
+        "S1. Let T_start = T_accept + 3600 s. This margin exceeds MaxTimeOffsetMinutes (5 min) and several mainnet target intervals (3 min 14 s).",
+        "S2. Let H_ref be the lowest mainnet height whose header timestamp >= T_start, as agreed by two independent public sources.",
+        "S3. Scan heights h = H_ref, H_ref+1, ... in ascending order. The candidate is the first h satisfying all eligibility predicates.",
+        "S4. Eligibility predicates: (a) network is mainnet per pinned params; (b) h >= 99000; (c) certificate version field == 3; (d) PublicDataLen == 164; (e) confirmation depth >= 100 at both sources at retrieval time; (f) block hash identical at both sources; (g) consensus-drift check passes (no consensus rule activated between the pinned commit and height h in the public Pearl repository that alters certificate envelope, public_data layout, job_key derivation, mining_config encoding, or hash_b construction).",
+        "S5. Tie-breaking: none needed; heights are totally ordered and the first eligible height is unique.",
+        "S6. Exhaustion: if no eligible height exists among the first 2000 heights at or above H_ref, or the chain has not reached H_ref+100 confirmations within 14 days of T_accept, terminal state is BLOCKED with code E000-BLK-NO-ELIGIBLE-CANDIDATE. No later window may be chosen for this experiment ID.",
+        "S7. A V3 certificate at h >= 99000 with PublicDataLen != 164 is consensus-invalid at the pin and is recorded as E000-INV-CONSENSUS-CONTRADICTION; the scan continues, and the anomaly must be reported.",
+        "S8. Non-self-mined: the operator records a signed attestation that no Pearl mining was ever performed from any operator-controlled key, machine, or pool account, and the candidate's coinbase outputs are retained. This is attestation, not proof; public data cannot exclude self-mining."
+      ],
+      "blinding_statement": "Genuine cryptographic blinding is unavailable because hash_b is public. The strongest auditable separation is temporal: the candidate must not exist when the registry, recipe, implementations, controls, fresh review, and operator acceptance are complete. Same-machine procedural separation is auditable ordering, not concealment.",
+      "selection_time_bias_note": "The candidate is a block that did not exist at acceptance. Neither owner nor reviewer can have pre-computed its hash_b classification. Miner-side bias is out of scope for E-000 and irrelevant to the reconstruction question."
+    }, "status": "fixed"},
     {"input_id": "finality_rule", "value": ">=100 confirmations at two independent public sources agreeing on block hash", "status": "fixed"},
-    {"input_id": "predecessor_reviewer_freeze", "value": "experiments/e-000/reviewer-freeze.json", "status": "fixed"},
-    {"input_id": "predecessor_reviewer_freeze_sha256", "value": "sha256:d37acfa1de34fec048af058bdcabbfb40a3dbf977feddc7d03f259895cb2d419", "status": "fixed"},
-    {"input_id": "predecessor_reviewer_checklist", "value": "docs/E000_ACCEPTANCE_CHECKLIST_2026-09-21.md", "status": "fixed"},
-    {"input_id": "predecessor_reviewer_checklist_sha256", "value": "sha256:5d2f613f35fae2e46903b67356f493aafcb108326f2d12bc9e33d381e82dd43c", "status": "fixed"},
-    {"input_id": "reviewer_freeze", "value": null, "status": "blocked"},
-    {"input_id": "reviewer_freeze_sha256", "value": null, "status": "blocked"},
-    {"input_id": "reviewer_checklist", "value": null, "status": "blocked"},
-    {"input_id": "reviewer_checklist_sha256", "value": null, "status": "blocked"},
+    {"input_id": "predecessor_reviewer_freeze", "value": "experiments/e-000/reviewer-freeze.json", "status": "historical"},
+    {"input_id": "predecessor_reviewer_freeze_sha256", "value": "sha256:d37acfa1de34fec048af058bdcabbfb40a3dbf977feddc7d03f259895cb2d419", "status": "historical"},
+    {"input_id": "predecessor_reviewer_checklist", "value": "docs/E000_ACCEPTANCE_CHECKLIST_2026-09-21.md", "status": "historical"},
+    {"input_id": "predecessor_reviewer_checklist_sha256", "value": "sha256:5d2f613f35fae2e46903b67356f493aafcb108326f2d12bc9e33d381e82dd43c", "status": "historical"},
+    {"input_id": "predecessor_import_scope", "value": {
+      "imported": [
+        "reviewer-freeze.json#terminal_states",
+        "reviewer-freeze.json#known_bad_controls control_id and expected_diagnostic values"
+      ],
+      "superseded": [
+        "reviewer-freeze.json#ordered_phase_gates",
+        "reviewer-freeze.json#acceptance_predicate",
+        "reviewer-freeze.json#invalidation_predicate phase references",
+        "reviewer-freeze.json#prohibited_observations_before_freeze.reviewer",
+        "E000_ACCEPTANCE_CHECKLIST_2026-09-21.md phase-numbered gates and acceptance timing"
+      ],
+      "authority": "This manifest, ADR-0012, and ADR-0013 govern current phase order, acceptance binding, candidate selection, and reviewer observations."
+    }, "status": "fixed"},
+    {"input_id": "fresh_reviewer_observation_policy", "value": {
+      "permitted_for_phase_2_readback": [
+        "checkpoint repository identities and public repository metadata",
+        "immutable revision identifiers",
+        "file names, file sizes, LFS object identifiers, and cryptographic digests",
+        "retrieval receipts and transport metadata",
+        "tensor inventory, tensor shapes, dtypes, and transformation metadata"
+      ],
+      "prohibited_until_candidate_selection": [
+        "mainnet queries and block explorers",
+        "candidate heights, hashes, headers, certificates, or public_data",
+        "public or sealed hash_b values",
+        "model-weight bytes",
+        "miner-captured or runtime-captured operand bytes"
+      ],
+      "purpose": "Permit a source-bound registry and recipe readback without exposing the future outcome or weight payloads."
+    }, "status": "fixed"},
+    {"input_id": "acceptance_binding_model", "value": "The immutable manifest contains no fresh-review or operator-record digest. The fresh reviewer freeze cites this manifest digest; the source-bound readback cites both; the Phase 6 operator record cites all three plus every accepted pre-candidate artifact. No accepted-manifest rewrite is permitted.", "status": "fixed"},
     {"input_id": "terminal_states", "value": {"precedence": ["INVALID", "BLOCKED", "UNRETRIEVED", "OUT_OF_COVERAGE", "MATCH", "IN_COVERAGE_NO_MATCH"]}, "status": "fixed"},
     {"input_id": "candidate_block_hash", "value": null, "status": "blocked"},
     {"input_id": "candidate_block_height", "value": null, "status": "blocked"},
@@ -43,7 +95,8 @@
     {"input_id": "tensor_parallel_degree_set", "value": null, "status": "unknown"},
     {"input_id": "runtime_weight_transform_recipe", "value": null, "status": "unknown"},
     {"input_id": "operator_acceptance_record", "value": null, "status": "blocked"},
-    {"input_id": "sequence_correction", "value": "docs/decisions/0012-pre-candidate-freezes-precede-operator-acceptance.md", "status": "fixed"}
+    {"input_id": "sequence_correction", "value": "docs/decisions/0012-pre-candidate-freezes-precede-operator-acceptance.md", "status": "fixed"},
+    {"input_id": "binding_correction", "value": "docs/decisions/0013-immutable-manifest-and-external-acceptance-bindings.md", "status": "fixed"}
   ],
   "procedure": [
     "Phase 1 — raw-source retention: verify and digest the pinned Pearl checkout and retain the vLLM 0.20.2 source at commit bc150f50299199599673614f80d12a196f377655; record every load-bearing file digest.",
@@ -51,13 +104,13 @@
     "Phase 3 — transformation-recipe freeze: fix every checkpoint-to-runtime parameter with pinned source file:line; any unresolved fusion, slice, layout, dtype, or contiguity rule emits BLOCKED.",
     "Phase 4 — implementation/version freeze: freeze two code-path-independent Aeye implementations, their source digests and toolchains, and one replay command; they share no Aeye parser, transform, hashing orchestration, comparison helper, or fixture generator.",
     "Phase 5 — known-bad tests: require E000-KB-01 through E000-KB-30 to produce their fixed diagnostics in both Aeye implementations and the Pearl oracle where applicable; official keyed-BLAKE3 and Salted seed vectors are positive parity controls.",
-    "Phase 6 — reviewer readback and operator acceptance: obtain a fresh reviewer-owned freeze and source-bound readback of Phases 1–5, then retain an operator record citing the SHA-256 values of this manifest, the reviewer artifacts, registry, recipe, both implementation trees and toolchains, and the complete control matrix; its UTC time is T_accept.",
-    "Phase 7 — candidate selection and sealed computation: apply reviewer-freeze.json#candidate_selection_rule to the future chain, retain two-source eligibility and consensus-drift evidence, write public_data[84:116] to a sealed file without displaying or comparing it, record only its sealing digest, enumerate every frozen registry slab of candidate shape (n,k), and compute full independent transcripts before reveal.",
+    "Phase 6 — reviewer readback and operator acceptance: obtain a fresh reviewer-owned freeze that cites the exact immutable manifest digest and a source-bound readback of Phases 1–5 that cites both digests; then retain an external operator record citing the manifest, both fresh reviewer artifacts, registry, recipe, both implementation trees and toolchains, and the complete control matrix. The record's UTC time is T_accept; the manifest is not rewritten.",
+    "Phase 7 — candidate selection and sealed computation: apply the candidate_selection_rule embedded in this manifest to the future chain, retain two-source eligibility and consensus-drift evidence, write public_data[84:116] to a sealed file without displaying or comparing it, record only its sealing digest, enumerate every frozen registry slab of candidate shape (n,k), and compute full independent transcripts before reveal.",
     "Phase 8 — reveal: open the sealed hash_b once, record the UTC reveal time and verify the sealing digest; after this point no registry, recipe, parser, implementation, or fixture change is permitted for E-000.",
     "Phase 9 — exactly one comparison: compare the revealed hash_b once against the exhaustively enumerated candidate-root set and emit exactly one terminal state under precedence INVALID > BLOCKED > UNRETRIEVED > OUT_OF_COVERAGE > MATCH > IN_COVERAGE_NO_MATCH."
   ],
   "acceptance": [
-    "The operator acceptance record predates the candidate, follows completion and fresh reviewer readback of Phases 1–5, and cites the exact SHA-256 values of this manifest, reviewer artifacts, registry, recipe, both implementation trees and toolchains, and the complete control matrix.",
+    "The external operator acceptance record predates the candidate, follows completion and fresh reviewer readback of Phases 1–5, and cites the exact SHA-256 values of the immutable manifest, fresh reviewer freeze, source-bound readback, registry, recipe, both implementation trees and toolchains, and the complete control matrix. No accepted-manifest rewrite exists.",
     "The V3 path is parsed through zk-pow/src/api with SeedDerivation::Salted; no zk-pow/src/v1 parser or circuit semantics enter the run.",
     "The selected candidate satisfies the fixed future-block rule, two-source block-hash agreement, at least 100 confirmations at both sources, dense 164-byte public data, the consensus-drift check, and the retained non-self-mining attestation.",
     "The registry is frozen at T1 or better before candidate selection, every checkpoint byte used matches its frozen digest, and every runtime transformation parameter is fixed from pinned public source evidence.",
@@ -110,8 +163,8 @@
     "E000-KB-30 — official keyed-BLAKE3 vectors and pinned V3 Salted seed vectors must pass Pearl-oracle parity; any failure emits E000-ORACLE-PARITY and blocks candidate selection."
   ],
   "blocking_conditions": [
-    "ADR-0012 is incorporated in this manifest's procedure order, but this corrected manifest has not received a fresh reviewer-owned freeze and source-bound readback and therefore cannot be used for T_accept.",
-    "The predecessor reviewer freeze and AMENDMENTS_CONFIRMED readback remain historical evidence only; E-000 remains blocked until new reviewer artifacts bind this corrected manifest and every pre-candidate gate is complete.",
+    "ADR-0012 and ADR-0013 are incorporated, but this immutable manifest has not received a fresh reviewer-owned freeze and source-bound readback and therefore cannot be used for T_accept.",
+    "The predecessor reviewer freeze, checklist, and AMENDMENTS_CONFIRMED readback remain historical evidence only. Their phase-numbered predicates and reviewer-observation rule are superseded; E-000 remains blocked until fresh external reviewer artifacts bind this manifest and every pre-candidate gate is complete.",
     "At freeze creation the PAB note still cited the legacy zk-pow/src/v1 route. The source-bound readback independently checked the owner correction to zk-pow/src/api + circuit + ffi; this historical condition is resolved and does not constitute operator acceptance.",
     "BLOCKED and INVALID were absent from the pre-freeze manifest classification set; this amendment adds them, but the state-machine implementation and fixtures are not yet independently reviewed.",
     "No T1 checkpoint registry predating T_accept and no complete pinned runtime transformation recipe have yet been frozen.",

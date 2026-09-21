@@ -3,7 +3,7 @@
 Status: `blocked` (corrected sequence awaiting fresh review and pre-candidate artifacts; no run attempted)  
 Candidate observed: **no**  
 Operator acceptance recorded: **no**  
-Protocol sequencing: **ADR-0012 incorporated; fresh reviewer-owned readback pending**
+Protocol sequencing: **ADR-0012 and ADR-0013 incorporated; pre-candidate artifacts and fresh review pending**
 
 E-000 asks one deliberately narrow question: can a future-selected Pearl mainnet
 certificate-v3 `hash_b` be reproduced from a finite, frozen registry of public checkpoint
@@ -33,13 +33,20 @@ future candidate does not yet exist when those artifacts are accepted.
 
 [ADR-0012](../../docs/decisions/0012-pre-candidate-freezes-precede-operator-acceptance.md)
 therefore blocks use of the reviewed digest triple for acceptance and moves operator
-acceptance to the final pre-candidate gate. The corrected manifest preserves the old
-review artifacts explicitly as predecessors and leaves the new reviewer-owned paths and
-digests blocked and null. Until a fresh review binds that manifest, no candidate height,
-block hash, certificate, or `hash_b` may be selected or read. The corrected blocked
-manifest hashes to
-`abd221d410adfa7f6c9e2ddffda00854acb6efd4ddc934a9bc19c4b5dc184514`; this owner
-correction is not a reviewed acceptance target.
+acceptance to the final pre-candidate gate.
+[ADR-0013](../../docs/decisions/0013-immutable-manifest-and-external-acceptance-bindings.md)
+resolves four later readback defects. The manifest now embeds the candidate-selection
+rule, marks both predecessor artifacts historical, states exactly which predecessor
+sections remain imported, and permits a reviewer to inspect registry metadata while
+forbidding weight bytes and all candidate information. It contains no fresh-review digest:
+the fresh freeze, source-bound readback, and operator record bind the immutable manifest
+externally, so the digest graph terminates.
+
+Until those external records exist after Phases 1 through 5, no candidate height, block
+hash, certificate, or `hash_b` may be selected or read. The corrected blocked manifest
+hashes to
+`011d3c232ce9638fc265730f01b13dd3e11d87c225d19ad17842a44d7a78ddc5`; this owner
+correction awaits fresh reviewer readback and is not operator acceptance.
 
 ```mermaid
 flowchart LR
@@ -50,7 +57,7 @@ flowchart LR
     R --> T["3 Transform freeze"]
     T --> I["4 Two implementation freezes"]
     I --> K["5 Thirty controls"]
-    K --> A["6 Exact operator acceptance"]
+    K --> A["6 Fresh review +<br/>external acceptance"]
     A --> C["7 Future candidate + sealed hash_b"]
     C --> V["8 Reveal"]
     V --> O["9 One comparison + terminal state"]
@@ -79,8 +86,9 @@ flowchart LR
   that oracle on deterministic synthetic bytes and executes Pearl-adjudicated byte-order,
   mining-configuration, and Legacy-versus-Salted controls.
 - [`audit_reviewer_freeze.py`](audit_reviewer_freeze.py) checks the amended manifest
-  semantically against all twelve reviewer amendments and current file digests. It is an
-  owner self-check, never reviewer approval or operator acceptance.
+  semantically against all twelve reviewer amendments, the four ADR-0013 binding repairs,
+  and current historical-file digests. It is an owner self-check, never reviewer approval
+  or operator acceptance.
 
 These are conformance instruments, not the two frozen E-000 implementations. The Python
 modules share orchestration and fixtures, checkpoint extraction is not yet implemented in
@@ -107,17 +115,19 @@ comparison.
 
 ## Remaining gates before any candidate
 
-1. Obtain fresh adversarial readback of the ADR-0012-corrected manifest; the reviewer must
-   bind the exact manifest bytes and preserve the predecessor review as historical.
-2. Freeze a finite T1-or-better checkpoint registry and a source-cited transformation
+1. Freeze a finite T1-or-better checkpoint registry and a source-cited transformation
    recipe, including the tensor-parallel degree set.
-3. Retain two truly code-path-independent checkpoint-to-root implementations and compare
+2. Retain two truly code-path-independent checkpoint-to-root implementations and compare
    every intermediate transcript field.
-4. Make all 30 frozen controls produce their exact diagnostics in both implementations,
+3. Make all 30 frozen controls produce their exact diagnostics in both implementations,
    with the pinned Pearl oracle used only where it has authority.
-5. Qualify the candidate separately with Pearl's pinned native V3 verifier; acceptance
+4. Obtain a fresh adversarial freeze and source-bound readback of the immutable manifest
+   and every Phase 1 through 5 artifact. The reviewer may inspect registry metadata and
+   digests but no weight bytes, mainnet query, candidate data, certificate, or `hash_b`.
+5. Qualify the future candidate separately with Pearl's pinned native V3 verifier; acceptance
    does not enlarge the `hash_b`-only E-000 claim.
-6. Only after gates 1–5, retain the exact digest-citing operator acceptance record and
+6. Only after the pre-candidate gates and fresh review, retain the exact digest-citing
+   external operator acceptance record and
    apply the future-block selection rule.
 
 If any prerequisite cannot be established, E-000 emits `BLOCKED`; it does not silently

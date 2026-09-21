@@ -46,7 +46,7 @@
         "properties": {
           "input_id": {"type": "string", "minLength": 1},
           "value": {},
-          "status": {"enum": ["fixed", "unknown", "blocked"]}
+          "status": {"enum": ["fixed", "historical", "unknown", "blocked"]}
         }
       }
     },

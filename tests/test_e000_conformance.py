@@ -139,12 +139,13 @@ class ReviewerFreezeAuditTests(unittest.TestCase):
     def test_all_owner_amendment_checks_pass_without_creating_acceptance(self) -> None:
         report = audit_reviewer_freeze.build_report()
         self.assertEqual(
-            "historical_amendments_confirmed_sequence_corrected_review_pending",
+            "historical_amendments_confirmed_binding_corrected_review_pending",
             report["status"],
         )
         self.assertEqual([], report["failed"])
         self.assertFalse(report["protocol_sequence_blocked"])
         self.assertTrue(report["sequence_correction_implemented"])
+        self.assertTrue(report["binding_correction_implemented"])
         self.assertTrue(report["fresh_reviewer_readback_blocked"])
         self.assertEqual(
             [
@@ -160,6 +161,10 @@ class ReviewerFreezeAuditTests(unittest.TestCase):
                 "A10",
                 "A11",
                 "A12",
+                "D1",
+                "D2",
+                "D3",
+                "D4",
                 "OWNER-CHECKLIST-DIGEST",
                 "OWNER-SEQUENCE-CORRECTION",
             ],
@@ -196,6 +201,63 @@ class ReviewerFreezeAuditTests(unittest.TestCase):
         )
         self.assertFalse(corrected)
         self.assertTrue(reviewer_pending)
+
+    def test_self_referential_reviewer_field_is_detected_on_a_copy(self) -> None:
+        manifest = json.loads(audit_reviewer_freeze.MANIFEST_PATH.read_text())
+        manifest["frozen_inputs"].append(
+            {
+                "input_id": "reviewer_freeze_sha256",
+                "value": "sha256:" + "00" * 32,
+                "status": "blocked",
+            }
+        )
+        freeze = json.loads(audit_reviewer_freeze.FREEZE_PATH.read_text())
+        checks = audit_reviewer_freeze.audit(
+            manifest,
+            freeze,
+            freeze_digest=audit_reviewer_freeze.sha256(audit_reviewer_freeze.FREEZE_PATH),
+            checklist_digest=audit_reviewer_freeze.sha256(
+                audit_reviewer_freeze.CHECKLIST_PATH
+            ),
+            pab_text=audit_reviewer_freeze.PAB_PATH.read_text(),
+        )
+        self.assertFalse(next(item for item in checks if item.amendment_id == "D1").passed)
+
+    def test_predecessor_acceptance_pointer_is_detected_on_a_copy(self) -> None:
+        manifest = json.loads(audit_reviewer_freeze.MANIFEST_PATH.read_text())
+        inputs = {item["input_id"]: item for item in manifest["frozen_inputs"]}
+        selection = inputs["candidate_selection_rule"]["value"]
+        selection["inputs"][0] = (
+            "T_accept: UTC time of the operator acceptance record that cites this "
+            "file's SHA-256"
+        )
+        freeze = json.loads(audit_reviewer_freeze.FREEZE_PATH.read_text())
+        checks = audit_reviewer_freeze.audit(
+            manifest,
+            freeze,
+            freeze_digest=audit_reviewer_freeze.sha256(audit_reviewer_freeze.FREEZE_PATH),
+            checklist_digest=audit_reviewer_freeze.sha256(
+                audit_reviewer_freeze.CHECKLIST_PATH
+            ),
+            pab_text=audit_reviewer_freeze.PAB_PATH.read_text(),
+        )
+        self.assertFalse(next(item for item in checks if item.amendment_id == "D2").passed)
+
+    def test_historical_predecessor_cannot_regain_active_status(self) -> None:
+        manifest = json.loads(audit_reviewer_freeze.MANIFEST_PATH.read_text())
+        inputs = {item["input_id"]: item for item in manifest["frozen_inputs"]}
+        inputs["predecessor_reviewer_freeze"]["status"] = "fixed"
+        freeze = json.loads(audit_reviewer_freeze.FREEZE_PATH.read_text())
+        checks = audit_reviewer_freeze.audit(
+            manifest,
+            freeze,
+            freeze_digest=audit_reviewer_freeze.sha256(audit_reviewer_freeze.FREEZE_PATH),
+            checklist_digest=audit_reviewer_freeze.sha256(
+                audit_reviewer_freeze.CHECKLIST_PATH
+            ),
+            pab_text=audit_reviewer_freeze.PAB_PATH.read_text(),
+        )
+        self.assertFalse(next(item for item in checks if item.amendment_id == "D3").passed)
 
 
 class PearlOracleContractTests(unittest.TestCase):
