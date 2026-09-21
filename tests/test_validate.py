@@ -7,7 +7,7 @@ from scripts import validate
 
 class RepositoryValidationTests(unittest.TestCase):
     def test_repository_packet_passes(self) -> None:
-        findings, outcomes = validate.validate_repository()
+        findings, outcomes = validate.validate_repository(require_external_evidence=False)
         self.assertEqual([], findings)
         manifest = validate.load_json(validate.FIXTURE_MANIFEST)
         self.assertEqual(len(manifest["valid"]) + len(manifest["invalid"]), len(outcomes))

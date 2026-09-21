@@ -46,11 +46,8 @@ jobs:
       - name: Compile Python sources
         run: .venv/bin/python -m compileall -q scripts experiments tests
 
-      - name: Materialize exact external evidence
-        run: .venv/bin/python scripts/hydrate_external_evidence.py
-
-      - name: Validate repository packet
-        run: .venv/bin/python scripts/validate.py
+      - name: Validate public source packet
+        run: .venv/bin/python scripts/validate.py --allow-unhydrated-external
 
       - name: Replay E-009 independently
         run: .venv/bin/python experiments/e-009/independent_verify.py

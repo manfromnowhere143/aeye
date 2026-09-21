@@ -200,6 +200,9 @@ class ReviewerFreezeAuditTests(unittest.TestCase):
 
 class PearlOracleContractTests(unittest.TestCase):
     def test_active_dependency_identities_match_pinned_pearl_lock(self) -> None:
+        pearl_lock = verify_pearl_oracle.PEARL / "zk-pow" / "Cargo.lock"
+        if not pearl_lock.is_file():
+            self.skipTest("pinned Pearl checkout is not hydrated in this source-only checkout")
         result = verify_pearl_oracle.verify_oracle_dependency_identities()
         self.assertTrue(result["all_active_identities_present_in_pinned_pearl_lock"])
         self.assertGreater(result["active_oracle_packages"], 0)

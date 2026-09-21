@@ -56,7 +56,9 @@ The release is blocked unless all of the following hold on the public candidate:
    failures reject;
 7. E-009 independent replay accepts only the retained toy relation and its mutation suite
    remains rejecting;
-8. the complete unit suite passes under the locked Python 3.12 and 3.14 environments;
+8. the source-only unit suite passes under the locked Python 3.12 and 3.14 environments;
+   external-byte, checkout, and upstream-lock comparisons either verify the complete
+   hydrated set or report an explicit skip when no external payload is present;
 9. a fresh anonymous clone reproduces the documented commands without changing tracked
    bytes; and
 10. unauthenticated GitHub and raw-content requests resolve the public repository and
@@ -70,3 +72,9 @@ GPU-fidelity result, authenticated preprocessing result, production benchmark, d
 proof, security certification, independent human review, or external endorsement.
 
 The release is intended to make those limits inspectable, not to conceal them.
+
+Required CI does not depend on third-party hosts. It validates the full Aeye source packet
+and ledger contract without requiring external payloads. The separately replayed hydration
+path remains fail-closed on URL, redirect, digest, commit, remote, cleanliness, size, and
+path checks. This separation prevents an upstream CDN refusal from being reported as an
+Aeye test failure.

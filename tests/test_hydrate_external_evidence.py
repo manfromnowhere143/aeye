@@ -10,6 +10,12 @@ from scripts import hydrate_external_evidence
 
 
 class ExternalEvidenceHydrationTests(unittest.TestCase):
+    def require_all_or_no_external_paths(self, paths: list[Path], kind: str) -> None:
+        present = [path.exists() for path in paths]
+        if not any(present):
+            self.skipTest(f"{kind} evidence is not hydrated in this source-only checkout")
+        self.assertTrue(all(present), f"{kind} evidence is only partially hydrated")
+
     def test_ledger_file_sources_are_digest_pinned_and_publicly_retrievable(self) -> None:
         specs = hydrate_external_evidence.load_file_specs()
         self.assertEqual(33, len(specs))
@@ -22,7 +28,11 @@ class ExternalEvidenceHydrationTests(unittest.TestCase):
             )
 
     def test_current_file_evidence_matches_the_ledger(self) -> None:
-        for spec in hydrate_external_evidence.load_file_specs():
+        specs = hydrate_external_evidence.load_file_specs()
+        self.require_all_or_no_external_paths(
+            [spec.absolute_path for spec in specs], "file"
+        )
+        for spec in specs:
             observed = hydrate_external_evidence.verify_file(spec)
             self.assertEqual(spec.sha256, observed["sha256"])
             self.assertGreater(observed["bytes"], 0)
@@ -77,7 +87,11 @@ class ExternalEvidenceHydrationTests(unittest.TestCase):
             self.assertIsNone(parsed.username)
 
     def test_current_external_checkouts_match_the_ledger(self) -> None:
-        for spec in hydrate_external_evidence.load_specs():
+        specs = hydrate_external_evidence.load_specs()
+        self.require_all_or_no_external_paths(
+            [spec.absolute_path for spec in specs], "Git"
+        )
+        for spec in specs:
             observed = hydrate_external_evidence.verify_checkout(spec)
             self.assertEqual(spec.commit, observed["commit"])
             self.assertEqual(spec.remote, observed["remote"])

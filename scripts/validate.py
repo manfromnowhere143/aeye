@@ -729,7 +729,12 @@ def run_git(path: Path, *args: str) -> str:
     return completed.stdout.strip()
 
 
-def validate_ledger(data: Any, path: Path = LEDGER) -> list[Finding]:
+def validate_ledger(
+    data: Any,
+    path: Path = LEDGER,
+    *,
+    require_external_evidence: bool = True,
+) -> list[Finding]:
     output = schema_findings(data, SCHEMA_DIR / "source-ledger-v0.schema.json", path)
     if not isinstance(data, dict) or not isinstance(data.get("entries"), list):
         return sorted(set(output))
@@ -757,6 +762,8 @@ def validate_ledger(data: Any, path: Path = LEDGER) -> list[Finding]:
             artifact_path, path_findings = safe_repo_path(artifact["path"], path)
             output.extend(path_findings)
             if artifact_path is None or not artifact_path.is_file():
+                if not require_external_evidence:
+                    continue
                 output.append(
                     finding("SOURCE_ARTIFACT_MISSING", path, f"entries/{index}: {artifact['path']!r}")
                 )
@@ -794,6 +801,8 @@ def validate_ledger(data: Any, path: Path = LEDGER) -> list[Finding]:
             artifact_path, path_findings = safe_repo_path(artifact["path"], path)
             output.extend(path_findings)
             if artifact_path is None or not artifact_path.is_dir():
+                if not require_external_evidence:
+                    continue
                 output.append(
                     finding("SOURCE_ARTIFACT_MISSING", path, f"entries/{index}: {artifact['path']!r}")
                 )
@@ -841,16 +850,22 @@ def validate_ledger(data: Any, path: Path = LEDGER) -> list[Finding]:
         output.append(
             finding("UNLEDGERED_RETAINED_FILE", path, f"retained evidence is absent from ledger: {missing}")
         )
-    for stale in sorted(required_files - discovered_files):
-        output.append(
-            finding("LEDGER_FILE_OUTSIDE_RETENTION_SET", path, f"ledger file is outside retained sets: {stale}")
-        )
+    if require_external_evidence:
+        for stale in sorted(required_files - discovered_files):
+            output.append(
+                finding("LEDGER_FILE_OUTSIDE_RETENTION_SET", path, f"ledger file is outside retained sets: {stale}")
+            )
 
-    discovered_git = {
-        str(candidate.relative_to(ROOT))
-        for candidate in (ROOT / "evidence" / "external").iterdir()
-        if candidate.is_dir() and (candidate / ".git").exists()
-    }
+    external_root = ROOT / "evidence" / "external"
+    discovered_git = (
+        {
+            str(candidate.relative_to(ROOT))
+            for candidate in external_root.iterdir()
+            if candidate.is_dir() and (candidate / ".git").exists()
+        }
+        if external_root.is_dir()
+        else set()
+    )
     for missing in sorted(discovered_git - retained_git_paths):
         output.append(
             finding("UNLEDGERED_RETAINED_GIT", path, f"retained Git tree is absent from ledger: {missing}")
@@ -858,7 +873,12 @@ def validate_ledger(data: Any, path: Path = LEDGER) -> list[Finding]:
     return sorted(set(output))
 
 
-def experiment_findings(data: Any, path: Path) -> list[Finding]:
+def experiment_findings(
+    data: Any,
+    path: Path,
+    *,
+    optional_external_digests: dict[str, str] | None = None,
+) -> list[Finding]:
     output = schema_findings(data, SCHEMA_DIR / "experiment-manifest-v0.schema.json", path)
     if isinstance(data, dict):
         status = data.get("status")
@@ -895,6 +915,13 @@ def experiment_findings(data: Any, path: Path) -> list[Finding]:
                 artifact_path, path_findings = safe_repo_path(raw_path, path)
                 output.extend(path_findings)
                 if artifact_path is None or not artifact_path.is_file():
+                    ledger_digest = (optional_external_digests or {}).get(raw_path)
+                    if (
+                        ledger_digest is not None
+                        and ledger_digest.removeprefix("sha256:")
+                        == expected.removeprefix("sha256:")
+                    ):
+                        continue
                     output.append(
                         finding(
                             "EXPERIMENT_DIGEST_TARGET_MISSING",
@@ -915,12 +942,20 @@ def experiment_findings(data: Any, path: Path) -> list[Finding]:
     return sorted(set(output))
 
 
-def validate_experiment(path: Path) -> list[Finding]:
+def validate_experiment(
+    path: Path,
+    *,
+    optional_external_digests: dict[str, str] | None = None,
+) -> list[Finding]:
     try:
         data = load_json(path)
     except (OSError, json.JSONDecodeError) as exc:
         return [finding("JSON_UNREADABLE", path, str(exc))]
-    return experiment_findings(data, path)
+    return experiment_findings(
+        data,
+        path,
+        optional_external_digests=optional_external_digests,
+    )
 
 
 def validate_e009_artifacts() -> list[Finding]:
@@ -1163,8 +1198,12 @@ def apply_mutations(base: Any, mutations: list[dict[str, Any]]) -> Any:
     return document
 
 
-def validate_repository() -> tuple[list[Finding], dict[str, list[Finding]]]:
+def validate_repository(
+    *,
+    require_external_evidence: bool = True,
+) -> tuple[list[Finding], dict[str, list[Finding]]]:
     output: list[Finding] = []
+    optional_external_digests: dict[str, str] = {}
     for schema_path in sorted(SCHEMA_DIR.glob("*.schema.json")):
         try:
             Draft202012Validator.check_schema(load_json(schema_path))
@@ -1172,7 +1211,22 @@ def validate_repository() -> tuple[list[Finding], dict[str, list[Finding]]]:
             output.append(finding("INVALID_SCHEMA", schema_path, str(exc)))
     try:
         ledger = load_json(LEDGER)
-        output.extend(validate_ledger(ledger))
+        if not require_external_evidence and isinstance(ledger.get("entries"), list):
+            optional_external_digests = {
+                artifact["path"]: artifact["sha256"]
+                for entry in ledger["entries"]
+                if isinstance(entry, dict)
+                and isinstance((artifact := entry.get("artifact")), dict)
+                and artifact.get("type") == "file"
+                and isinstance(artifact.get("path"), str)
+                and isinstance(artifact.get("sha256"), str)
+            }
+        output.extend(
+            validate_ledger(
+                ledger,
+                require_external_evidence=require_external_evidence,
+            )
+        )
     except (OSError, json.JSONDecodeError) as exc:
         output.append(finding("LEDGER_UNREADABLE", LEDGER, str(exc)))
     # Experiment directories may also retain typed inputs, transcripts, receipts,
@@ -1183,7 +1237,12 @@ def validate_repository() -> tuple[list[Finding], dict[str, list[Finding]]]:
         *sorted((ROOT / "experiments").rglob("preregistration.json")),
     }
     for experiment_path in sorted(experiment_paths):
-        output.extend(validate_experiment(experiment_path))
+        output.extend(
+            validate_experiment(
+                experiment_path,
+                optional_external_digests=optional_external_digests,
+            )
+        )
     output.extend(validate_e009_artifacts())
     output.extend(validate_markdown_links())
     harness_findings, outcomes = validate_fixture_manifest()
@@ -1191,7 +1250,12 @@ def validate_repository() -> tuple[list[Finding], dict[str, list[Finding]]]:
     return sorted(set(output)), outcomes
 
 
-def print_human(findings: list[Finding], outcomes: dict[str, list[Finding]]) -> None:
+def print_human(
+    findings: list[Finding],
+    outcomes: dict[str, list[Finding]],
+    *,
+    require_external_evidence: bool,
+) -> None:
     invalid_count = sum(1 for result in outcomes.values() if result)
     print(
         f"Aeye validation: {len(findings)} repository error(s); "
@@ -1200,20 +1264,45 @@ def print_human(findings: list[Finding], outcomes: dict[str, list[Finding]]) -> 
     for item in findings:
         print(f"ERROR {item.code} {item.path}: {item.message}")
     if not findings:
-        print("PASS schemas, retained-source/frozen-experiment integrity, protocol invariants, and fixture expectations")
+        evidence_scope = (
+            "retained-source"
+            if require_external_evidence
+            else "source-ledger-contract"
+        )
+        print(
+            f"PASS schemas, {evidence_scope}/frozen-experiment integrity, "
+            "protocol invariants, and fixture expectations"
+        )
+        if not require_external_evidence:
+            print(
+                "NON-CLAIM external evidence bytes and Git trees were not required or "
+                "verified in this source-only run"
+            )
         print("NON-CLAIM no cryptographic proof, signature, hardware origin, performance, or demand truth was established")
 
 
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--json", action="store_true", help="emit a machine-readable summary")
+    parser.add_argument(
+        "--allow-unhydrated-external",
+        action="store_true",
+        help=(
+            "validate the public source packet without requiring third-party evidence "
+            "payloads; any payload that is present is still verified"
+        ),
+    )
     args = parser.parse_args(argv)
-    findings, outcomes = validate_repository()
+    require_external_evidence = not args.allow_unhydrated_external
+    findings, outcomes = validate_repository(
+        require_external_evidence=require_external_evidence
+    )
     if args.json:
         print(
             json.dumps(
                 {
                     "ok": not findings,
+                    "external_evidence_required": require_external_evidence,
                     "findings": [item.as_dict() for item in findings],
                     "fixtures": {
                         key: [item.as_dict() for item in value]
@@ -1226,7 +1315,11 @@ def main(argv: list[str] | None = None) -> int:
             )
         )
     else:
-        print_human(findings, outcomes)
+        print_human(
+            findings,
+            outcomes,
+            require_external_evidence=require_external_evidence,
+        )
     return 1 if findings else 0
 
 

@@ -5,7 +5,7 @@
 **A falsifiable evidence calculus for inference: establish only the claim the evidence
 actually supports, and preserve everything it does not.**
 
-> **Current scientific state — `CONDITIONAL-GO`.** Aeye has one preregistered,
+> **Current scientific state: `CONDITIONAL-GO`.** Aeye has one preregistered,
 > `supported` toy execution-interface result, E-009-R1. A separate code path accepted all
 > 13 frozen events and rejected all eight targeted mutations. The exact result vector is
 > `WORK=unknown`, `EXECUTION=satisfied/sampled`, `SEMANTICS=satisfied/hybrid` for the
@@ -115,9 +115,9 @@ flowchart LR
 ## E-009-R1: the first claim-bearing result
 
 E-009-R1 was frozen by preregistration digest before execution. It uses a small public
-finite-field, transformer-inspired causal block—not an ordinary transformer or language
-model—with one complete 13-event universe. The verifier receives the full public model,
-input, and trace:
+finite-field, transformer-inspired causal block. It is not an ordinary transformer or
+language model. The block has one complete 13-event universe. The verifier receives the
+full public model, input, and trace:
 
 - five matrix-vector transitions checked through authenticated coded-linear relations;
 - cache append, attention scores, hard-attention selection, residual, ReLU, argmax, and
@@ -145,7 +145,7 @@ The result is deliberately asymmetric:
 | `SEMANTICS` | `satisfied / hybrid` | Prime-field, centered-decode, hard-attention semantics only; no native float, GPU, compiler, or kernel claim |
 | `DEMAND` | `unsupported` | Operator authorization records research provenance, not an independent request or economic event |
 
-### What the result means—and what it does not
+### What the result means and what it does not
 
 E-009 is a constructive witness that `R_X(subject,h_A,h_B)` can exist as executable,
 falsifiable machinery rather than prose. It binds one synthetic WORK-side operand pair to
@@ -183,7 +183,7 @@ They are local microbenchmarks, not serving estimates.
 
 A later, explicitly `exploratory-post-hoc` split measured 703.584 µs median for client
 challenge derivation and 699.687 µs for provider response construction. It changes no R1
-claim. The provider bundle is 85,584 bytes for a 222-byte canonical output—about 385.5×
+claim. The provider bundle is 85,584 bytes for a 222-byte canonical output, about 385.5×
 larger. Network, recovery, long-term storage, privacy, and production hardware costs remain
 unmeasured.
 
@@ -238,9 +238,9 @@ another protocol claim:
    scales and execution-profile material omitted from Pearl's operand roots and prices the
    BLAKE3 surface exactly. The first bounded experiment may test only whether disclosed
    pre-quantization rows map to committed INT bytes under one declared quantizer profile.
-   That is `SEMANTICS` evidence for the named quantizer—not request binding, activation
-   origin, or `EXECUTION`. PAB-1 remains a proposal, not an implementation or security
-   result.
+   That is `SEMANTICS` evidence for the named quantizer. It does not establish request
+   binding, activation origin, or `EXECUTION`. PAB-1 remains a proposal, not an
+   implementation or security result.
 
 ```mermaid
 flowchart LR
@@ -366,6 +366,12 @@ Hydration requires network access only to retrieve ledger-pinned public sources.
 payloads remain ignored and are not redistributed by this repository. Validation and
 E-009 replay are otherwise local and make no chain transaction, provider call, model call,
 or credential request. Replaying the same code is reproducibility, not independent review.
+
+Required CI is deliberately independent of third-party availability. It runs
+`scripts/validate.py --allow-unhydrated-external`; that mode validates every Aeye-owned
+artifact and the complete ledger contract, verifies any external artifact that is present,
+and states explicitly that absent external bytes were not checked. The full command above
+remains the evidence-hydrated replay.
 
 ## Repository map
 
