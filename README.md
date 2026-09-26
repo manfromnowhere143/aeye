@@ -57,35 +57,35 @@ evidence actually establishes.
 
 ## The missing composition relation
 
-Aeye began with a precise Pearl question: what additional relation is required before
-accepted proof-of-useful-work can be attributed to a particular inference?
+Aeye began with a precise Pearl question: what additional relation is required before accepted proof-of-useful-work can be attributed to a particular inference?
 
 For a version-pinned Pearl context, let
 
-/[
+$$
 R_W^{(v)}(\omega_v,h_A,h_B;\pi_W)=1
-/]
+$$
 
-be Pearl's native work statement over clean operand commitments `h_A,h_B`. Let
+be Pearl's native work statement over clean operand commitments `h_A,h_B`.
 
-/[
+Let
+
+$$
 R_X(\sigma,h_A,h_B;\pi_X)=1
-/]
+$$
 
-mean that those exact operands were consumed by checked events on the causal path of an
-Aeye subject `sigma`, which binds the request, model and execution profile, job, trace, and
-output. The coupled statement is only
+mean that those exact operands were consumed by checked events on the causal path of an Aeye subject `\sigma`, which binds the request, model and execution profile, job, trace, and output.
 
-/[
-R_{WX}^{(v)}=R_W^{(v)}\land R_X.
-/]
+The coupled statement is only
 
-This is a strict extension of the **claim surface**, not a replacement for Pearl. The
-coupled statement projects to native Pearl work; the reverse implication fails when valid
-work is replayed, unrelated to the request, paired with invalid activations, or detached
-from the final output. Writing the same job identifier into two envelopes does not create
-this relation. Both native evidence systems must authenticate the same non-null operand
-roots.
+$$
+R_{WX}^{(v)} = R_W^{(v)} \land R_X.
+$$
+
+This is a strict extension of the **claim surface**, not a replacement for Pearl.
+
+The coupled statement projects to native Pearl work; the reverse implication fails when valid work is replayed, unrelated to the request, paired with invalid activations, or detached from the final output.
+
+Writing the same job identifier into two envelopes does not create this relation. Both native evidence systems must authenticate the same non-null operand roots.
 
 ```mermaid
 flowchart LR
