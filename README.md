@@ -62,23 +62,23 @@ accepted proof-of-useful-work can be attributed to a particular inference?
 
 For a version-pinned Pearl context, let
 
-$$
+/[
 R_W^{(v)}(\omega_v,h_A,h_B;\pi_W)=1
-$$
+/]
 
 be Pearl's native work statement over clean operand commitments `h_A,h_B`. Let
 
-$$
+/[
 R_X(\sigma,h_A,h_B;\pi_X)=1
-$$
+/]
 
 mean that those exact operands were consumed by checked events on the causal path of an
 Aeye subject `sigma`, which binds the request, model and execution profile, job, trace, and
 output. The coupled statement is only
 
-$$
+/[
 R_{WX}^{(v)}=R_W^{(v)}\land R_X.
-$$
+/]
 
 This is a strict extension of the **claim surface**, not a replacement for Pearl. The
 coupled statement projects to native Pearl work; the reverse implication fails when valid
