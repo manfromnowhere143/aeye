@@ -311,13 +311,13 @@ R1 authenticates each preprocessing object Q=G^T M by recomputing it from the fu
 
 The proposed Authenticated Preprocessing Capsule separates two relations:
 
-[
+$$
 R_{setup}(r_M,r_Q,\lambda;\pi_{setup})=1,
 \qquad
 R_{online}(r_Q,x,y,\sigma;\pi_{online})=1.
-]
+$$
 
-where r_M binds the exact model and layout, r_Q binds its preprocessing, and \sigma binds the request-specific execution subject. A sumcheck/polynomial-commitment backend is a candidate, not a selected or implemented proof system. Maverick already identifies proof-backed preprocessing validation as an option; Aeye's open question is the exact model/layout/root and receipt composition needed to make it reusable.
+where r_M binds the exact model and layout, r_Q binds its preprocessing, and $\sigma$ binds the request-specific execution subject. A sumcheck/polynomial-commitment backend is a candidate, not a selected or implemented proof system. Maverick already identifies proof-backed preprocessing validation as an option; Aeye's open question is the exact model/layout/root and receipt composition needed to make it reusable.
 
 The next experiment should not enlarge the toy matrix. It should either authenticate and amortize preprocessing against an exact model root, or show that the approach cannot beat a complete proof after provider, client, verifier, network, storage, privacy, and recovery costs are counted. The formal proposal and falsifiers are in (docs/AUTHENTICATED_PREPROCESSING_CAPSULE.md).
 
